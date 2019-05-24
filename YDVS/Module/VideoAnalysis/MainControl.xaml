@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="VideoAnalysis.MainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VideoAnalysis"
+             xmlns:self="clr-namespace:SelfCommonTool;assembly=SelfCommonTool" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920" Background="{DynamicResource ContentColor}" BorderThickness="0" FontFamily="{DynamicResource MainFontFamily}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PageStyle;Component/MainDictionary.xaml" />
+                <ResourceDictionary Source="/PageStyle;Component/ButtonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Background="{DynamicResource MainColor}" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,1,1" MinWidth="35">
+            <Button x:Name="nav_show_btn" Style="{DynamicResource BaseButton}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Visible" Click="Nav_Show_Btn_Click">
+                <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Path Stroke="#C2DFF5" StrokeThickness="2" Data="M10,0 0,12 L10,24 M20,0 10,12 20,24" x:Name="nav_show_btn_path"/>
+                </WrapPanel>
+            </Button>
+        </Border>
+        <Border x:Name="nav_bo" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0" Background="{DynamicResource MainColor}" Grid.Row="1" Width="120" Visibility="Visible">
+            <StackPanel>
+                <RadioButton Uid="1" Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,0,1">
+                    <DockPanel>
+                        <Image Source="./images/history_data.png" Height="60" Width="80" DockPanel.Dock="Top"/>
+                        <TextBlock Text="历史数据查询"  TextWrapping="Wrap" DockPanel.Dock="Bottom" FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                    </DockPanel>
+                </RadioButton>
+                <RadioButton Uid="2"  Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,0,1">
+                    <DockPanel>
+                        <Image Source="./images/train_proprietorship.png" Height="60" Width="80" DockPanel.Dock="Top"/>
+                        <TextBlock Text="机车配属段"  TextWrapping="Wrap" DockPanel.Dock="Bottom" FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                    </DockPanel>
+                </RadioButton>
+                <RadioButton Uid="3"  Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,0,1">
+                    <DockPanel>
+                        <Image Source="./images/driver_info.png" Height="60" Width="80" DockPanel.Dock="Top"/>
+                        <TextBlock Text="司机信息"  TextWrapping="Wrap" DockPanel.Dock="Bottom" FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                    </DockPanel>
+                </RadioButton>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="1" Background="{DynamicResource MainColor}" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,0,1">
+            <DockPanel>
+                <Image x:Name="crumb_img" Source="./images/history_data.png" Height="28" Width="22" Margin="10,0" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+                <TextBlock x:Name="crumb_tb" Text="历史数据查询" FontSize="16" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" Margin="0" DockPanel.Dock="Left"/>
+                <Button Style="{DynamicResource ModuleExitButton}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="28" Width="28" Click="ModuleCloseBtn_Click" DockPanel.Dock="Right" Margin="8,0" Visibility="Visible"/>
+            </DockPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" x:Name="main_container_bo">
+
+        </Border>
+    </Grid>
+</UserControl>

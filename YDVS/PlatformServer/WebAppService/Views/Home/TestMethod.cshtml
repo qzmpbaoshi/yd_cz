@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "TestMethod";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TestMethod</h2>
+<button onclick="GetTrainProprietorships()" style="width:200px;height35px;">测试GetTrainProprietorships</button>
+<div id="rstDiv">
+
+</div>
+<script>
+    function GetTrainProprietorships() {
+        var condition = new Object();
+        condition.StartIndex = 1;
+        condition.PageSize = 23;
+        var TrainProprietorshipSearch = new Object();
+        TrainProprietorshipSearch.TrainShortName = "1";
+        condition.SearchCondition = TrainProprietorshipSearch;
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:5500/api/TrainProprietorship/GetTrainProprietorships",
+            data: condition,
+            dataType: "json",
+            success: function (data) {
+                alert(JSON.stringify(data));
+                $("#rstDiv").html(JSON.stringify(data));
+            },
+            error: function (jqXHR) {
+                console.log("Error: " + jqXHR.status);
+            }
+
+        });
+
+    }
+</script>
+

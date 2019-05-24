@@ -240,3 +240,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+#¹ıÂËÎÄ¼ş¼ĞDebug,Release,obj  
+Debug/  
+Release/  
+obj/  

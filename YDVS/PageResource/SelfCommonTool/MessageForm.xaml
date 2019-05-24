@@ -1,0 +1,48 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+		mc:Ignorable="d" 
+		x:Class="SelfCommonTool.MessageForm"
+        Title="MessageForm" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" 
+        SizeToContent="WidthAndHeight" 
+        Height="Auto" Width="420" Background="{DynamicResource ContentColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="2" FontFamily="{DynamicResource MainFontFamily}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PageStyle;Component/MainDictionary.xaml" />
+                <ResourceDictionary Source="/PageStyle;Component/ButtonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Width="420">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="{DynamicResource HeadColor}">
+            <DockPanel>
+                <Image Margin="8,0" Source="images/sound_high.png" Stretch="Fill" Width="25" Height="25" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+                <TextBlock x:Name="MessageHead" TextWrapping="Wrap" Text="消息标题" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="20" DockPanel.Dock="Left" Foreground="White"/>
+                <Button x:Name="CloseBtn" Margin="8,0" Style="{DynamicResource BaseButton}" Foreground="White" FontSize="16" HorizontalAlignment="Right" Width="35" Height="25" VerticalAlignment="Center" BorderBrush="{x:Null}">
+                    <Image Source="images/delete.png" Stretch="Fill" Width="20" Height="20"/>
+                </Button>
+            </DockPanel>
+        </Border>
+        <Border Grid.Row="1">
+            <TextBlock x:Name="Message" Text="" TextWrapping="Wrap" FontSize="18" Margin="20,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#333333"/>
+        </Border>
+        <Border Grid.Row="2">
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button x:Name="EnButton" Content="确 定" BorderBrush="#01C854" BorderThickness="1" Background="#01C854" Width="100" Height="37" Foreground="White" FontSize="18"  Style="{DynamicResource BaseButton}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="20,8" Visibility="Collapsed"/>
+                <Button x:Name="EsButton" Content="关 闭" BorderBrush="#666666" BorderThickness="1" Background="Transparent" Width="100" Height="37" Foreground="#666666" FontSize="18" Style="{DynamicResource BaseButton}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="20,8" Visibility="Collapsed"/>
+            </WrapPanel>
+        </Border>
+    </Grid>
+</Window>
