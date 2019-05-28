@@ -5,7 +5,8 @@
 }
 
 <h2>TestMethod</h2>
-<button onclick="GetTrainProprietorships()" style="width:200px;height35px;">测试GetTrainProprietorships</button>
+<button onclick="GetTrainProprietorships()" style="width:200px;height:35px;">测试GetTrainProprietorships</button>
+<button onclick="GetFileTreeItemList()" style="width:200px;height:35px;">测试GetFileTreeItemList</button>
 <div id="rstDiv">
 
 </div>
@@ -20,6 +21,27 @@
         $.ajax({
             type: "POST",
             url: "http://localhost:5500/api/TrainProprietorship/GetTrainProprietorships",
+            data: condition,
+            dataType: "json",
+            success: function (data) {
+                alert(JSON.stringify(data));
+                $("#rstDiv").html(JSON.stringify(data));
+            },
+            error: function (jqXHR) {
+                console.log("Error: " + jqXHR.status);
+            }
+
+        });
+
+    }
+    function GetFileTreeItemList() {
+        var condition = new Object();
+        condition.Path = "\\2018-11-07";
+        condition.isGetDic = true;
+        condition.isGetFile = true;
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:5500/api/File/GetFileTreeItemList",
             data: condition,
             dataType: "json",
             success: function (data) {
