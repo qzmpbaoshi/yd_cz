@@ -10,7 +10,7 @@ namespace WebAppService.FileAdapter
 {
     public class FileAdapter : IFileAdapter
     {
-        public List<FileTreeItemModel> GetFileTreeList(string path, bool isGetFile = false)
+        public List<FileTreeItemModel> GetFileTreeList(string path, bool isGetDic = true, bool isGetFile = false)
         {
             try
             {
@@ -18,19 +18,22 @@ namespace WebAppService.FileAdapter
                 string tempPath = ConfigurationManager.AppSettings["Root"];
                 path = string.IsNullOrWhiteSpace(path) ? tempPath : tempPath + path;
                 //path = StringToFilePath(path);
-                string[] directorys = Directory.GetDirectories(path);
-                if (directorys != null && directorys.Count() > 0)
+                if (isGetDic)
                 {
-                    FileTreeItemModel dt = null;
-                    foreach (string d in directorys)
+                    string[] directorys = Directory.GetDirectories(path);
+                    if (directorys != null && directorys.Count() > 0)
                     {
-                        dt = new FileTreeItemModel();
-                        dt.IDX = "";
-                        dt.Name = Path.GetFileName(d);
-                        dt.FullPathName = d.Substring(tempPath.Length);
-                        dt.IsBreaf = false;
-                        dt.IsFolder = true;
-                        dList.Add(dt);
+                        FileTreeItemModel dt = null;
+                        foreach (string d in directorys)
+                        {
+                            dt = new FileTreeItemModel();
+                            dt.IDX = "";
+                            dt.Name = Path.GetFileName(d);
+                            dt.FullPathName = d.Substring(tempPath.Length);
+                            dt.IsBreaf = false;
+                            dt.IsFolder = true;
+                            dList.Add(dt);
+                        }
                     }
                 }
                 if (isGetFile)
