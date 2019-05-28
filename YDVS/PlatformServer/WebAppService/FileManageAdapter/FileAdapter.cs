@@ -5,22 +5,25 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using SystemModel.DataModel;
+using SystemModel.SearchConditionModel;
 
-namespace WebAppService.FileAdapter
+namespace WebAppService.FileManageAdapter
 {
     public class FileAdapter : IFileAdapter
     {
-        public List<FileTreeItemModel> GetFileTreeList(string path, bool isGetDic = true, bool isGetFile = false)
+        public List<FileTreeItemModel> GetFileTreeItemList(FileSearchModel searchCondition)
         {
             try
             {
+                if (searchCondition == null) return null;
                 List<FileTreeItemModel> dList = new List<FileTreeItemModel>();
-                string tempPath = ConfigurationManager.AppSettings["Root"];
-                path = string.IsNullOrWhiteSpace(path) ? tempPath : tempPath + path;
+                string tempPath = ConfigurationManager.AppSettings["FileBasePath"];
+                string exPath = searchCondition.Path;
+                exPath = string.IsNullOrWhiteSpace(exPath) ? tempPath : tempPath + exPath;
                 //path = StringToFilePath(path);
-                if (isGetDic)
+                if (searchCondition.isGetDic)
                 {
-                    string[] directorys = Directory.GetDirectories(path);
+                    string[] directorys = Directory.GetDirectories(exPath);
                     if (directorys != null && directorys.Count() > 0)
                     {
                         FileTreeItemModel dt = null;
@@ -36,9 +39,9 @@ namespace WebAppService.FileAdapter
                         }
                     }
                 }
-                if (isGetFile)
+                if (searchCondition.isGetFile)
                 {
-                    string[] files = Directory.GetFiles(path);
+                    string[] files = Directory.GetFiles(exPath);
                     if (files != null && files.Count() > 0)
                     {
                         FileTreeItemModel dt = null;
