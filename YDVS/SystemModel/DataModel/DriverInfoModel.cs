@@ -5,7 +5,7 @@
     /// </summary>
     public class DriverInfoModel
     {
-        private int _id;
+        private string _id;
         private int? _order;
         private string _card;
         private string _name;
@@ -16,7 +16,7 @@
         /// <summary>
         /// 主键
         /// </summary>
-        public int Id
+        public string Id
         {
             get
             {
