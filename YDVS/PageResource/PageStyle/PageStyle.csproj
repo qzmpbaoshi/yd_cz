@@ -108,7 +108,13 @@
     <Resource Include="images\edit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\add.png" />
+    <Resource Include="images\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\round_minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\round_plus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

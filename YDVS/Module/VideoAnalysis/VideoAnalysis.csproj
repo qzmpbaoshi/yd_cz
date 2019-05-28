@@ -180,7 +180,10 @@
     <Resource Include="images\train_proprietorship.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\add.png" />
+    <Resource Include="images\document.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
