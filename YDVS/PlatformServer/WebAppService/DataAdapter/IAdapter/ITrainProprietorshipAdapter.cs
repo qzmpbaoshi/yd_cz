@@ -21,20 +21,20 @@ namespace WebAppService.DataAdapter.IAdapter
         /// <param name="addModels">添加列表</param>
         /// <param name="user">当前登录人</param>
         /// <returns>true添加成功；false添加失败</returns>
-        bool AddTrainProprietorships(List<TrainProprietorshipModel> addModels, User user = null);
+        RequestEasyResult AddTrainProprietorships(List<TrainProprietorshipModel> addModels, User user = null);
         /// <summary>
         /// 删除机车配属段信息
         /// </summary>
         /// <param name="delModels">删除列表</param>
         /// <param name="user">当前登录人</param>
         /// <returns>true删除成功；false删除失败</returns>
-        bool DelTrainProprietorships(List<TrainProprietorshipModel> delModels, User user = null);
+        RequestEasyResult DelTrainProprietorships(List<TrainProprietorshipModel> delModels, User user = null);
         /// <summary>
         /// 根据ID，删除机车配属段信息
         /// </summary>
         /// <param name="ids">删除id列表</param>
         /// <param name="user">当前登录人</param>
         /// <returns>true删除成功；false删除失败</returns>
-        bool DelTrainProprietorshipsByIds(List<int> ids, User user = null);
+        RequestEasyResult DelTrainProprietorshipsByIds(List<string> ids, User user = null);
     }
 }

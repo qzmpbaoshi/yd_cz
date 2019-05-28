@@ -13,54 +13,83 @@ namespace WebAppService.DataAdapter
 {
     public class TrainProprietorshipAdapter : ITrainProprietorshipAdapter
     {
-        public bool AddTrainProprietorships(List<TrainProprietorshipModel> addDrivers, User user = null)
+        public RequestEasyResult AddTrainProprietorships(List<TrainProprietorshipModel> addTrains, User user = null)
         {
+            RequestEasyResult rst = new RequestEasyResult();
             try
             {
+                rst.Flag = true;
+                rst.Msg = "添加成功！";
                 using (ydvsEntities entities = new ydvsEntities())
                 {
-
+                    foreach (var train in addTrains)
+                    {
+                        entities.base_train_proprietorship.Add(new base_train_proprietorship
+                        {
+                            id = Guid.NewGuid().ToString(),
+                            train_type = train.TrainType,
+                            train_no = train.TrainNo,
+                            work_shop = train.WorkShop,
+                            locomotive_depot = train.LocomotiveDepot,
+                            order = train.Order,
+                        });
+                    }
+                    entities.SaveChanges();
                 }
-                return true;
+                return rst;
             }
             catch (Exception ex)
             {
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "添加机车配属段信息", ex);
-                return false;
+                return rst;
             }
         }
 
-        public bool DelTrainProprietorships(List<TrainProprietorshipModel> delDrivers, User user = null)
+        public RequestEasyResult DelTrainProprietorships(List<TrainProprietorshipModel> delDrivers, User user = null)
         {
+            RequestEasyResult rst = new RequestEasyResult();
             try
             {
                 using (ydvsEntities entities = new ydvsEntities())
                 {
 
                 }
-                return true;
+                return rst;
             }
             catch (Exception ex)
             {
+                rst.Flag = false;
+                rst.Msg = "添加失败！" + ex.ToString();
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "删除机车配属段信息", ex);
-                return false;
+                return rst;
             }
         }
 
-        public bool DelTrainProprietorshipsByIds(List<int> ids, User user = null)
+        public RequestEasyResult DelTrainProprietorshipsByIds(List<string> ids, User user = null)
         {
+            RequestEasyResult rst = new RequestEasyResult();
             try
             {
+                rst.Flag = true;
+                rst.Msg = "删除成功！";
                 using (ydvsEntities entities = new ydvsEntities())
                 {
-
+                    foreach (string delId in ids)
+                    {
+                        var tp = entities.base_train_proprietorship.Where(t => t.id == delId).FirstOrDefault();
+                        if (tp != null)
+                            entities.base_train_proprietorship.Remove(tp);
+                    }
+                    entities.SaveChanges();
                 }
-                return true;
+                return rst;
             }
             catch (Exception ex)
             {
+                rst.Flag=false;
+                rst.Msg = "删除失败！"+ex.ToString();
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "删除机车配属段信息", ex);
-                return false;
+                return rst;
             }
         }
 

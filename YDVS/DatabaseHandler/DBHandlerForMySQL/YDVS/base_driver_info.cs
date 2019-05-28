@@ -14,7 +14,7 @@ namespace DBHandlerForMySQL.YDVS
     
     public partial class base_driver_info
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public Nullable<int> order { get; set; }
         public string card { get; set; }
         public string name { get; set; }

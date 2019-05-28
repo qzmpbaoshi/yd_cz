@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="order" Type="int" />
           <Property Name="card" Type="varchar" MaxLength="20" />
           <Property Name="name" Type="varchar" MaxLength="20" />
@@ -24,7 +24,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="order" Type="int" />
           <Property Name="train_type" Type="varchar" MaxLength="10" />
           <Property Name="train_no" Type="varchar" MaxLength="10" />
@@ -51,7 +51,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="order" Type="Int32" />
           <Property Name="card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -66,7 +66,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="order" Type="Int32" />
           <Property Name="train_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="train_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
