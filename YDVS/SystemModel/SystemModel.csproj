@@ -43,6 +43,7 @@
     <Compile Include="DataModel\DriverInfoModel.cs" />
     <Compile Include="DataModel\FileTreeItemModel.cs" />
     <Compile Include="DataModel\TrainProprietorshipModel.cs" />
+    <Compile Include="RequestResult\RequestEasyResult.cs" />
     <Compile Include="RequestResult\RequestPagingResult.cs" />
     <Compile Include="SearchConditionModel\FileSearchModel.cs" />
     <Compile Include="SearchConditionModel\PagingSearchCondition.cs" />

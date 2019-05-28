@@ -2,7 +2,7 @@
 {
     public class TrainProprietorshipModel
     {
-        private int _id;
+        private string _id;
         private int? _order;
         private string _trainType;
         private string _trainNo;
@@ -11,7 +11,7 @@
         /// <summary>
         /// 主键
         /// </summary>
-        public int Id
+        public string Id
         {
             get
             {

@@ -14,7 +14,7 @@ namespace DBHandlerForMySQL.YDVS
     
     public partial class base_train_proprietorship
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public Nullable<int> order { get; set; }
         public string train_type { get; set; }
         public string train_no { get; set; }
