@@ -19,6 +19,7 @@ namespace VideoAnalysis.TrainProprietorship.ViewModel
         private string _trainNo;
         private string _locomotiveDepot;
         private string _workShop;
+        private string _railwayAdministration;
         /// <summary>
         /// 主键
         /// </summary>
@@ -114,6 +115,21 @@ namespace VideoAnalysis.TrainProprietorship.ViewModel
             set
             {
                 _workShop = value;
+            }
+        }
+        /// <summary>
+        /// 铁路局
+        /// </summary>
+        public string RailwayAdministration
+        {
+            get
+            {
+                return _railwayAdministration;
+            }
+
+            set
+            {
+                _railwayAdministration = value;
             }
         }
     }

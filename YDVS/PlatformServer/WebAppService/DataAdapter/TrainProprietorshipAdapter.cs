@@ -86,8 +86,8 @@ namespace WebAppService.DataAdapter
             }
             catch (Exception ex)
             {
-                rst.Flag=false;
-                rst.Msg = "删除失败！"+ex.ToString();
+                rst.Flag = false;
+                rst.Msg = "删除失败！" + ex.ToString();
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "删除机车配属段信息", ex);
                 return rst;
             }
@@ -117,7 +117,8 @@ namespace WebAppService.DataAdapter
                         TrainType = d.train_type,
                         TrainNo = d.train_no,
                         LocomotiveDepot = d.locomotive_depot,
-                        WorkShop = d.work_shop
+                        WorkShop = d.work_shop,
+                        RailwayAdministration = d.railway_administration
 
                     }).OrderBy(d => d.Order).Skip(startIndex * condition.PageSize);
                     rsts.ResultDatas = pageSize == 0 ? temp2.ToList() : temp2.Take(pageSize).ToList();

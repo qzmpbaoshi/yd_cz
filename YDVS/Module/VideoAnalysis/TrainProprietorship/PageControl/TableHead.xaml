@@ -18,6 +18,8 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -25,12 +27,18 @@
             <TextBlock Text="编号" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="1" BorderBrush="{DynamicResource TableHeadBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="机车" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="车型" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="2" BorderBrush="{DynamicResource TableHeadBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="机务段" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="车号" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="3" BorderBrush="{DynamicResource TableHeadBorderColor}" BorderThickness="0,0,1,0">
+            <TextBlock Text="铁路局" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Column="4" BorderBrush="{DynamicResource TableHeadBorderColor}" BorderThickness="0,0,1,0">
+            <TextBlock Text="机务段" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Column="5" BorderBrush="{DynamicResource TableHeadBorderColor}" BorderThickness="0,0,1,0">
             <TextBlock Text="车间" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
     </Grid>

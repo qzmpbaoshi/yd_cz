@@ -24,5 +24,6 @@ namespace DBHandlerForMySQL.YDVS
         public Nullable<System.DateTime> creat_time { get; set; }
         public string modifier { get; set; }
         public Nullable<System.DateTime> update_time { get; set; }
+        public string railway_administration { get; set; }
     }
 }

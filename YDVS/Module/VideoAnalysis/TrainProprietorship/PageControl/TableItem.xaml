@@ -18,6 +18,8 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -25,12 +27,18 @@
             <TextBlock Text="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="1" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="{Binding Path=TrainShortName,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Path=TrainType,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="2" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="{Binding Path=LocomotiveDepot,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Path=TrainNo,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="3" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
+            <TextBlock Text="{Binding Path=RailwayAdministration,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Column="4" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
+            <TextBlock Text="{Binding Path=LocomotiveDepot,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Column="5" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
             <TextBlock Text="{Binding Path=WorkShop,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
     </Grid>

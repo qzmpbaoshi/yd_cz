@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="36" Nullable="false" />
           <Property Name="order" Type="int" />
           <Property Name="card" Type="varchar" MaxLength="20" />
           <Property Name="name" Type="varchar" MaxLength="20" />
@@ -24,10 +24,11 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="36" Nullable="false" />
           <Property Name="order" Type="int" />
           <Property Name="train_type" Type="varchar" MaxLength="10" />
           <Property Name="train_no" Type="varchar" MaxLength="10" />
+          <Property Name="railway_administration" Type="varchar" MaxLength="20" />
           <Property Name="locomotive_depot" Type="varchar" MaxLength="20" />
           <Property Name="work_shop" Type="varchar" MaxLength="20" />
           <Property Name="creator" Type="varchar" MaxLength="10" />
@@ -76,6 +77,7 @@
           <Property Name="creat_time" Type="DateTime" />
           <Property Name="modifier" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="update_time" Type="DateTime" />
+          <Property Name="railway_administration" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -102,6 +104,7 @@
           <EntitySetMapping Name="base_train_proprietorship">
             <EntityTypeMapping TypeName="ydvsModel.base_train_proprietorship">
               <MappingFragment StoreEntitySet="base_train_proprietorship">
+                <ScalarProperty Name="railway_administration" ColumnName="railway_administration" />
                 <ScalarProperty Name="update_time" ColumnName="update_time" />
                 <ScalarProperty Name="modifier" ColumnName="modifier" />
                 <ScalarProperty Name="creat_time" ColumnName="creat_time" />
