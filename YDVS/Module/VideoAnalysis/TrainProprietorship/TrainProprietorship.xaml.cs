@@ -61,10 +61,13 @@ namespace VideoAnalysis.TrainProprietorship
                     this.Dispatcher.Invoke(() =>
                     {
                         TableItem itemControl = null;
+                        int order = 1;
                         foreach (var item in rst.ResultDatas)
                         {
                             itemControl = new TableItem();
                             itemControl.ViewModel.ObjectCopyProperty(item);
+                            itemControl.ViewModel.Order = order++;
+                            itemControl.MouseLeftButtonDown += TableItemControl_MouseLeftButtonDown;
                             this.data_panel_sp.Children.Add(itemControl);
                         }
                         this.self_pagination.SetPageContent(pIndex, pageSize, rst.TotalCount);
@@ -76,6 +79,21 @@ namespace VideoAnalysis.TrainProprietorship
             {
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "机车配属段功能，查询配属段信息", ex);
             }
+        }
+        private TableItem SelectedTableItem;
+        private void TableItemControl_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.SelectedTableItem = sender as TableItem;
+                this.SelectedTableItem.Selected = !this.SelectedTableItem.Selected;
+                foreach (TableItem item in this.data_panel_sp.Children)
+                {
+                    if (item != this.SelectedTableItem)
+                        item.Selected = false;
+                }
+            }
+            catch { }
         }
 
         private void Search_Btn_Click(object sender, System.Windows.RoutedEventArgs e)
