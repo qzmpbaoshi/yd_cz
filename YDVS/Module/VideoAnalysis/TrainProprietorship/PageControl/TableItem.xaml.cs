@@ -10,23 +10,23 @@ namespace VideoAnalysis.TrainProprietorship.PageControl
     /// </summary>
     public partial class TableItem : UserControl
     {
-        private static DependencyProperty IsSelectedtest;
+        private static DependencyProperty IsSelected;
         public bool Selected
         {
             get
             {
-                return (bool)GetValue(IsSelectedtest);
+                return (bool)GetValue(IsSelected);
             }
             set
             {
-                SetValue(IsSelectedtest, value);
+                SetValue(IsSelected, value);
             }
         }
         public TrainProprietorshipViewModel ViewModel { get; set; }
         static TableItem()
         {
             PropertyMetadata pm = new PropertyMetadata(false, IsSelectCallBack);
-            IsSelectedtest = DependencyProperty.Register("IsSelectedtest", typeof(bool), typeof(TableItem), pm);
+            IsSelected = DependencyProperty.Register("IsSelected", typeof(bool), typeof(TableItem), pm);
         }
         public TableItem()
         {

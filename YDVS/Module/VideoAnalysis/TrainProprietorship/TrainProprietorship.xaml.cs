@@ -85,8 +85,10 @@ namespace VideoAnalysis.TrainProprietorship
         {
             try
             {
-                this.SelectedTableItem = sender as TableItem;
-                this.SelectedTableItem.Selected = !this.SelectedTableItem.Selected;
+                TableItem tItem = sender as TableItem;
+                if (tItem == null) return;
+                tItem.Selected = !tItem.Selected;
+                this.SelectedTableItem = tItem.Selected ? tItem : null;
                 foreach (TableItem item in this.data_panel_sp.Children)
                 {
                     if (item != this.SelectedTableItem)
