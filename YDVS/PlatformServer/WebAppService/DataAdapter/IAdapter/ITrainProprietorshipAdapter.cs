@@ -36,5 +36,12 @@ namespace WebAppService.DataAdapter.IAdapter
         /// <param name="user">当前登录人</param>
         /// <returns>true删除成功；false删除失败</returns>
         RequestEasyResult DelTrainProprietorshipsByIds(List<string> ids, User user = null);
+        /// <summary>
+        /// 修改机车配属段信息
+        /// </summary>
+        /// <param name="updateModel">修改内容</param>
+        /// <param name="user">当前登录人</param>
+        /// <returns></returns>
+        RequestEasyResult UpdateTrainProprietorship(TrainProprietorshipModel updateModel, User user = null);
     }
 }

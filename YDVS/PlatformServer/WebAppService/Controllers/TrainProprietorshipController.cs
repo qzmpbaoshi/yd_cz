@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Web.Http;
 using SystemModel.DataModel;
 using SystemModel.RequestResult;
@@ -23,5 +24,26 @@ namespace WebAppService.Controllers
             //CommonLibrary.LogHelper.Log4Helper.Debug(this.GetType(), "机车配属段查询结果：" + JsonConvert.SerializeObject(rsts));
             return Json<RequestPagingResult<TrainProprietorshipModel>>(rsts);
         }
+        //新增
+        public IHttpActionResult AddTrainProprietorships([FromBody]List<TrainProprietorshipModel> addModels)
+        {
+
+            RequestEasyResult rsts = this.DBAdapter.AddTrainProprietorships(addModels);
+            return Json<RequestEasyResult>(rsts);
+         }
+        //删除
+        public IHttpActionResult DelTrainProprietorshipsByIds([FromBody]List<string> ids)
+        {
+
+            RequestEasyResult rsts = this.DBAdapter.DelTrainProprietorshipsByIds(ids);
+            return Json<RequestEasyResult>(rsts);
+        }
+        //修改
+        public IHttpActionResult UpdateTrainProprietorship([FromBody]TrainProprietorshipModel updateModel)
+        {
+
+            RequestEasyResult rsts = this.DBAdapter.UpdateTrainProprietorship(updateModel);
+            return Json<RequestEasyResult>(rsts);
+        }
     }
-}
+    }

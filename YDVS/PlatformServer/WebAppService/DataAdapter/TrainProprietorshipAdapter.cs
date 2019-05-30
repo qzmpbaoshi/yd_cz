@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using SystemModel;
 using SystemModel.DataModel;
@@ -88,6 +89,37 @@ namespace WebAppService.DataAdapter
             {
                 rst.Flag = false;
                 rst.Msg = "删除失败！" + ex.ToString();
+                CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "删除机车配属段信息", ex);
+                return rst;
+            }
+        }
+
+        public RequestEasyResult UpdateTrainProprietorship(TrainProprietorshipModel updateModel, User user = null)
+        {
+            RequestEasyResult rst = new RequestEasyResult();
+            try
+            {
+                rst.Flag = true;
+                rst.Msg = "修改成功！";
+                using (ydvsEntities entities = new ydvsEntities())
+                {
+                    base_train_proprietorship tp = entities.base_train_proprietorship.FirstOrDefault(t => t.id == updateModel.Id);
+                    if (tp != null)
+                    {
+                        tp.train_type = updateModel.TrainType;
+                        tp.train_no = updateModel.TrainNo;
+                        tp.work_shop = updateModel.WorkShop;
+                        tp.locomotive_depot = updateModel.LocomotiveDepot;
+                        tp.order = updateModel.Order;
+                        entities.base_train_proprietorship.AddOrUpdate(tp);
+                    }
+                }
+                return rst;
+            }
+            catch (Exception ex)
+            {
+                rst.Flag = false;
+                rst.Msg = "修改失败！" + ex.ToString();
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "删除机车配属段信息", ex);
                 return rst;
             }
