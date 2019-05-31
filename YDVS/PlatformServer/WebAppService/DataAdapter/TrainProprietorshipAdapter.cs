@@ -19,28 +19,38 @@ namespace WebAppService.DataAdapter
             RequestEasyResult rst = new RequestEasyResult();
             try
             {
-                rst.Flag = true;
-                rst.Msg = "添加成功！";
+                
+                if (addTrains == null || addTrains.Count() == 0) return rst;
                 using (ydvsEntities entities = new ydvsEntities())
                 {
+                    List<base_train_proprietorship> addEntities = new List<base_train_proprietorship>();
+
                     foreach (var train in addTrains)
                     {
-                        entities.base_train_proprietorship.Add(new base_train_proprietorship
+                        addEntities.Add(new base_train_proprietorship
                         {
                             id = Guid.NewGuid().ToString(),
                             train_type = train.TrainType,
                             train_no = train.TrainNo,
                             work_shop = train.WorkShop,
                             locomotive_depot = train.LocomotiveDepot,
+                            railway_administration = train.RailwayAdministration,
                             order = train.Order,
+                            creat_time = DateTime.Now
                         });
+                        //entities.base_train_proprietorship.Add();
                     }
+                    entities.base_train_proprietorship.AddOrUpdate(addEntities.ToArray());
                     entities.SaveChanges();
                 }
+                rst.Flag = true;
+                rst.Msg = "添加成功！";
                 return rst;
             }
             catch (Exception ex)
             {
+                rst.Flag = false;
+                rst.Msg = "添加失败！";
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "添加机车配属段信息", ex);
                 return rst;
             }
@@ -71,8 +81,6 @@ namespace WebAppService.DataAdapter
             RequestEasyResult rst = new RequestEasyResult();
             try
             {
-                rst.Flag = true;
-                rst.Msg = "删除成功！";
                 using (ydvsEntities entities = new ydvsEntities())
                 {
                     foreach (string delId in ids)
@@ -83,6 +91,8 @@ namespace WebAppService.DataAdapter
                     }
                     entities.SaveChanges();
                 }
+                rst.Flag = true;
+                rst.Msg = "删除成功！";
                 return rst;
             }
             catch (Exception ex)
@@ -99,21 +109,26 @@ namespace WebAppService.DataAdapter
             RequestEasyResult rst = new RequestEasyResult();
             try
             {
-                rst.Flag = true;
-                rst.Msg = "修改成功！";
                 using (ydvsEntities entities = new ydvsEntities())
                 {
-                    base_train_proprietorship tp = entities.base_train_proprietorship.FirstOrDefault(t => t.id == updateModel.Id);
-                    if (tp != null)
+                    if (updateModel != null)
                     {
-                        tp.train_type = updateModel.TrainType;
-                        tp.train_no = updateModel.TrainNo;
-                        tp.work_shop = updateModel.WorkShop;
-                        tp.locomotive_depot = updateModel.LocomotiveDepot;
-                        tp.order = updateModel.Order;
-                        entities.base_train_proprietorship.AddOrUpdate(tp);
+                        entities.base_train_proprietorship.AddOrUpdate(new base_train_proprietorship
+                        {
+                            id = updateModel.Id,
+                            train_type = updateModel.TrainType,
+                            train_no = updateModel.TrainNo,
+                            work_shop = updateModel.WorkShop,
+                            locomotive_depot = updateModel.LocomotiveDepot,
+                            order = updateModel.Order,
+                            railway_administration = updateModel.RailwayAdministration,
+                            update_time = DateTime.Now
+                        });
+                        entities.SaveChanges();
                     }
                 }
+                rst.Flag = true;
+                rst.Msg = "修改成功！";
                 return rst;
             }
             catch (Exception ex)
