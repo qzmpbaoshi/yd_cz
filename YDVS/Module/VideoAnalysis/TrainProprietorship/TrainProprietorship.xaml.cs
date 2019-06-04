@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
+using System.Data;
+using System.IO;
 using SystemModel.DataModel;
 using SystemModel.SearchConditionModel;
 using CommonLibrary.Extension;
@@ -9,8 +10,15 @@ using Newtonsoft.Json;
 using SystemModel;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using VideoAnalysis.TrainProprietorship.PageControl;
 using VideoAnalysis.TrainProprietorship.ViewModel;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace VideoAnalysis.TrainProprietorship
 {
@@ -218,9 +226,70 @@ namespace VideoAnalysis.TrainProprietorship
         /// <summary>
         /// 导入
         /// </summary>
-        private void Import_Btn_Click(object sender, RoutedEventArgs e)
+        private void  Import_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
+            System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog
+            {
+                //ofd.DefaultExt = "升级文件";
+                Filter = "Excel(*.xlsx)|*.xlsx",
+                Title = "导入",
+                Multiselect = false
+                
+            };
+            if (ofd.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+                List<TrainProprietorshipModel> trainProprietorshipModels = new List<TrainProprietorshipModel>();
+                IWorkbook book ;
+                using (FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    book = WorkbookFactory.Create(fs);
+                }
+                int sheetCount = book.NumberOfSheets;
+                for (int sheetIndex = 0; sheetIndex < sheetCount; sheetIndex++)
+                {
+                    ISheet sheet = book.GetSheetAt(sheetIndex);
+                    if (sheet == null) continue;
+                    IRow row = sheet.GetRow(0);
+                    if (row == null) continue;
+                    int firstCellNum = row.FirstCellNum;
+                    int lastCellNum = row.LastCellNum;
+                    if (firstCellNum == lastCellNum) continue;
+                    for (int i = 0; i <= sheet.LastRowNum; i++)
+                    {
+                        TrainProprietorshipModel trainProprietorshipModel = new TrainProprietorshipModel();
+                        trainProprietorshipModel.TrainType= sheet.GetRow(i).GetCell(0).ToString();
+                        trainProprietorshipModel.TrainNo = sheet.GetRow(i).GetCell(1).ToString();
+                        trainProprietorshipModel.RailwayAdministration = sheet.GetRow(i).GetCell(2).ToString();
+                        trainProprietorshipModel.LocomotiveDepot = sheet.GetRow(i).GetCell(3).ToString();
+                        trainProprietorshipModel.WorkShop = sheet.GetRow(i).GetCell(4).ToString();
+                        trainProprietorshipModels.Add(trainProprietorshipModel);
+                        trainProprietorshipModel = null;
+                    }
+                }
+                string requestUrl = CommonLibrary.ReadConfigHelper.BaseUrl + WebApiExtensionUrl.AddTrainProprietorships_URL;
+                Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModels));
+                if (task.Result.Flag)
+                {
+                    MessageBox.Show("导入成功！");
+                    //新增后刷新数据
+                    this.SetPageData(1);
+                }
+                else
+                {
+                    MessageBox.Show("导入失败！");
+                    return ;
+                }
+
+                return;
+           
+        }
+
+        private void Refresh_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetPageData(1);
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,8 +19,11 @@ using SystemModel.DataModel;
 using SystemModel.RequestResult;
 using SystemModel.SearchConditionModel;
 using CommonLibrary.Extension;
+using NPOI.SS.UserModel;
 using VideoAnalysis.DriverInfo.PageControl;
 using VideoAnalysis.DriverInfo.ViewModel;
+using MessageBox = System.Windows.MessageBox;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace VideoAnalysis.DriverInfo
 {
@@ -211,7 +216,66 @@ namespace VideoAnalysis.DriverInfo
 
         private void Import_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
+            System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog
+            {
+                //ofd.DefaultExt = "升级文件";
+                Filter = "Excel(*.xlsx)|*.xlsx",
+                Title = "导入",
+                Multiselect = false
+
+            };
+            if (ofd.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            List<DriverInfoModel> DriverInfoModels = new List<DriverInfoModel>();
+            IWorkbook book;
+            using (FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read))
+            {
+                book = WorkbookFactory.Create(fs);
+            }
+            int sheetCount = book.NumberOfSheets;
+            for (int sheetIndex = 0; sheetIndex < sheetCount; sheetIndex++)
+            {
+                ISheet sheet = book.GetSheetAt(sheetIndex);
+                if (sheet == null) continue;
+                IRow row = sheet.GetRow(0);
+                if (row == null) continue;
+                int firstCellNum = row.FirstCellNum;
+                int lastCellNum = row.LastCellNum;
+                if (firstCellNum == lastCellNum) continue;
+                for (int i = 0; i <= sheet.LastRowNum; i++)
+                {
+                    DriverInfoModel driverInfoModel = new DriverInfoModel();
+                    driverInfoModel.Card = sheet.GetRow(i).GetCell(0).ToString();
+                    driverInfoModel.Name = sheet.GetRow(i).GetCell(1).ToString();
+                    driverInfoModel.LocomotiveDepot = sheet.GetRow(i).GetCell(2).ToString();
+                    driverInfoModel.Team = sheet.GetRow(i).GetCell(3).ToString();
+                    DriverInfoModels.Add(driverInfoModel);
+                    driverInfoModel = null;
+                }
+            }
+            string requestUrl = CommonLibrary.ReadConfigHelper.BaseUrl + WebApiExtensionUrl.AddDrivers_URL;
+            Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, DriverInfoModels));
+            if (task.Result.Flag)
+            {
+                MessageBox.Show("导入成功！");
+                //新增后刷新数据
+                this.SetPageData(1);
+            }
+            else
+            {
+                MessageBox.Show("导入失败！");
+                return;
+            }
+
+            return;
+        }
+
+        private void Refresh_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.SetPageData(1);
         }
     }
 }

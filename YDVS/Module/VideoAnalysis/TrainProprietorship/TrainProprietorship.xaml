@@ -45,7 +45,7 @@
                         <TextBlock Text="导入" Foreground="White"  VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button>
-                <Button Style="{DynamicResource RefreshButton}" Width="80" Height="33" Margin="20,0,0,0"/>
+                <Button Style="{DynamicResource RefreshButton}" Width="80" Height="33" Margin="20,0,0,0" Click="Refresh_Btn_Click"/>
             </WrapPanel>
         </Border>
         <Grid Grid.Row="1" Grid.ColumnSpan="3">
