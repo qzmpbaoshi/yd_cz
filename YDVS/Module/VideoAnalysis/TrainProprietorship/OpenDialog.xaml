@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="VideoAnalysis.TrainProprietorship.OpenDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VideoAnalysis.TrainProprietorship"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="300"
+             Background="{DynamicResource ContentColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"  FontFamily="{DynamicResource MainFontFamily}"
+             >
+     <UserControl.Resources>
+         <ResourceDictionary>
+             <ResourceDictionary.MergedDictionaries>
+                 <ResourceDictionary Source="/PageStyle;Component/MainDictionary.xaml" />
+                 <ResourceDictionary Source="/PageStyle;Component/ButtonDictionary.xaml" />
+                <ResourceDictionary Source="/PageStyle;Component/TextInputDictionary.xaml" />
+                <ResourceDictionary Source="/PageStyle;Component/ScrollViewDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+         </ResourceDictionary>
+     </UserControl.Resources>    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Margin="1" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="车型：" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0"/>
+                <TextBox x:Name="traintype_tb" Style="{DynamicResource MainTextBox}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="0" Grid.Column="1"/>
+                <Label Content="机务段：" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="0"/>
+                <TextBox x:Name="locomotivedepot_tb" Style="{DynamicResource MainTextBox}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1"/>
+                <Label Content="车号" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0"/>
+                <TextBox x:Name="trainno_tb" Style="{DynamicResource MainTextBox}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
+                <Label Content="车间" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="0"/>
+                <TextBox x:Name="workshop_tb" Style="{DynamicResource MainTextBox}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
+                <Label Content="铁路局" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="0"/>
+                <TextBox x:Name="RailwayAdministration_tb" Style="{DynamicResource MainTextBox}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1"/>
+            </Grid>
+        </Border>
+        <Border    Grid.Row="1" Margin="1" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Style="{DynamicResource SaveButton}" Content="保存" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+                <Button Style="{DynamicResource CloseButton}" Content="关闭" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

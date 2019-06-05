@@ -36,16 +36,16 @@
         <Border Grid.Column="2">
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left">
                 <Button Style="{DynamicResource SearchButton}" Width="80" Height="33" Click="Search_Btn_Click"/>
-                <Button Style="{DynamicResource EditButton}" Width="80" Height="33" Margin="20,0,0,0"/>
-                <Button Style="{DynamicResource AddButton}" Width="80" Height="33" Margin="20,0,0,0"/>
-                <Button Style="{DynamicResource DelButton}" Width="80" Height="33" Margin="20,0,0,0"/>
-                <Button Style="{DynamicResource BaseButton}" Width="80" Height="33" Margin="20,0,0,0">
+                <Button Style="{DynamicResource EditButton}" Width="80" Height="33" Margin="20,0,0,0" Click="Edit_Btn_Click"/>
+                <Button Style="{DynamicResource AddButton}" Width="80" Height="33" Margin="20,0,0,0" Click="Add_Btn_Click"/>
+                <Button Style="{DynamicResource DelButton}" Width="80" Height="33" Margin="20,0,0,0" Click="Delete_Btn_Click"/>
+                <Button Style="{DynamicResource BaseButton}" Width="80" Height="33" Margin="20,0,0,0" Click="Import_Btn_Click">
                     <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Image Source="../images/document.png" Height="16" Width="16" VerticalAlignment="Center"/>
                         <TextBlock Text="导入" Foreground="White"  VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
                     </WrapPanel>
                 </Button>
-                <Button Style="{DynamicResource RefreshButton}" Width="80" Height="33" Margin="20,0,0,0"/>
+                <Button Style="{DynamicResource RefreshButton}" Width="80" Height="33" Margin="20,0,0,0" Click="Refresh_Btn_Click"/>
             </WrapPanel>
         </Border>
         <Grid Grid.Row="1" Grid.ColumnSpan="3">
@@ -68,6 +68,7 @@
                 <self:Pagination x:Name="self_pagination" Height="45"/>
             </Border>
         </Grid>
+        <Border x:Name="edit_bo" Grid.ColumnSpan="3" Grid.RowSpan="2" Visibility="Collapsed" Background="{DynamicResource ModalColor}"/>
         <self:Wait Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="self_wait" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

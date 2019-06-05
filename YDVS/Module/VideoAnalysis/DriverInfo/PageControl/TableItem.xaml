@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="VideoAnalysis.TrainProprietorship.PageControl.TableItem"
+﻿<UserControl x:Class="VideoAnalysis.DriverInfo.PageControl.TableItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VideoAnalysis.DriverInfo.PageControl"
              mc:Ignorable="d" 
-             Height="40" d:DesignWidth="1920" Background="{DynamicResource TableBodyColor}" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,0,1" FontFamily="{DynamicResource MainFontFamily}" Foreground="DimGray" FontSize="16" MouseLeave="UserControl_MouseLeave" MouseEnter="UserControl_MouseEnter" >
+             Height="40" d:DesignWidth="1920" Background="{DynamicResource TableBodyColor}" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,0,1" FontFamily="{DynamicResource MainFontFamily}" Foreground="DimGray" FontSize="16" MouseLeave="UserControl_MouseLeave" MouseEnter="UserControl_MouseEnter">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,26 +21,22 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
             <TextBlock Text="{Binding Path=Order,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="1" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="{Binding Path=TrainType,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Path=Card,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="2" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="{Binding Path=TrainNo,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Path=Name,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
         <Border Grid.Column="3" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="{Binding Path=RailwayAdministration,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Border>
-        <Border Grid.Column="4" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
             <TextBlock Text="{Binding Path=LocomotiveDepot,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
-        <Border Grid.Column="5" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
-            <TextBlock Text="{Binding Path=WorkShop,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Border Grid.Column="4" BorderBrush="{DynamicResource TableBodyBorderColor}" BorderThickness="0,0,1,0">
+            <TextBlock Text="{Binding Path=Team,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
     </Grid>
 </UserControl>

@@ -21,20 +21,27 @@ namespace WebAppService.DataAdapter
         /// <param name="addDrivers">添加列表</param>
         /// <param name="user">当前登录人</param>
         /// <returns>true添加成功；false添加失败</returns>
-        bool AddDrivers(List<DriverInfoModel> addDrivers, User user = null);
+        RequestEasyResult AddDrivers(List<DriverInfoModel> addDrivers, User user = null);
+        /// <summary>
+        /// 修改司机信息
+        /// </summary>
+        /// <param name="updateDriver">修改机车内容</param>
+        /// <param name="user">当前登录人</param>
+        /// <returns>true添加成功；false添加失败</returns>
+        RequestEasyResult UpdateDriver(DriverInfoModel updateDriver, User user = null);
         /// <summary>
         /// 删除司机信息
         /// </summary>
         /// <param name="delDrivers">删除列表</param>
         /// <param name="user">当前登录人</param>
         /// <returns>true删除成功；false删除失败</returns>
-        bool DelDrivers(List<DriverInfoModel> delDrivers, User user = null);
+        RequestEasyResult DelDrivers(List<DriverInfoModel> delDrivers, User user = null);
         /// <summary>
         /// 根据ID，删除司机信息
         /// </summary>
         /// <param name="ids">删除id列表</param>
         /// <param name="user">当前登录人</param>
         /// <returns>true删除成功；false删除失败</returns>
-        bool DelDriversByIds(List<int> ids, User user = null);
+        RequestEasyResult DelDriversByIds(List<string> ids, User user = null);
     }
 }

@@ -318,7 +318,7 @@
                     <Border x:Name="border" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalAlignment="{TemplateBinding VerticalAlignment}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
                         <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                             <Image Source="./images/cancel.png" Height="18" Width="18" VerticalAlignment="Center"/>
-                            <TextBlock Text="保存" Foreground="White"  VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+                            <TextBlock Text="关闭" Foreground="White"  VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
                         </WrapPanel>
                     </Border>
                     <ControlTemplate.Triggers>
