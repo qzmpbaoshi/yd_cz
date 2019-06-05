@@ -34,4 +34,7 @@
             </Setter.Value>
         </Setter>-->
     </Style>
+    <Style x:Key="CommonComboBox" TargetType="{x:Type ComboBox}">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
 </ResourceDictionary>

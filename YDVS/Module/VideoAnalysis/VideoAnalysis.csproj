@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,14 +62,33 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DriverInfo\DriverInfo.xaml.cs">
       <DependentUpon>DriverInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HistoryData\Handler\PlayTimeEventArgs.cs" />
+    <Compile Include="HistoryData\Handler\VideoSourceEventArgs.cs" />
+    <Compile Include="HistoryData\Helper\FileHelper.cs" />
     <Compile Include="HistoryData\HistoryData.xaml.cs">
       <DependentUpon>HistoryData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HistoryData\HKHelper\PlayCtrlHelper.cs" />
+    <Compile Include="HistoryData\PageControl\DirectoryTree.xaml.cs">
+      <DependentUpon>DirectoryTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryData\PageControl\LKJChart.xaml.cs">
+      <DependentUpon>LKJChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryData\PageControl\VideoData.xaml.cs">
+      <DependentUpon>VideoData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryData\PageControl\VideoPlay.xaml.cs">
+      <DependentUpon>VideoPlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryData\ViewModel\DicTreeViewItemModel.cs" />
+    <Compile Include="HistoryData\ViewModel\VideoViewModel.cs" />
     <Compile Include="TrainProprietorship\PageControl\TableItem.xaml.cs">
       <DependentUpon>TableItem.xaml</DependentUpon>
     </Compile>
@@ -95,6 +115,22 @@
     <Page Include="HistoryData\HistoryData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HistoryData\PageControl\DirectoryTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HistoryData\PageControl\LKJChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HistoryData\PageControl\VideoData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HistoryData\PageControl\VideoPlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TrainProprietorship\PageControl\TableItem.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -130,6 +166,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="HistoryData\HKDlls\PlayCtrl.lib" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -184,6 +221,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\refresh.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="HistoryData\HKDlls\AudioRender.dll" />
+    <Content Include="HistoryData\HKDlls\HXVA.dll" />
+    <Content Include="HistoryData\HKDlls\MP_VIE.dll" />
+    <Resource Include="HistoryData\HKDlls\Open Source Software Licenses_win32.txt" />
+    <Content Include="HistoryData\HKDlls\OpenAL32.dll" />
+    <Content Include="HistoryData\HKDlls\PlayCtrl.dll" />
+    <Content Include="HistoryData\HKDlls\PlayCtrl.pdb" />
+    <Content Include="HistoryData\HKDlls\PlayM4.h" />
+    <Content Include="HistoryData\HKDlls\SuperRender.dll" />
+    <Content Include="HistoryData\HKDlls\WindowsPlayM4.h" />
+    <Content Include="HistoryData\HKDlls\YUVProcess.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

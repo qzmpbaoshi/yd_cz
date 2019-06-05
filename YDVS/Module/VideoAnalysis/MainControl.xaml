@@ -24,7 +24,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border Background="{DynamicResource MainColor}" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,1,1" MinWidth="35">
+        <Border Background="{DynamicResource MainColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,1" MinWidth="35">
             <Button x:Name="nav_show_btn" Style="{DynamicResource BaseButton}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Visible" Click="Nav_Show_Btn_Click">
                 <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Path Stroke="#C2DFF5" StrokeThickness="2" Data="M10,0 0,12 L10,24 M20,0 10,12 20,24" x:Name="nav_show_btn_path"/>
@@ -33,19 +33,19 @@
         </Border>
         <Border x:Name="nav_bo" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0" Background="{DynamicResource MainColor}" Grid.Row="1" Width="120" Visibility="Visible">
             <StackPanel>
-                <RadioButton Uid="1" Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,0,1">
+                <RadioButton Uid="1" Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
                     <DockPanel>
                         <Image Source="./images/history_data.png" Height="60" Width="80" DockPanel.Dock="Top"/>
                         <TextBlock Text="历史数据查询"  TextWrapping="Wrap" DockPanel.Dock="Bottom" FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                     </DockPanel>
                 </RadioButton>
-                <RadioButton Uid="2"  Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,0,1">
+                <RadioButton Uid="2"  Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
                     <DockPanel>
                         <Image Source="./images/train_proprietorship.png" Height="60" Width="80" DockPanel.Dock="Top"/>
                         <TextBlock Text="机车配属段"  TextWrapping="Wrap" DockPanel.Dock="Bottom" FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                     </DockPanel>
                 </RadioButton>
-                <RadioButton Uid="3"  Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource MouseOverColor}" BorderThickness="0,0,0,1">
+                <RadioButton Uid="3"  Margin="0" GroupName="nav_btn" Style="{DynamicResource NavRadioButton}" Click="NavSelect_Click" Padding="0,10" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
                     <DockPanel>
                         <Image Source="./images/driver_info.png" Height="60" Width="80" DockPanel.Dock="Top"/>
                         <TextBlock Text="司机信息"  TextWrapping="Wrap" DockPanel.Dock="Bottom" FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0"/>

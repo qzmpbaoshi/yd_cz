@@ -44,22 +44,24 @@ namespace VideoAnalysis
         }
         private void SetMainContainer(string pageType)
         {
-            UIElement mainUI = null;
+            UserControl mainControl = this.main_container_bo.Child as UserControl;
+            if (mainControl is HistoryData.HistoryData)
+                ((HistoryData.HistoryData)mainControl).PlayDispose();
             switch (pageType)
             {
                 case "1":
-                    mainUI = new HistoryData.HistoryData();
+                    mainControl = new HistoryData.HistoryData();
                     break;
                 case "2":
-                    mainUI = new TrainProprietorship.TrainProprietorship();
+                    mainControl = new TrainProprietorship.TrainProprietorship();
                     break;
                 case "3":
-                    mainUI = new DriverInfo.DriverInfo();
+                    mainControl = new DriverInfo.DriverInfo();
                     break;
                 default:
                     break;
             }
-            this.main_container_bo.Child = mainUI;
+            this.main_container_bo.Child = mainControl;
         }
 
         #endregion

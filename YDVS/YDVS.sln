@@ -37,6 +37,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageStyle", "PageResource\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCommonTool", "PageResource\SelfCommonTool\SelfCommonTool.csproj", "{F9F4BD6F-5706-4998-9A83-46B501F0F932}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dlls", "Dlls", "{F166F396-2957-45E6-9381-668A7EDD5669}"
+	ProjectSection(SolutionItems) = preProject
+		Dlls\WPFVisifire.Charts.dll = Dlls\WPFVisifire.Charts.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

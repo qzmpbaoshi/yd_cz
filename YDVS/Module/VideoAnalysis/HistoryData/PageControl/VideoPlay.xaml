@@ -1,0 +1,231 @@
+﻿<UserControl x:Class="VideoAnalysis.HistoryData.PageControl.VideoPlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VideoAnalysis.HistoryData.PageControl"
+             xmlns:WinFormHost="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+             xmlns:WinFormControls="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1500" Background="Black">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="title" TargetType="WinFormHost:WindowsFormsHost">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
+                            <GradientStop Offset="0" Color="Black"/>
+                            <GradientStop Offset="0.5" Color="DimGray"/>
+                            <GradientStop Offset="1" Color="Black"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PageStyle;Component/MainDictionary.xaml" />
+                <ResourceDictionary Source="/PageStyle;Component/ButtonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--第一行-->
+        <Border x:Name="player_1_bo" Grid.Row="0" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道1" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_1" Tag="player_1_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_2_bo" Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道2" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_2" Tag="player_2_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_3_bo" Grid.Row="0" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道3" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_3" Tag="player_3_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_4_bo" Grid.Row="0" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道4" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_4" Tag="player_4_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <!--第二行-->
+        <Border x:Name="player_5_bo" Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道5" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_5" Tag="player_5_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_6_bo" Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道6" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_6" Tag="player_6_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_7_bo" Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道7" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_7" Tag="player_7_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_8_bo" Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道8" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_8" Tag="player_8_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <!--第三行-->
+        <Border x:Name="player_9_bo" Grid.Row="2" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道9" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_9" Tag="player_9_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_10_bo" Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道10" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_10" Tag="player_10_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_11_bo" Grid.Row="2" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道11" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_11" Tag="player_11_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_12_bo" Grid.Row="2" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道12" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_12" Tag="player_12_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <!--第四行-->
+        <Border x:Name="player_13_bo" Grid.Row="3" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道13" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_13" Tag="player_13_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_14_bo" Grid.Row="3" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道14" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_14" Tag="player_14_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_15_bo" Grid.Row="3" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道15" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_15" Tag="player_15_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_16_bo" Grid.Row="3" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+            <DockPanel>
+                <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
+                    <WinFormControls:Label Text="通道16" TextAlign="MiddleRight" ForeColor="Lime" />
+                </WinFormHost:WindowsFormsHost>
+                <WinFormHost:WindowsFormsHost>
+                    <WinFormControls:PictureBox x:Name="player_16" Tag="player_15_bo" MouseDoubleClick="Player_MouseDoubleClick" MouseClick="Player_MouseClick"/>
+                </WinFormHost:WindowsFormsHost>
+            </DockPanel>
+        </Border>
+        <Border x:Name="player_max_bo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4" BorderBrush="White" BorderThickness="2" Visibility="Collapsed">
+        </Border>
+        <Border Grid.Row="4" Grid.ColumnSpan="16" BorderThickness="0,1,0,0" BorderBrush="Gray" Background="{DynamicResource ContentColor}">
+            <WrapPanel VerticalAlignment="Center"  Margin="20,0">
+                <Button x:Name="play_btn" Content="播放" Height="30" Width="60" Click="StartPlay_Click" Margin="0,0,5,0" Style="{DynamicResource BaseButton}"/>
+                <Button Content="停止" Height="30" Width="60" Click="StopPlay_Click" Margin="0,0,5,0" Style="{DynamicResource BaseButton}"/>
+
+                <Button Content="1" Height="30" Width="30" Margin="10,0,5,0" Click="Play_Win_1_Click" Style="{DynamicResource BaseButton}"/>
+                <Button Content="4" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_4_Click" Style="{DynamicResource BaseButton}"/>
+                <Button Content="6" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_6_Click" Style="{DynamicResource BaseButton}"/>
+                <Button Content="8" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_8_Click" Style="{DynamicResource BaseButton}"/>
+                <Button Content="9" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_9_Click" Style="{DynamicResource BaseButton}"/>
+                <Button Content="10" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_10_Click" Style="{DynamicResource BaseButton}"/>
+                <Button Content="13" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_13_Click" Style="{DynamicResource BaseButton}"/>
+                <Button Content="16" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_16_Click" Style="{DynamicResource BaseButton}" x:Name="win_16_btn"/>
+
+                <TextBlock Margin="20,0" x:Name="play_total_time_tb" MinWidth="200" VerticalAlignment="Center"/>
+
+
+                <Button Content="2018-11-07 13:29:56" Height="30" Width="200" Margin="0,0,5,0" Click="SetSycStartTime_Click" Style="{DynamicResource BaseButton}"/>
+            </WrapPanel>
+        </Border>
+    </Grid>
+</UserControl>

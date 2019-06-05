@@ -3,18 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VideoAnalysis.TrainProprietorship"
+             xmlns:local="clr-namespace:VideoAnalysis.HistoryData.PageControl"
              mc:Ignorable="d" 
+             xmlns:self="clr-namespace:SelfCommonTool;assembly=SelfCommonTool"
              d:DesignHeight="1080" d:DesignWidth="1920" Background="{DynamicResource ContentColor}" BorderThickness="0" FontFamily="{DynamicResource MainFontFamily}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/PageStyle;Component/MainDictionary.xaml" />
                 <ResourceDictionary Source="/PageStyle;Component/ButtonDictionary.xaml" />
+                <ResourceDictionary Source="/PageStyle;Component/TabDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TextBlock Text="历史数据功能开发中... ..." Margin="20" FontSize="30"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="380"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Border x:Name="dic_tree_container_bo" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,2,0" Grid.RowSpan="3">
+                <!--<local:DirectoryTree/>-->
+            </Border>
+            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,2" Background="{DynamicResource TableHeadColor}">
+                <DockPanel>
+                    <TextBlock Text="视频时间：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0,0,0" FontSize="16" Foreground="White" FontWeight="Bold"/>
+                    <TextBlock Margin="0" x:Name="play_time_tb" VerticalAlignment="Center" HorizontalAlignment="Left" Width="250" FontSize="16" Foreground="White"/>
+                </DockPanel>
+            </Border>
+            <Border x:Name="video_container_bo" Grid.Column="1"  Grid.RowSpan="2" Background="Black"  BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,2,0">
+                <!--<local:VideoPage></local:VideoPage>-->
+            </Border>
+            <Border Grid.Column="2" Grid.Row="1">
+                <local:VideoData/>
+            </Border>
+            <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,2,0,0">
+                <TabControl Style="{DynamicResource TabControlStyle}">
+                    <TabItem x:Name="chart_container_tabItem" Style="{DynamicResource TabItemStyle}" Header="LKJ曲线" FontSize="16" Height="30">
+                        <!--<local:LKJChart></local:LKJChart>-->
+                    </TabItem>
+                    <TabItem Style="{DynamicResource TabItemStyle}" Header="项点报警" FontSize="16" Height="30">
+                        <TextBlock Text="开发中... ..."/>
+                    </TabItem>
+                    <TabItem Style="{DynamicResource TabItemStyle}" Header="防火曲线" FontSize="16" Height="30">
+                        <TextBlock Text="开发中... ..."/>
+                    </TabItem>
+                </TabControl>
+            </Border>
+        </Grid>
+        <self:Wait Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="self_wait" Visibility="Collapsed"/>
     </Grid>
 </UserControl>
