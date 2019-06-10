@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using SelfCommonTool;
 using VideoAnalysis.TrainProprietorship.PageControl;
 using VideoAnalysis.TrainProprietorship.ViewModel;
 using MessageBox = System.Windows.MessageBox;
@@ -146,14 +147,15 @@ namespace VideoAnalysis.TrainProprietorship
                  Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModel));
                  if (task.Result.Flag)
                  {
-                     MessageBox.Show("修改成功！");
-                     //修改后刷新数据
-                     this.SetPageData(1);
+                    //修改后刷新数据
+                    this.SetPageData(1);
+                     MessageForm.Show("提示", "修改成功！", 0);
                  }
                  else
                  {
-                     MessageBox.Show("修改失败！");
-                     return;
+                     MessageForm.Show("提示", "修改失败！", 0);
+
+                    return;
                  }
             }
 
@@ -180,13 +182,13 @@ namespace VideoAnalysis.TrainProprietorship
                 Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModels));
                 if (task.Result.Flag)
                 {
-                    MessageBox.Show("添加成功！");
                     //新增后刷新数据
                     this.SetPageData(1);
+                    MessageForm.Show("提示", "添加成功！", 0);
                 }
                 else
                 {
-                    MessageBox.Show("添加失败！");
+                    MessageForm.Show("提示", "添加失败！", 0);
                     return;
                 }
             }
@@ -211,13 +213,13 @@ namespace VideoAnalysis.TrainProprietorship
             Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, list));
             if (task.Result.Flag)
             {
-                MessageBox.Show("删除成功！");
                 //删除后刷新数据
                 this.SetPageData(1);
+                MessageForm.Show("提示", "删除成功！", 0);
             }
             else
             {
-                MessageBox.Show("删除失败！");
+                MessageForm.Show("提示", "删除失败！", 0);
                 return;
             }
             
@@ -264,6 +266,7 @@ namespace VideoAnalysis.TrainProprietorship
                         trainProprietorshipModel.RailwayAdministration = sheet.GetRow(i).GetCell(2).ToString();
                         trainProprietorshipModel.LocomotiveDepot = sheet.GetRow(i).GetCell(3).ToString();
                         trainProprietorshipModel.WorkShop = sheet.GetRow(i).GetCell(4).ToString();
+                        trainProprietorshipModel.Order = null;
                         trainProprietorshipModels.Add(trainProprietorshipModel);
                         trainProprietorshipModel = null;
                     }
@@ -272,14 +275,14 @@ namespace VideoAnalysis.TrainProprietorship
                 Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModels));
                 if (task.Result.Flag)
                 {
-                    MessageBox.Show("导入成功！");
                     //新增后刷新数据
                     this.SetPageData(1);
+                    MessageForm.Show("提示", "导入成功！", 0);
                 }
                 else
                 {
-                    MessageBox.Show("导入失败！");
-                    return ;
+                    MessageForm.Show("提示", "导入失败！", 0);
+                return ;
                 }
 
                 return;
