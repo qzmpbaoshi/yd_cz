@@ -20,9 +20,9 @@ namespace WebAppService.Controllers
         public IHttpActionResult GetTrainProprietorships([FromBody]PagingSearchCondition<TrainProprietorshipSearch> condition)
         {
             //CommonLibrary.LogHelper.Log4Helper.Debug(this.GetType(), "机车配属段查询接口调用，参数：" + JsonConvert.SerializeObject(condition));
-            RequestPagingResult<TrainProprietorshipModel> rsts = this.DBAdapter.GetTrainProprietorships(condition);
+            RequestPagingResult<List<TrainProprietorshipModel>> rsts = this.DBAdapter.GetTrainProprietorships(condition);
             //CommonLibrary.LogHelper.Log4Helper.Debug(this.GetType(), "机车配属段查询结果：" + JsonConvert.SerializeObject(rsts));
-            return Json<RequestPagingResult<TrainProprietorshipModel>>(rsts);
+            return Json<RequestPagingResult<List<TrainProprietorshipModel>>>(rsts);
         }
         //新增
         public IHttpActionResult AddTrainProprietorships([FromBody]List<TrainProprietorshipModel> addModels)

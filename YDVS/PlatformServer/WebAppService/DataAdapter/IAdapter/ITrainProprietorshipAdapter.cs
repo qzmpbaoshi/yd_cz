@@ -14,7 +14,7 @@ namespace WebAppService.DataAdapter.IAdapter
         /// <param name="condition">查询条件</param>
         /// <param name="user">当前登录人</param>
         /// <returns>司机信息列表</returns>
-        RequestPagingResult<TrainProprietorshipModel> GetTrainProprietorships(PagingSearchCondition<TrainProprietorshipSearch> condition);
+        RequestPagingResult<List<TrainProprietorshipModel>> GetTrainProprietorships(PagingSearchCondition<TrainProprietorshipSearch> condition);
         /// <summary>
         /// 添加机车配属段信息
         /// </summary>

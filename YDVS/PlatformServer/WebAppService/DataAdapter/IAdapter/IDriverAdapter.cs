@@ -14,7 +14,7 @@ namespace WebAppService.DataAdapter
         /// <param name="condition">查询条件</param>
         /// <param name="user">当前登录人</param>
         /// <returns>司机信息列表</returns>
-        RequestPagingResult<DriverInfoModel> GetDrivers(PagingSearchCondition<DriverSearch> condition);
+        RequestPagingResult<List<DriverInfoModel>> GetDrivers(PagingSearchCondition<DriverSearch> condition);
         /// <summary>
         /// 添加司机信息
         /// </summary>

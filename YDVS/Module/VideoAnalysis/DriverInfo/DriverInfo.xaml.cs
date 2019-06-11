@@ -59,25 +59,25 @@ namespace VideoAnalysis.DriverInfo
                 int pageSize = 23;
                 this.self_wait.Visibility = Visibility.Visible;
                 string requestUrl = CommonLibrary.ReadConfigHelper.BaseUrl + WebApiExtensionUrl.GetDriverInfos_URL;
-                PagingSearchCondition<DriverInfoModel> condition = new PagingSearchCondition<DriverInfoModel>();
+                PagingSearchCondition<DriverSearch> condition = new PagingSearchCondition<DriverSearch>();
                 condition.StartIndex = pIndex;
                 condition.PageSize = pageSize;
-                condition.SearchCondition = new DriverInfoModel
+                condition.SearchCondition = new DriverSearch
                 {
                     Card = this.condition_tb.Text
                 };
-                Task<RequestPagingResult<DriverInfoModel>> task = Task<RequestPagingResult<DriverInfoModel>>.Run(() =>
+                Task<RequestPagingResult<List<DriverInfoModel>>> task = Task<RequestPagingResult<List<DriverInfoModel>>>.Run(() =>
                 {
-                    return CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestPagingResult<DriverInfoModel>>(requestUrl, condition);
+                    return CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestPagingResult<List<DriverInfoModel>>>(requestUrl, condition);
                 });
                 task.GetAwaiter().OnCompleted(() =>
                 {
-                    RequestPagingResult<DriverInfoModel> rst = task.Result;
+                    RequestPagingResult<List<DriverInfoModel>> rst = task.Result;
                     this.Dispatcher.Invoke(() =>
                     {
                         TableItem itemControl = null;
                         int order = 1;
-                        foreach (var item in rst.ResultDatas)
+                        foreach (var item in rst.ResultData)
                         {
                             itemControl = new TableItem();
                             itemControl.ViewModel.ObjectCopyProperty(item);
@@ -283,7 +283,7 @@ namespace VideoAnalysis.DriverInfo
         public void pictureconfig()
         {
             //图片路径信息
-            string pathName =null;
+            string pathName = null;
             //System.IO.FileStream fs = new System.IO.FileStream(pathName,System.IO.FileMode.Open,System.IO.FileAccess.Read);
             var image = new Image();
             try
@@ -304,7 +304,7 @@ namespace VideoAnalysis.DriverInfo
 
             }
             //return image;
-           
+
         }
     }
 }

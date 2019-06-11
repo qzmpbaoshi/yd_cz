@@ -6,7 +6,7 @@ namespace SystemModel.RequestResult
     {
 
         private int _totalCount;
-        private List<T> _resultDatas;
+        private T _resultData;
         private bool _flag;
         private string _msg;
         /// <summary>
@@ -27,16 +27,16 @@ namespace SystemModel.RequestResult
         /// <summary>
         /// 结果集
         /// </summary>
-        public List<T> ResultDatas
+        public T ResultData
         {
             get
             {
-                return _resultDatas;
+                return _resultData;
             }
 
             set
             {
-                _resultDatas = value;
+                _resultData = value;
             }
         }
 

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using SystemModel;
+using SystemModel.DataModel;
 using SystemModel.RequestResult;
+using SystemModel.SearchConditionModel;
+using SystemModel.SearchConditionModel.Search;
 
 namespace WebAppService.DataAdapter.IAdapter
 {
@@ -15,7 +15,7 @@ namespace WebAppService.DataAdapter.IAdapter
         /// <param name="condition">查询条件</param>
         /// <param name="user">当前登录人</param>
         /// <returns>司机信息列表</returns>
-        RequestPagingResult<AnalysisReportInfoModel> GetDrivers(PagingSearchCondition<DriverSearch> condition);
+        RequestPagingResult<AnalysisReportInfoModel> GetDrivers(PagingSearchCondition<AnalysisReportInfoSearch> condition);
         /// <summary>
         /// 添加司机信息
         /// </summary>
