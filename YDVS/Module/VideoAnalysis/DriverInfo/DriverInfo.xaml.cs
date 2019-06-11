@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
@@ -20,6 +21,7 @@ using SystemModel.RequestResult;
 using SystemModel.SearchConditionModel;
 using CommonLibrary.Extension;
 using NPOI.SS.UserModel;
+using SelfCommonTool;
 using VideoAnalysis.DriverInfo.PageControl;
 using VideoAnalysis.DriverInfo.ViewModel;
 using MessageBox = System.Windows.MessageBox;
@@ -145,13 +147,14 @@ namespace VideoAnalysis.DriverInfo
                 Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, driverInfoModel));
                 if (task.Result.Flag)
                 {
-                    MessageBox.Show("修改成功！");
                     //修改后刷新数据
                     this.SetPageData(1);
+                    MessageForm.Show("提示", "修改成功！", 0);
+
                 }
                 else
                 {
-                    MessageBox.Show("修改失败！");
+                    MessageForm.Show("提示", "修改失败！", 0);
                     return;
                 }
             }
@@ -175,13 +178,13 @@ namespace VideoAnalysis.DriverInfo
                 Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, driverInfoModels));
                 if (task.Result.Flag)
                 {
-                    MessageBox.Show("添加成功！");
                     //新增后刷新数据
                     this.SetPageData(1);
+                    MessageForm.Show("提示", "添加成功！", 0);
                 }
                 else
                 {
-                    MessageBox.Show("添加失败！");
+                    MessageForm.Show("提示", "添加失败！", 0);
                     return;
                 }
             }
@@ -203,13 +206,13 @@ namespace VideoAnalysis.DriverInfo
             Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, list));
             if (task.Result.Flag)
             {
-                MessageBox.Show("删除成功！");
                 //删除后刷新数据
                 this.SetPageData(1);
+                MessageForm.Show("提示", "删除成功！", 0);
             }
             else
             {
-                MessageBox.Show("删除失败！");
+                MessageForm.Show("提示", "删除失败！", 0);
                 return;
             }
         }
@@ -260,13 +263,13 @@ namespace VideoAnalysis.DriverInfo
             Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, DriverInfoModels));
             if (task.Result.Flag)
             {
-                MessageBox.Show("导入成功！");
                 //新增后刷新数据
                 this.SetPageData(1);
+                MessageForm.Show("提示", "导入成功！", 0);
             }
             else
             {
-                MessageBox.Show("导入失败！");
+                MessageForm.Show("提示", "导入失败！", 0);
                 return;
             }
 
@@ -276,6 +279,32 @@ namespace VideoAnalysis.DriverInfo
         private void Refresh_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.SetPageData(1);
+        }
+        public void pictureconfig()
+        {
+            //图片路径信息
+            string pathName =null;
+            //System.IO.FileStream fs = new System.IO.FileStream(pathName,System.IO.FileMode.Open,System.IO.FileAccess.Read);
+            var image = new Image();
+            try
+            {
+                System.Net.WebRequest webreq = System.Net.WebRequest.Create(pathName);
+                System.Net.WebResponse webres = webreq.GetResponse();
+                System.IO.Stream stream = webres.GetResponseStream();
+                System.Drawing.Image img1 = System.Drawing.Image.FromStream(stream);
+                System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(img1);
+                IntPtr hBitmap = bmp.GetHbitmap();
+                System.Windows.Media.ImageSource WpfBitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                image.Source = WpfBitmap;
+                image.Stretch = Stretch.Uniform;
+                stream.Dispose();
+            }
+            catch (Exception e)
+            {
+
+            }
+            //return image;
+           
         }
     }
 }
