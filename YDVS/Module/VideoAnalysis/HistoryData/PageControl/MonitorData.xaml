@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="VideoAnalysis.HistoryData.PageControl.VideoData"
+﻿<UserControl x:Class="VideoAnalysis.HistoryData.PageControl.MonitorData"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VideoAnalysis.HistoryData.PageControl"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="400" Background="{DynamicResource ContentColor}" BorderThickness="0" FontFamily="{DynamicResource MainFontFamily}">
     <UserControl.Resources>
@@ -47,130 +46,130 @@
             <TextBlock Text="车次：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding TrainNum,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="1" Grid.Column="2">
             <TextBlock Text="总重：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="1" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding Weight,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第三行-->
         <Border Grid.Row="2" Grid.Column="0">
             <TextBlock Text="速度：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding Speed,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="2">
             <TextBlock Text="计长：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="2" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding TrainLong,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第四行-->
         <Border Grid.Row="3" Grid.Column="0">
             <TextBlock Text="客/货：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="3" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding TrainUse,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="3" Grid.Column="2">
             <TextBlock Text="本/补：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="3" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding TrainType,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第五行-->
         <Border Grid.Row="4" Grid.Column="0">
             <TextBlock Text="车站号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="4" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding StationNo,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="4" Grid.Column="2">
             <TextBlock Text="辆数：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="4" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding VehicleCount,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第六行-->
         <Border Grid.Row="5" Grid.Column="0">
             <TextBlock Text="司机号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="5" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding DriverNum,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="5" Grid.Column="2">
             <TextBlock Text="司机名：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="5" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding DriverName,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第七行-->
         <Border Grid.Row="6" Grid.Column="0">
             <TextBlock Text="副司机号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="6" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding AssDriverNum,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="6" Grid.Column="2">
             <TextBlock Text="副司机名：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="6" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding AssDriverName,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第八行-->
         <Border Grid.Row="7" Grid.Column="0">
             <TextBlock Text="公里标：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="7" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding KilometreSign,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="7" Grid.Column="2">
             <TextBlock Text="机车信号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="7" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding TrainSignal,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第九行-->
         <Border Grid.Row="8" Grid.Column="0">
             <TextBlock Text="信号机编号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="8" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding AnnunciatorNum,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="8" Grid.Column="2">
             <TextBlock Text="机车工况：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="8" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding WorkCondition,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第十行-->
         <Border Grid.Row="9" Grid.Column="0">
             <TextBlock Text="信号机种类：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="9" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding AnnunciatorKind,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="9" Grid.Column="2">
             <TextBlock Text="装置状态：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="9" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding DeviceStatus,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第十一行-->
         <Border Grid.Row="10" Grid.Column="0">
             <TextBlock Text="实际交路号：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="10" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding RoutesNo,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="10" Grid.Column="2">
             <TextBlock Text="列车管压力：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="10" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding PipePressure,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第十二行-->
         <Border Grid.Row="11" Grid.ColumnSpan="4" Background="{DynamicResource TableHeadColor}">
@@ -181,52 +180,52 @@
             <TextBlock Text="司机室状态：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="12" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding CabStatus,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="12" Grid.Column="2">
             <TextBlock Text="主断路状态：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="12" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding BreakerStatus,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第十四行-->
         <Border Grid.Row="13" Grid.Column="0">
             <TextBlock Text="受电弓状态：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="13" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding PantographStatus,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="13" Grid.Column="2">
             <TextBlock Text="手柄级位：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="13" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding PantographPos,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第十五行-->
         <Border Grid.Row="14" Grid.Column="0">
             <TextBlock Text="重联信息：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="14" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding ReconnectionInfo,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="14" Grid.Column="2">
             <TextBlock Text="大闸指令：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="14" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding BigBrakeCommand,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <!--第十六行-->
         <Border Grid.Row="15" Grid.Column="0">
             <TextBlock Text="小闸指令：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="15" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding LittleBrakeCommand,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
         <Border Grid.Row="15" Grid.Column="2">
             <TextBlock Text="其他指令：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="15" Grid.Column="3">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="{Binding OtherCommand,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
         </Border>
     </Grid>
 </UserControl>

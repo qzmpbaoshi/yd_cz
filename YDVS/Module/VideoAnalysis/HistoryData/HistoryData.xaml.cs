@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using VideoAnalysis.HistoryData.PageControl;
 using System.Windows;
 using System.Threading.Tasks;
 using System;
@@ -11,76 +10,80 @@ namespace VideoAnalysis.HistoryData
     /// </summary>
     public partial class HistoryData : UserControl
     {
-        public VideoPlay VideoPage { get; set; }
         public HistoryData()
         {
             InitializeComponent();
-            this.InitPage();
+            this.Loaded += HistoryData_Loaded;
+            //this.InitPage();
+        }
+
+        private void HistoryData_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Dispatcher.InvokeAsync(() =>
+                {
+                    this.DirTree.dir_tree_wait.Visibility = Visibility.Visible;
+                    this.VideoPlay.video_play_wait.Visibility = Visibility.Visible;
+                    this.Chart.chart_wait.Visibility = Visibility.Visible;
+                    Task.Run(() =>
+                    {
+                        this.DirTree.SetVideoSourceEvent += DirTree_SetVideoSourceEvent;
+                        this.VideoPlay.ClearVideoChartEvent += this.Chart.ClearVideoSeries;
+                        this.VideoPlay.DrawVideoLineEvent += this.Chart.SetVideoSeries;
+                        this.VideoPlay.PlayTimeEvent += VideoPage_PlayTimeEvent;
+                        this.Chart.ChangeVideoEvent += this.VideoPlay.ChangeVideoPlayByTime;
+                        this.DirTree.InitPage();
+                        this.VideoPlay.InitPage();
+                    }).GetAwaiter().OnCompleted(() =>
+                    {
+                        this.DirTree.dir_tree_wait.Visibility = Visibility.Collapsed;
+                        this.VideoPlay.video_play_wait.Visibility = Visibility.Collapsed;
+                        this.Chart.chart_wait.Visibility = Visibility.Collapsed;
+                    });
+                });
+            }
+            catch { }
         }
 
         public void PlayDispose()
         {
             try
             {
-                if (this.VideoPage == null)
+                if (this.VideoPlay == null)
                     return;
-                this.VideoPage.PlayDispose();
+                this.VideoPlay.PlayDispose();
             }
             catch { }
         }
 
-        private void InitPage()
-        {
-            this.self_wait.Visibility = Visibility.Visible;
-            //加载文件夹树结构
-            DirectoryTree dirTree = new DirectoryTree();
-            dirTree.SetVideoSourceEvent += DirTree_SetVideoSourceEvent;
-            this.dic_tree_container_bo.Child = dirTree;
-            //加载视频播放页面
-            this.VideoPage = new VideoPlay();
-            this.VideoPage.PlayTimeEvent += VideoPage_PlayTimeEvent;
-            this.video_container_bo.Child = this.VideoPage;
-            //加载图形
-            LKJChart chart = new LKJChart();
-            this.chart_container_tabItem.Content = chart;
-            this.Dispatcher.InvokeAsync(() =>
-            {
-                dirTree.InitPage();
-                this.VideoPage.InitPage();
-                this.self_wait.Visibility = Visibility.Collapsed;
-            });
-        }
-
-        private async void DirTree_SetVideoSourceEvent(object sender, Handler.VideoSourceEventArgs e)
+        private void DirTree_SetVideoSourceEvent(object sender, EventHandler.VideoSourceEventArgs e)
         {
             try
             {
-                if (this.VideoPage == null) return;
-                await this.VideoPage.Dispatcher.InvokeAsync(() =>
-                 {
-                     this.VideoPage.play_total_time_tb.Text = "******正在准备视频，请稍候";
-                 });
-
-                this.VideoPage.SetPlayVideoSource(e.VideoSources);
+                if (this.VideoPlay == null) return;
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.VideoPlay.video_play_wait.Visibility = Visibility.Visible;
+                    this.Chart.chart_wait.Visibility = Visibility.Visible;
+                });
+                this.Chart.SetLKJChartTitleAsync(e.ParentDirName);
+                this.VideoPlay.SetPlayVideoSourceAsync(e.VideoSources);
             }
             catch { }
         }
 
-        private void VideoPage_PlayTimeEvent(object sender, Handler.PlayTimeEventArgs e)
+        private void VideoPage_PlayTimeEvent(object sender, EventHandler.PlayTimeEventArgs e)
         {
             try
             {
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.play_time_tb.Text = e.PlayCurrentTime == null ? "" : Convert.ToDateTime(e.PlayCurrentTime).ToString("yyyy-MM-dd HH:mm:ss");
-                });
+                if (e.PlayCurrentTime == null) return;
+                this.Chart.MoveTrendLineAsync(e.PlayCurrentTime);
+                this.VideoData.RefreshDataByTime((DateTime)e.PlayCurrentTime);
             }
-            catch
+            catch (Exception ex)
             {
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.play_time_tb.Text = "时间解析错误";
-                });
+                CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "根据视频播放进度刷新页面数据", ex);
             }
         }
     }

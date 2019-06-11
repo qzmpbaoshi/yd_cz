@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VideoAnalysis.HistoryData.Handler
+namespace VideoAnalysis.HistoryData.EventHandler
 {
     public class PlayTimeEventArgs : EventArgs
     {
@@ -8,7 +8,6 @@ namespace VideoAnalysis.HistoryData.Handler
         public PlayTimeEventArgs(DateTime? _PlayCurrentTime)
         {
             this.PlayCurrentTime = _PlayCurrentTime;
-
         }
     }
 }

@@ -5,6 +5,37 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ydvsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="analysis_report_attachment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="base_path" Type="varchar" MaxLength="50" />
+          <Property Name="relative_path" Type="varchar" MaxLength="100" />
+          <Property Name="file_extension" Type="varchar" MaxLength="10" />
+          <Property Name="file_name" Type="varchar" MaxLength="50" />
+          <Property Name="file_from_channel" Type="varchar" MaxLength="10" />
+          <Property Name="file_from_channel_name" Type="varchar" MaxLength="20" />
+          <Property Name="analysis_report_info_id" Type="varchar" MaxLength="36" />
+        </EntityType>
+        <EntityType Name="analysis_report_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="train_type" Type="varchar" MaxLength="10" />
+          <Property Name="train_no" Type="varchar" MaxLength="10" />
+          <Property Name="train_short_name" Type="varchar" MaxLength="20" />
+          <Property Name="driver_name" Type="varchar" MaxLength="10" />
+          <Property Name="driver_num" Type="varchar" MaxLength="10" />
+          <Property Name="ass_driver_name" Type="varchar" MaxLength="10" />
+          <Property Name="ass_driver_num" Type="varchar" MaxLength="10" />
+          <Property Name="event_time" Type="datetime" Precision="0" />
+          <Property Name="analysis_time" Type="datetime" Precision="0" />
+          <Property Name="analysis_person" Type="varchar" MaxLength="10" />
+          <Property Name="analysis_content" Type="varchar" MaxLength="250" />
+          <Property Name="event_data_json_str" Type="text" />
+        </EntityType>
         <EntityType Name="base_driver_info">
           <Key>
             <PropertyRef Name="id" />
@@ -37,6 +68,8 @@
           <Property Name="update_time" Type="datetime" Precision="0" />
         </EntityType>
         <EntityContainer Name="ydvsModelStoreContainer">
+          <EntitySet Name="analysis_report_attachment" EntityType="Self.analysis_report_attachment" Schema="ydvs" store:Type="Tables" />
+          <EntitySet Name="analysis_report_info" EntityType="Self.analysis_report_info" Schema="ydvs" store:Type="Tables" />
           <EntitySet Name="base_driver_info" EntityType="Self.base_driver_info" Schema="ydvs" store:Type="Tables" />
           <EntitySet Name="base_train_proprietorship" EntityType="Self.base_train_proprietorship" Schema="ydvs" store:Type="Tables" />
         </EntityContainer>
@@ -45,14 +78,34 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ydvsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ydvsEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="analysis_report_info" EntityType="ydvsModel.analysis_report_info" />
           <EntitySet Name="base_driver_info" EntityType="ydvsModel.base_driver_info" />
           <EntitySet Name="base_train_proprietorship" EntityType="ydvsModel.base_train_proprietorship" />
+          <EntitySet Name="analysis_report_attachment" EntityType="ydvsModel.analysis_report_attachment" />
         </EntityContainer>
+        <EntityType Name="analysis_report_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="train_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="train_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="train_short_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="driver_name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="driver_num" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ass_driver_name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ass_driver_num" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="event_time" Type="DateTime" />
+          <Property Name="analysis_time" Type="DateTime" />
+          <Property Name="analysis_person" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="analysis_content" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="event_data_json_str" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="base_driver_info">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
           <Property Name="order" Type="Int32" />
           <Property Name="card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -67,24 +120,56 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
           <Property Name="order" Type="Int32" />
           <Property Name="train_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="train_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="railway_administration" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="locomotive_depot" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="work_shop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="creat_time" Type="DateTime" />
           <Property Name="modifier" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="update_time" Type="DateTime" />
-          <Property Name="railway_administration" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-      </Schema>
+        <EntityType Name="analysis_report_attachment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="base_path" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="relative_path" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="file_extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="file_from_channel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="file_from_channel_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="analysis_report_info_id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ydvsModelStoreContainer" CdmEntityContainer="ydvsEntities" >
+          <EntitySetMapping Name="analysis_report_info">
+            <EntityTypeMapping TypeName="ydvsModel.analysis_report_info">
+              <MappingFragment StoreEntitySet="analysis_report_info">
+                <ScalarProperty Name="event_data_json_str" ColumnName="event_data_json_str" />
+                <ScalarProperty Name="analysis_content" ColumnName="analysis_content" />
+                <ScalarProperty Name="analysis_person" ColumnName="analysis_person" />
+                <ScalarProperty Name="analysis_time" ColumnName="analysis_time" />
+                <ScalarProperty Name="event_time" ColumnName="event_time" />
+                <ScalarProperty Name="ass_driver_num" ColumnName="ass_driver_num" />
+                <ScalarProperty Name="ass_driver_name" ColumnName="ass_driver_name" />
+                <ScalarProperty Name="driver_num" ColumnName="driver_num" />
+                <ScalarProperty Name="driver_name" ColumnName="driver_name" />
+                <ScalarProperty Name="train_short_name" ColumnName="train_short_name" />
+                <ScalarProperty Name="train_no" ColumnName="train_no" />
+                <ScalarProperty Name="train_type" ColumnName="train_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="base_driver_info">
             <EntityTypeMapping TypeName="ydvsModel.base_driver_info">
               <MappingFragment StoreEntitySet="base_driver_info">
@@ -104,16 +189,30 @@
           <EntitySetMapping Name="base_train_proprietorship">
             <EntityTypeMapping TypeName="ydvsModel.base_train_proprietorship">
               <MappingFragment StoreEntitySet="base_train_proprietorship">
-                <ScalarProperty Name="railway_administration" ColumnName="railway_administration" />
                 <ScalarProperty Name="update_time" ColumnName="update_time" />
                 <ScalarProperty Name="modifier" ColumnName="modifier" />
                 <ScalarProperty Name="creat_time" ColumnName="creat_time" />
                 <ScalarProperty Name="creator" ColumnName="creator" />
                 <ScalarProperty Name="work_shop" ColumnName="work_shop" />
                 <ScalarProperty Name="locomotive_depot" ColumnName="locomotive_depot" />
+                <ScalarProperty Name="railway_administration" ColumnName="railway_administration" />
                 <ScalarProperty Name="train_no" ColumnName="train_no" />
                 <ScalarProperty Name="train_type" ColumnName="train_type" />
                 <ScalarProperty Name="order" ColumnName="order" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="analysis_report_attachment">
+            <EntityTypeMapping TypeName="ydvsModel.analysis_report_attachment">
+              <MappingFragment StoreEntitySet="analysis_report_attachment">
+                <ScalarProperty Name="analysis_report_info_id" ColumnName="analysis_report_info_id" />
+                <ScalarProperty Name="file_from_channel_name" ColumnName="file_from_channel_name" />
+                <ScalarProperty Name="file_from_channel" ColumnName="file_from_channel" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="file_extension" ColumnName="file_extension" />
+                <ScalarProperty Name="relative_path" ColumnName="relative_path" />
+                <ScalarProperty Name="base_path" ColumnName="base_path" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

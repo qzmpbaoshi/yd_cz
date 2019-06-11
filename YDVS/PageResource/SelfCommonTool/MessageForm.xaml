@@ -26,7 +26,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="{DynamicResource HeadColor}">
+        <Border Grid.Row="0" Background="{DynamicResource MainColor}">
             <DockPanel>
                 <Image Margin="8,0" Source="images/sound_high.png" Stretch="Fill" Width="25" Height="25" VerticalAlignment="Center" DockPanel.Dock="Left"/>
                 <TextBlock x:Name="MessageHead" TextWrapping="Wrap" Text="消息标题" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" FontSize="20" DockPanel.Dock="Left" Foreground="White"/>

@@ -8,14 +8,16 @@ namespace VideoAnalysis.HistoryData.ViewModel
 {
     public class VideoViewModel
     {
-        public VideoViewModel(Int32 _playPort, IntPtr _playIntPtr, List<VideoSource> _videos, int _playIndex, bool _isNeedRef, bool _isNeedGroup)
+        public VideoViewModel(Int32 _playPort, int _videoChannel, IntPtr _playIntPtr, List<VideoSource> _videos, int _playIndex, bool _isNeedRef, bool _isNeedGroup)
         {
             this.PlayPort = _playPort;
+            this.VideoChannel = _videoChannel;
             this.PlayIntPtr = _playIntPtr;
             this.Videos = _videos;
             this.PlayIndex = _playIndex;
             this.IsNeedRef = _isNeedRef;
             this.IsNeedGroup = _isNeedGroup;
+            this.WinPosition = _videoChannel;
         }
         /// <summary>
         /// 播放端口号
@@ -24,7 +26,6 @@ namespace VideoAnalysis.HistoryData.ViewModel
         /// <summary>
         /// 播放时长 秒
         /// </summary>
-        public uint TimeLength { get; set; }
         private int _playIndex;
         /// <summary>
         /// 播放的同位置视频的位置
@@ -33,17 +34,25 @@ namespace VideoAnalysis.HistoryData.ViewModel
         {
             get
             {
-                return this._playIndex;
+                return this.Videos == null || this._playIndex >= this.Videos.Count ? -1 : this._playIndex;
             }
             set
             {
-                this._playIndex = value >= this.Videos.Count ? 0 : value; ;
+                this._playIndex = value;
             }
         }
         /// <summary>
         /// 获取播放容器句柄
         /// </summary>
         public IntPtr PlayIntPtr { get; set; }
+        /// <summary>
+        /// 视频通道
+        /// </summary>
+        public int VideoChannel { get; set; }
+        /// <summary>
+        /// 窗口位置
+        /// </summary>
+        public int WinPosition { get; set; }
         /// <summary>
         /// 是否需要建立索引
         /// </summary>
@@ -67,7 +76,7 @@ namespace VideoAnalysis.HistoryData.ViewModel
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         /// <summary>
         /// 视频时长，单位 秒 无符号
         /// </summary>

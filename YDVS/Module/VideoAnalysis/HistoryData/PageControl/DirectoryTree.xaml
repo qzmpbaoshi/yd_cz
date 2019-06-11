@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VideoAnalysis.HistoryData.PageControl"
+             xmlns:self="clr-namespace:SelfCommonTool;assembly=SelfCommonTool"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="250" Background="{DynamicResource ContentColor}" BorderThickness="0" FontFamily="{DynamicResource MainFontFamily}">
     <UserControl.Resources>
@@ -34,5 +35,6 @@
                 </DockPanel>
             </ScrollViewer>
         </Border>
+        <self:Wait x:Name="dir_tree_wait" Grid.RowSpan="2" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

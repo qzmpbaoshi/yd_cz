@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 
 namespace SelfCommonTool
 {
-	/// <summary>
-	/// Wait.xaml 的交互逻辑
-	/// </summary>
-	public partial class Wait : UserControl
-	{
+    /// <summary>
+    /// Wait.xaml 的交互逻辑
+    /// </summary>
+    public partial class Wait : UserControl
+    {
         public static DependencyProperty IsTextInfoStr;
         public string TextInfoStr
         {
@@ -33,12 +33,13 @@ namespace SelfCommonTool
 
         private static void SetTextInfo(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Wait w = (Wait)d;
-           
+            Wait w = d as Wait;
+            if (w == null) return;
+            w.showText.Text = e.NewValue.ToString();
         }
-		public Wait()
-		{
+        public Wait()
+        {
             this.InitializeComponent();
-		}
-	}
+        }
+    }
 }

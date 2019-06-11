@@ -48,6 +48,7 @@ namespace VideoAnalysis.HistoryData.HKHelper
         /// <returns></returns>
         [DllImport(@"..\HKDlls\PlayCtrl.dll")]
         public static extern bool PlayM4_SetSycGroup(Int32 nPort, int dwGroupIndex);
+        #region 播放控制
         /// <summary>
         /// 开启播放
         /// </summary>
@@ -123,8 +124,12 @@ namespace VideoAnalysis.HistoryData.HKHelper
         /// <returns></returns>
         [DllImport(@"..\HKDlls\PlayCtrl.dll")]
         public static extern bool PlayM4_SetFileEndCallback(Int32 nPort, FileEndCallback fFileEndCBFun, IntPtr pUser);
-
-
+        /// <summary>
+        /// 建立索引回调函数 
+        /// </summary>
+        /// <param name="nPort">播放器通道号</param>
+        /// <param name="pUser">用户数据 </param>
+        public delegate void FileRefDoneCB(uint nPort, IntPtr nUser);
         /// <summary>
         /// 设置建立索引回调。
         /// 建立文件索引回调。为了能在文件中准确快速的定位，在文件打开的时候生成文件索引。
@@ -169,9 +174,61 @@ namespace VideoAnalysis.HistoryData.HKHelper
         /// <returns>成功返回已经解码的视频帧数；失败返回0xffffffff。获取错误码调用PlayM4_GetLastError。</returns>
         [DllImport(@"..\HKDlls\PlayCtrl.dll")]
         public static extern uint PlayM4_GetPlayedFrames(Int32 nPort);
-
+        /// <summary>
+        /// 获取原始图像大小。
+        /// </summary>
+        /// <param name="nPort">播放通道号 </param>
+        /// <param name="pWidth">原始图像的宽度 </param>
+        /// <param name="pHeight">原始图像的高度 </param>
+        /// <returns></returns>
+        [DllImport(@"..\HKDlls\PlayCtrl.dll")]
+        public static extern bool PlayM4_GetPictureSize(Int32 nPort,ref UInt32 pWidth,ref UInt32 pHeight);
+        #endregion
+        #region 抓图
+        /// <summary>
+        /// 显示回调函数
+        /// </summary>
+        /// <param name="nPort">播放器通道号</param>
+        /// <param name="pBuf">返回图像数据的指针</param>
+        /// <param name="nSize">返回图像数据大小 </param>
+        /// <param name="nWidth">画面宽，单位像素 </param>
+        /// <param name="nHeight">画面高</param>
+        /// <param name="nStamp"> 时标信息，单位毫秒</param>
+        /// <param name="nType">数据类型，T_YV12，T_RGB32，T_UYVY，具体定义如下表所示：</param>
+        /// <param name="nReceved">保留 </param>
+        public delegate void DisplayCBFun(uint nPort, byte[] pBuf, Int32 nSize, Int32 nWidth, Int32 nHeight, Int32 nStamp, Int32 nType, Int32 nReceved);
+        /// <summary>
+        /// 显示回调
+        /// </summary>
+        /// <param name="nPort">播放通道号 </param>
+        /// <param name="fDisplayCBFun">显示回调函数，若不需要回调函数则可以为NULL，否则不能置为NULL </param>
+        /// <returns>成功返回TRUE；失败返回FALSE。获取错误码调用PlayM4_GetLastError。</returns>
+        [DllImport(@"..\HKDlls\PlayCtrl.dll")]
+        public static extern bool PlayM4_SetDisplayCallBack(Int32 nPort, DisplayCBFun fDisplayCBFun);
+        /// <summary>
+        /// 直接抓取JPEG图像。
+        /// </summary>
+        /// <param name="nPort">播放通道号 </param>
+        /// <param name="pJpeg">存放JEPG图像数据地址，由用户分配，不得小于JPEG图像大小，建议大小w * h * 3/2， 其中w和h分别为图像宽高 </param>
+        /// <param name="nBufSize">申请的缓冲区大小 </param>
+        /// <param name="pJpegSize">获取到的实际JPEG图像数据大小</param>
+        /// <returns></returns>
+        [DllImport(@"..\HKDlls\PlayCtrl.dll")]
+        public static extern bool PlayM4_GetJPEG(Int32 nPort, byte[] pJpeg, UInt32 nBufSize, ref UInt32 pJpegSize);
+        /// <summary>
+        /// 图像数据转为JPEG 格式。
+        /// </summary>
+        /// <param name="pBuf">抓图回调函数中图像缓冲区</param>
+        /// <param name="nSize">抓图回调函数中图像的大小 </param>
+        /// <param name="nWidth">抓图回调函数中图像宽度 </param>
+        /// <param name="nHeight">抓图回调函数中图像高度</param>
+        /// <param name="nType">抓图回调函数中图像类型，（当前的播放库获取的类型是yv12） </param>
+        /// <param name="sFileName">要保存的文件名，最好以JPG作为文件扩展名 </param>
+        /// <returns>成功返回TRUE；失败返回FALSE。获取错误码调用PlayM4_GetLastError。</returns>
+        [DllImport(@"..\HKDlls\PlayCtrl.dll")]
+        public static extern bool PlayM4_ConvertToJpegFile(byte[] pBuf, UInt32 nSize, UInt32 nWidth, UInt32 nHeight, Int32 nType, string sFileName);
+        #endregion
     }
-    public delegate void FileRefDoneCB(uint nPort, IntPtr nUser);
     [StructLayoutAttribute(LayoutKind.Sequential, Pack = 1)]
     public struct PLAYM4_SYSTEM_TIME
     {

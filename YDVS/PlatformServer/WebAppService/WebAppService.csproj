@@ -168,6 +168,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TrainProprietorshipController.cs" />
     <Compile Include="DataAdapter\DriverAdapter.cs" />
+    <Compile Include="DataAdapter\IAdapter\IAnalysisReportInfoAdapter.cs" />
     <Compile Include="DataAdapter\IAdapter\IDriverAdapter.cs" />
     <Compile Include="DataAdapter\IAdapter\ITrainProprietorshipAdapter.cs" />
     <Compile Include="DataAdapter\TrainProprietorshipAdapter.cs" />

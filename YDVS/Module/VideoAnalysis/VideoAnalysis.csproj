@@ -69,6 +69,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -101,26 +102,34 @@
       <DependentUpon>TableItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="DriverInfo\ViewModel\DriverInfoViewModel.cs" />
-    <Compile Include="HistoryData\Handler\PlayTimeEventArgs.cs" />
-    <Compile Include="HistoryData\Handler\VideoSourceEventArgs.cs" />
+    <Compile Include="HistoryData\Common\MonitorDataHelper.cs" />
+    <Compile Include="HistoryData\EventHandler\DrawVideoChartEventArgs.cs" />
+    <Compile Include="HistoryData\EventHandler\ChangeVideoEventArgs.cs" />
+    <Compile Include="HistoryData\EventHandler\PlayTimeEventArgs.cs" />
+    <Compile Include="HistoryData\EventHandler\VideoSourceEventArgs.cs" />
     <Compile Include="HistoryData\Helper\FileHelper.cs" />
     <Compile Include="HistoryData\HistoryData.xaml.cs">
       <DependentUpon>HistoryData.xaml</DependentUpon>
     </Compile>
     <Compile Include="HistoryData\HKHelper\PlayCtrlHelper.cs" />
+    <Compile Include="HistoryData\PageControl\ChildPage\AnalysisReport.xaml.cs">
+      <DependentUpon>AnalysisReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HistoryData\PageControl\DirectoryTree.xaml.cs">
       <DependentUpon>DirectoryTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="HistoryData\PageControl\LKJChart.xaml.cs">
       <DependentUpon>LKJChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HistoryData\PageControl\VideoData.xaml.cs">
-      <DependentUpon>VideoData.xaml</DependentUpon>
+    <Compile Include="HistoryData\PageControl\MonitorData.xaml.cs">
+      <DependentUpon>MonitorData.xaml</DependentUpon>
     </Compile>
     <Compile Include="HistoryData\PageControl\VideoPlay.xaml.cs">
       <DependentUpon>VideoPlay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HistoryData\ViewModel\AnalysisReportViewModel.cs" />
     <Compile Include="HistoryData\ViewModel\DicTreeViewItemModel.cs" />
+    <Compile Include="HistoryData\ViewModel\MonitorDataViewModel.cs" />
     <Compile Include="HistoryData\ViewModel\VideoViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TrainProprietorship\AddDialog.xaml.cs">
@@ -168,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="HistoryData\PageControl\ChildPage\AnalysisReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HistoryData\PageControl\DirectoryTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,7 +189,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HistoryData\PageControl\VideoData.xaml">
+    <Page Include="HistoryData\PageControl\MonitorData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
