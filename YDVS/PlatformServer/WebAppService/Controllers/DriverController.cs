@@ -15,9 +15,9 @@ namespace WebAppService.Controllers
             this.DBAdapter = new DriverAdapter();
         }
         [HttpPost]
-        public RequestPagingResult<List<DriverInfoModel>> GetDrivers(PagingSearchCondition<DriverSearch> condition)
+        public RequestResult<List<DriverInfoModel>> GetDrivers(PagingSearchCondition<DriverSearch> condition)
         {
-            RequestPagingResult<List<DriverInfoModel>> rst = this.DBAdapter.GetDrivers(condition);
+            RequestResult<List<DriverInfoModel>> rst = this.DBAdapter.GetDrivers(condition);
             return rst;
         }
         //新增

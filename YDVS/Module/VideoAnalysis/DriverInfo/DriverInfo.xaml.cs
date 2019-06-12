@@ -66,13 +66,13 @@ namespace VideoAnalysis.DriverInfo
                 {
                     Card = this.condition_tb.Text
                 };
-                Task<RequestPagingResult<List<DriverInfoModel>>> task = Task<RequestPagingResult<List<DriverInfoModel>>>.Run(() =>
+                Task<RequestResult<List<DriverInfoModel>>> task = Task<RequestResult<List<DriverInfoModel>>>.Run((Func<RequestResult<List<DriverInfoModel>>>)(() =>
                 {
-                    return CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestPagingResult<List<DriverInfoModel>>>(requestUrl, condition);
-                });
+                    return (RequestResult<List<DriverInfoModel>>)CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestResult<List<DriverInfoModel>>>(requestUrl, condition);
+                }));
                 task.GetAwaiter().OnCompleted(() =>
                 {
-                    RequestPagingResult<List<DriverInfoModel>> rst = task.Result;
+                    RequestResult<List<DriverInfoModel>> rst = task.Result;
                     this.Dispatcher.Invoke(() =>
                     {
                         TableItem itemControl = null;

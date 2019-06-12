@@ -27,5 +27,9 @@ namespace DBHandlerForMySQL.YDVS
         public string analysis_person { get; set; }
         public string analysis_content { get; set; }
         public string event_data_json_str { get; set; }
+        public string creator { get; set; }
+        public Nullable<System.DateTime> creat_time { get; set; }
+        public string modifier { get; set; }
+        public Nullable<System.DateTime> update_time { get; set; }
     }
 }

@@ -68,7 +68,8 @@ namespace VideoAnalysis.HistoryData
                     this.Chart.chart_wait.Visibility = Visibility.Visible;
                 });
                 this.Chart.SetLKJChartTitleAsync(e.ParentDirName);
-                this.VideoPlay.SetPlayVideoSourceAsync(e.VideoSources);
+                this.VideoPlay.SetPlayVideoSourceAsync(e.ParentDirName,e.VideoSources);
+
             }
             catch { }
         }

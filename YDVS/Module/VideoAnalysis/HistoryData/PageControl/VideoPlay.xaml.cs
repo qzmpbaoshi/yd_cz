@@ -38,6 +38,7 @@ namespace VideoAnalysis.HistoryData.PageControl
         /// 播放器容器
         /// </summary>
         private List<Border> PlayBorderContainers = new List<Border>();
+        public string VideDateStr { get; set; }
         public VideoPlay()
         {
             InitializeComponent();
@@ -226,10 +227,11 @@ namespace VideoAnalysis.HistoryData.PageControl
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "改变视频进度", ex);
             }
         }
-        public async void SetPlayVideoSourceAsync(List<VideoSource> Videos)
+        public async void SetPlayVideoSourceAsync(string _videoDateStr, List<VideoSource> Videos)
         {
             try
             {
+                this.VideDateStr = _videoDateStr;
                 if (this.playTimer != null)
                     this.playTimer.Stop();
                 this.nPause = -1;
@@ -1130,6 +1132,7 @@ namespace VideoAnalysis.HistoryData.PageControl
                     MessageForm.Show("提示", "请先播放视频！", 0);
                     return;
                 }
+                if (string.IsNullOrWhiteSpace(this.play_time_tb.Text)) return;
                 DateTime? refTime = Convert.ToDateTime(this.play_time_tb.Text);
                 if (refTime == null)
                 {
@@ -1141,6 +1144,7 @@ namespace VideoAnalysis.HistoryData.PageControl
                 Task.Run(() =>
                 {
                     AnalysisReportViewModel aReportViewModel = new AnalysisReportViewModel();
+                    aReportViewModel.ImageStreamTotalLength = 0;
                     int i = 0;
                     bool isGetNeedInfo = false;
                     List<CapVideoImage> capImages = new List<CapVideoImage>();
@@ -1151,6 +1155,7 @@ namespace VideoAnalysis.HistoryData.PageControl
                         if (vvm.PlayIndex < 0) continue;
                         if (!isGetNeedInfo)
                         {
+                            aReportViewModel.ReportDateStr = this.VideDateStr;
                             aReportViewModel.TrainType = vvm.Videos[vvm.PlayIndex].TrainType;
                             aReportViewModel.TrainNo = vvm.Videos[vvm.PlayIndex].TrainNo;
                             aReportViewModel.TrainShortName = vvm.Videos[vvm.PlayIndex].TrainShortName;
@@ -1175,6 +1180,7 @@ namespace VideoAnalysis.HistoryData.PageControl
                             Console.WriteLine("通道" + vvm.PlayPort + "：" + vvm.Videos[vvm.PlayIndex].FullPathName + "截图失败！错误号：" + errorCode);
                         }
                         capImage.CapImageBuf = m_pCapBuf;
+                        aReportViewModel.ImageStreamTotalLength += m_pCapBuf.Length;
                         capImages.Add(capImage);
                         i++;
                     }

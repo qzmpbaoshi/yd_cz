@@ -22,5 +22,9 @@ namespace DBHandlerForMySQL.YDVS
         public string file_from_channel { get; set; }
         public string file_from_channel_name { get; set; }
         public string analysis_report_info_id { get; set; }
+        public string creator { get; set; }
+        public Nullable<System.DateTime> creat_time { get; set; }
+        public string modifier { get; set; }
+        public Nullable<System.DateTime> update_time { get; set; }
     }
 }

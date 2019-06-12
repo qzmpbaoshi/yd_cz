@@ -61,13 +61,13 @@ namespace VideoAnalysis.TrainProprietorship
                 {
                     TrainShortName = this.condition_tb.Text
                 };
-                Task<RequestPagingResult<List<TrainProprietorshipModel>>> task = Task<RequestPagingResult<List<TrainProprietorshipModel>>>.Run(() =>
+                Task<RequestResult<List<TrainProprietorshipModel>>> task = Task<RequestResult<List<TrainProprietorshipModel>>>.Run((Func<RequestResult<List<TrainProprietorshipModel>>>)(() =>
                 {
-                    return CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestPagingResult<List<TrainProprietorshipModel>>>(requestUrl, condition);
-                });
+                    return (RequestResult<List<TrainProprietorshipModel>>)CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestResult<List<TrainProprietorshipModel>>>(requestUrl, condition);
+                }));
                 task.GetAwaiter().OnCompleted(() =>
                 {
-                    RequestPagingResult<List<TrainProprietorshipModel>> rst = task.Result;
+                    RequestResult<List<TrainProprietorshipModel>> rst = task.Result;
                     this.Dispatcher.Invoke(() =>
                     {
                         TableItem itemControl = null;

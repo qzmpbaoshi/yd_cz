@@ -10,13 +10,17 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="varchar" MaxLength="36" Nullable="false" />
-          <Property Name="base_path" Type="varchar" MaxLength="50" />
-          <Property Name="relative_path" Type="varchar" MaxLength="100" />
+          <Property Name="base_path" Type="varchar" MaxLength="250" />
+          <Property Name="relative_path" Type="varchar" MaxLength="250" />
           <Property Name="file_extension" Type="varchar" MaxLength="10" />
           <Property Name="file_name" Type="varchar" MaxLength="50" />
           <Property Name="file_from_channel" Type="varchar" MaxLength="10" />
-          <Property Name="file_from_channel_name" Type="varchar" MaxLength="20" />
+          <Property Name="file_from_channel_name" Type="varchar" MaxLength="50" />
           <Property Name="analysis_report_info_id" Type="varchar" MaxLength="36" />
+          <Property Name="creator" Type="varchar" MaxLength="10" />
+          <Property Name="creat_time" Type="datetime" Precision="0" />
+          <Property Name="modifier" Type="varchar" MaxLength="10" />
+          <Property Name="update_time" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="analysis_report_info">
           <Key>
@@ -35,6 +39,10 @@
           <Property Name="analysis_person" Type="varchar" MaxLength="10" />
           <Property Name="analysis_content" Type="varchar" MaxLength="250" />
           <Property Name="event_data_json_str" Type="text" />
+          <Property Name="creator" Type="varchar" MaxLength="10" />
+          <Property Name="creat_time" Type="datetime" Precision="0" />
+          <Property Name="modifier" Type="varchar" MaxLength="10" />
+          <Property Name="update_time" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="base_driver_info">
           <Key>
@@ -100,6 +108,10 @@
           <Property Name="analysis_person" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="analysis_content" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="event_data_json_str" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="creat_time" Type="DateTime" />
+          <Property Name="modifier" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="update_time" Type="DateTime" />
         </EntityType>
         <EntityType Name="base_driver_info">
           <Key>
@@ -137,13 +149,17 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="false" />
-          <Property Name="base_path" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="relative_path" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="base_path" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="relative_path" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="file_extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="file_from_channel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="file_from_channel_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="file_from_channel_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="analysis_report_info_id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="creat_time" Type="DateTime" />
+          <Property Name="modifier" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="update_time" Type="DateTime" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -154,6 +170,10 @@
           <EntitySetMapping Name="analysis_report_info">
             <EntityTypeMapping TypeName="ydvsModel.analysis_report_info">
               <MappingFragment StoreEntitySet="analysis_report_info">
+                <ScalarProperty Name="update_time" ColumnName="update_time" />
+                <ScalarProperty Name="modifier" ColumnName="modifier" />
+                <ScalarProperty Name="creat_time" ColumnName="creat_time" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
                 <ScalarProperty Name="event_data_json_str" ColumnName="event_data_json_str" />
                 <ScalarProperty Name="analysis_content" ColumnName="analysis_content" />
                 <ScalarProperty Name="analysis_person" ColumnName="analysis_person" />
@@ -206,6 +226,10 @@
           <EntitySetMapping Name="analysis_report_attachment">
             <EntityTypeMapping TypeName="ydvsModel.analysis_report_attachment">
               <MappingFragment StoreEntitySet="analysis_report_attachment">
+                <ScalarProperty Name="update_time" ColumnName="update_time" />
+                <ScalarProperty Name="modifier" ColumnName="modifier" />
+                <ScalarProperty Name="creat_time" ColumnName="creat_time" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
                 <ScalarProperty Name="analysis_report_info_id" ColumnName="analysis_report_info_id" />
                 <ScalarProperty Name="file_from_channel_name" ColumnName="file_from_channel_name" />
                 <ScalarProperty Name="file_from_channel" ColumnName="file_from_channel" />

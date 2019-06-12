@@ -1,5 +1,4 @@
 ﻿using DBHandlerForMySQL.YDVS;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -8,7 +7,6 @@ using SystemModel;
 using SystemModel.DataModel;
 using SystemModel.RequestResult;
 using SystemModel.SearchConditionModel;
-using WebAppService.DataAdapter.IAdapter;
 
 namespace WebAppService.DataAdapter
 {
@@ -70,7 +68,7 @@ namespace WebAppService.DataAdapter
             catch (Exception ex)
             {
                 rst.Flag = false;
-                rst.Msg = "添加失败！" + ex.ToString();
+                rst.Msg = "删除失败！" + ex.ToString();
                 CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "删除机车配属段信息", ex);
                 return rst;
             }
@@ -140,9 +138,9 @@ namespace WebAppService.DataAdapter
             }
         }
 
-        public RequestPagingResult<List<TrainProprietorshipModel>> GetTrainProprietorships(PagingSearchCondition<TrainProprietorshipSearch> condition)
+        public RequestResult<List<TrainProprietorshipModel>> GetTrainProprietorships(PagingSearchCondition<TrainProprietorshipSearch> condition)
         {
-            RequestPagingResult<List<TrainProprietorshipModel>> rsts = new RequestPagingResult<List<TrainProprietorshipModel>>();
+            RequestResult<List<TrainProprietorshipModel>> rsts = new RequestResult<List<TrainProprietorshipModel>>();
             try
             {
                 rsts.Flag = true;

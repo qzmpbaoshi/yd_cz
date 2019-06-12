@@ -12,7 +12,7 @@ namespace SystemModel.DataModel
         private string _trainType;
         private string _trainNo;
         private string _trainShortName;
-        private string _driver_name;
+        private string _driverName;
         private string _driverNum;
         private string _assDriverName;
         private string _assDriverNum;
@@ -84,16 +84,16 @@ namespace SystemModel.DataModel
         /// <summary>
         /// 司机名称
         /// </summary>
-        public string Driver_name
+        public string DriverName
         {
             get
             {
-                return _driver_name;
+                return _driverName;
             }
 
             set
             {
-                _driver_name = value;
+                _driverName = value;
             }
         }
         /// <summary>

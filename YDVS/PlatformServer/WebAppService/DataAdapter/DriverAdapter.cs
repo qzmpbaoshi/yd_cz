@@ -142,9 +142,9 @@ namespace WebAppService.DataAdapter
             }
         }
 
-        public RequestPagingResult<List<DriverInfoModel>> GetDrivers(PagingSearchCondition<DriverSearch> condition)
+        public RequestResult<List<DriverInfoModel>> GetDrivers(PagingSearchCondition<DriverSearch> condition)
         {
-            RequestPagingResult<List<DriverInfoModel>> rsts = new RequestPagingResult<List<DriverInfoModel>>();
+            RequestResult<List<DriverInfoModel>> rsts = new RequestResult<List<DriverInfoModel>>();
             try
             {
                 using (ydvsEntities entities = new ydvsEntities())

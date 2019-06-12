@@ -42,11 +42,12 @@
   <ItemGroup>
     <Compile Include="DataModel\AnalysisReportAttachmentModel.cs" />
     <Compile Include="DataModel\AnalysisReportInfoModel.cs" />
+    <Compile Include="DataModel\DelAnalysisReportInfoModel.cs" />
     <Compile Include="DataModel\DriverInfoModel.cs" />
     <Compile Include="DataModel\FileTreeItemModel.cs" />
     <Compile Include="DataModel\TrainProprietorshipModel.cs" />
     <Compile Include="RequestResult\RequestEasyResult.cs" />
-    <Compile Include="RequestResult\RequestPagingResult.cs" />
+    <Compile Include="RequestResult\RequestResult.cs" />
     <Compile Include="SearchConditionModel\PagingSearchCondition.cs" />
     <Compile Include="SearchConditionModel\Search\AnalysisReportInfoSearch.cs" />
     <Compile Include="SearchConditionModel\Search\DriverSearch.cs" />

@@ -9,6 +9,10 @@ namespace VideoAnalysis.HistoryData.ViewModel
     public class AnalysisReportViewModel
     {
         /// <summary>
+        /// 分析报表所属日期
+        /// </summary>
+        public string ReportDateStr { get; set; }
+        /// <summary>
         /// 车型
         /// </summary>
         public string TrainType { get; set; }
@@ -28,6 +32,10 @@ namespace VideoAnalysis.HistoryData.ViewModel
         /// 视频截图字节流数组
         /// </summary>
         public List<CapVideoImage> CapImages { get; set; }
+        /// <summary>
+        /// 图片总长度
+        /// </summary>
+        public long ImageStreamTotalLength { get; set; }
         /// <summary>
         /// 截屏时的LKJ和TCMS数据
         /// </summary>

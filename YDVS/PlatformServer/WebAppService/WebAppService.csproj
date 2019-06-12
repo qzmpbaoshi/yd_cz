@@ -163,10 +163,16 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\ConfigerHelper.cs" />
+    <Compile Include="Controllers\AnalysisReportAttachmentController.cs" />
+    <Compile Include="Controllers\AnalysisReportInfoController.cs" />
     <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TrainProprietorshipController.cs" />
+    <Compile Include="DataAdapter\AnalysisReportAttachmentAdapter.cs" />
+    <Compile Include="DataAdapter\AnalysisReportInfoAdapter.cs" />
     <Compile Include="DataAdapter\DriverAdapter.cs" />
+    <Compile Include="DataAdapter\IAdapter\IAnalysisReportAttachmentAdapter.cs" />
     <Compile Include="DataAdapter\IAdapter\IAnalysisReportInfoAdapter.cs" />
     <Compile Include="DataAdapter\IAdapter\IDriverAdapter.cs" />
     <Compile Include="DataAdapter\IAdapter\ITrainProprietorshipAdapter.cs" />
