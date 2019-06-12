@@ -44,10 +44,10 @@
         </Border>
         <!--第二行-->
         <Border Grid.Row="1" Grid.Column="0">
-            <TextBlock Text="车次：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
+            <TextBlock Text="车次：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" />
         </Border>
-        <Border Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+        <Border Grid.Row="1" Grid.Column="1" >
+            <TextBlock x:Name="trainNum" Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" MouseEnter="trainNum_MouseEnter"/>
         </Border>
         <Border Grid.Row="1" Grid.Column="2">
             <TextBlock Text="总重：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
@@ -151,7 +151,7 @@
             <TextBlock Text="信号机种类：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>
         </Border>
         <Border Grid.Row="9" Grid.Column="1">
-            <TextBlock Text="xxxx" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock Text="xxxx" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16" Margin="0,14,0,0"/>
         </Border>
         <Border Grid.Row="9" Grid.Column="2">
             <TextBlock Text="装置状态：" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"/>

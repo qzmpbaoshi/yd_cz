@@ -98,6 +98,9 @@
     </Compile>
     <Compile Include="DriverInfo\ViewModel\DriverInfoViewModel.cs" />
     <Compile Include="HistoryData\Handler\PlayTimeEventArgs.cs" />
+    <Compile Include="HistoryData\Handler\StringHelper.cs" />
+    <Compile Include="HistoryData\Handler\StructHelper.cs" />
+    <Compile Include="HistoryData\Handler\StructUtils.cs" />
     <Compile Include="HistoryData\Handler\VideoSourceEventArgs.cs" />
     <Compile Include="HistoryData\Helper\FileHelper.cs" />
     <Compile Include="HistoryData\HistoryData.xaml.cs">
@@ -116,7 +119,11 @@
     <Compile Include="HistoryData\PageControl\VideoPlay.xaml.cs">
       <DependentUpon>VideoPlay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HistoryData\ViewModel\DataStruct.cs" />
     <Compile Include="HistoryData\ViewModel\DicTreeViewItemModel.cs" />
+    <Compile Include="HistoryData\ViewModel\Timestruct.cs" />
+    <Compile Include="HistoryData\ViewModel\TrainNumbStruct.cs" />
+    <Compile Include="HistoryData\ViewModel\TrainNumStruct.cs" />
     <Compile Include="HistoryData\ViewModel\VideoViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TrainProprietorship\AddDialog.xaml.cs">
