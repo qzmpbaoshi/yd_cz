@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PageStyle;Component/MainDictionary.xaml" />
                 <ResourceDictionary>
                     <local:WaitValue x:Key="WaitValue"/>
                 </ResourceDictionary>
@@ -35,9 +36,6 @@
                 </ResourceDictionary>
                 <ResourceDictionary>
                     <Storyboard x:Key="ProgressAnimation" RepeatBehavior="Forever">
-
-
-
                         <ColorAnimationUsingKeyFrames Duration="00:00:03.6" Storyboard.TargetName="block0" Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)">
 
                             <LinearColorKeyFrame KeyTime="00:00:00.0" Value="#FF000000"/>
@@ -123,9 +121,6 @@
                             <LinearColorKeyFrame KeyTime="00:00:03.6" Value="#00000000"/>
 
                         </ColorAnimationUsingKeyFrames>
-
-
-
                         <ColorAnimationUsingKeyFrames Duration="00:00:03.6" Storyboard.TargetName="block2" Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)">
 
                             <LinearColorKeyFrame KeyTime="00:00:00.0" Value="#0C000000"/>
@@ -844,7 +839,7 @@
 
         <Canvas x:Name="LayoutRoot" VerticalAlignment="Center" HorizontalAlignment="Center" Height="88" Width="88">
 
-            <TextBlock Text="请等待....." TextWrapping="Wrap" Canvas.Left="20.069" Canvas.Top="36.214" Foreground="{DynamicResource HeadColor}"/>
+            <TextBlock x:Name="showText" Text="请等待....." TextWrapping="Wrap" Canvas.Left="20.069" Canvas.Top="36.214" Foreground="{DynamicResource TableHeadColor}" FontSize="12"/>
 
             <Grid Width="10.734" Height="10.004" Canvas.Left="38.614" Canvas.Top="0.331">
 
@@ -852,7 +847,7 @@
 
                 <!-- Block 0 -->
 
-                <Path x:Name="block0" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#00000000" Fill="#FF586480" >
+                <Path x:Name="block0" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#00000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -866,7 +861,7 @@
 
                 <!-- Block 1 -->
 
-                <Path x:Name="block1" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#0C000000" Fill="#FF586480" >
+                <Path x:Name="block1" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#0C000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -880,7 +875,7 @@
 
                 <!-- Block 2 -->
 
-                <Path x:Name="block2" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#19000000" Fill="#FF586480" >
+                <Path x:Name="block2" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#19000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -894,7 +889,7 @@
 
                 <!-- Block 3 -->
 
-                <Path x:Name="block3" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#26000000" Fill="#FF586480" >
+                <Path x:Name="block3" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#26000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -908,7 +903,7 @@
 
                 <!-- Block 4 -->
 
-                <Path x:Name="block4" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#3D000000" Fill="#FF586480" >
+                <Path x:Name="block4" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#3D000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -922,7 +917,7 @@
 
                 <!-- Block 5 -->
 
-                <Path x:Name="block5" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#56000000" Fill="#FF586480" >
+                <Path x:Name="block5" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#56000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -936,7 +931,7 @@
 
                 <!-- Block 6 -->
 
-                <Path x:Name="block6" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#64000000" Fill="#FF586480" >
+                <Path x:Name="block6" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#64000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -950,7 +945,7 @@
 
                 <!-- Block 7 -->
 
-                <Path x:Name="block7" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#72000000" Fill="#FF586480" >
+                <Path x:Name="block7" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#72000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -964,7 +959,7 @@
 
                 <!-- Block 8 -->
 
-                <Path x:Name="block8" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#80000000" Fill="#FF586480" >
+                <Path x:Name="block8" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#80000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -978,7 +973,7 @@
 
                 <!-- Block 9 -->
 
-                <Path x:Name="block9" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}" OpacityMask="#8E000000" Fill="#FF586480"  >
+                <Path x:Name="block9" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}" OpacityMask="#8E000000" Fill="{DynamicResource TableHeadColor}"  >
 
                     <Path.RenderTransform>
 
@@ -992,7 +987,7 @@
 
                 <!-- Block 10 -->
 
-                <Path x:Name="block10" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#9C000000" Fill="#FF586480" >
+                <Path x:Name="block10" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#9C000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -1006,7 +1001,7 @@
 
                 <!-- Block 11 -->
 
-                <Path x:Name="block11" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#AA000000" Fill="#FF586480" >
+                <Path x:Name="block11" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#AA000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -1020,7 +1015,7 @@
 
                 <!-- Block 12 -->
 
-                <Path x:Name="block12" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#B8000000" Fill="#FF586480" >
+                <Path x:Name="block12" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#B8000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -1034,7 +1029,7 @@
 
                 <!-- Block 13 -->
 
-                <Path x:Name="block13" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#C6000000" Fill="#FF586480" >
+                <Path x:Name="block13" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#C6000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -1048,7 +1043,7 @@
 
                 <!-- Block 14 -->
 
-                <Path x:Name="block14" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#D4000000" Fill="#FF586480" >
+                <Path x:Name="block14" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}"  OpacityMask="#D4000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -1062,7 +1057,7 @@
 
                 <!-- Block 15 -->
 
-                <Path x:Name="block15" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}" OpacityMask="#E2000000" Fill="#FF586480" >
+                <Path x:Name="block15" Style="{StaticResource PathStyle}"  Data="{StaticResource Block}" OpacityMask="#E2000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -1076,7 +1071,7 @@
 
                 <!-- Block 16 -->
 
-                <Path x:Name="block16" Style="{StaticResource PathStyle}" Data="{StaticResource Block}"  OpacityMask="#F0000000" Fill="#FF586480" >
+                <Path x:Name="block16" Style="{StaticResource PathStyle}" Data="{StaticResource Block}"  OpacityMask="#F0000000" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 
@@ -1090,7 +1085,7 @@
 
                 <!-- Block 17 -->
 
-                <Path x:Name="block17" Style="{StaticResource PathStyle}" Data="{StaticResource Block}" OpacityMask="Black" Fill="#FF586480" >
+                <Path x:Name="block17" Style="{StaticResource PathStyle}" Data="{StaticResource Block}" OpacityMask="Black" Fill="{DynamicResource TableHeadColor}" >
 
                     <Path.RenderTransform>
 

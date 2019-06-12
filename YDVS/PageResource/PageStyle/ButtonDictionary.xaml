@@ -3,7 +3,6 @@
     <Style x:Key="BaseButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
@@ -40,6 +39,28 @@
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
                         <Image Source="./images/close.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource MouseOverColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource MouseOverColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="WinCloseButton_2" TargetType="{x:Type Button}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                        <Image Source="./images/cancel.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -147,7 +168,7 @@
     <Style x:Key="SearchButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Setter Property="Template">
@@ -174,7 +195,7 @@
     <Style x:Key="EditButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Setter Property="Template">
@@ -201,7 +222,7 @@
     <Style x:Key="AddButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Setter Property="Template">
@@ -228,7 +249,7 @@
     <Style x:Key="DelButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Setter Property="Template">
@@ -255,7 +276,7 @@
     <Style x:Key="RefreshButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Setter Property="Template">
@@ -282,7 +303,7 @@
     <Style x:Key="SaveButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Setter Property="Template">
@@ -309,7 +330,7 @@
     <Style x:Key="CloseButton" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainColor}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="{DynamicResource MainColor}"/>
         <Setter Property="Template">

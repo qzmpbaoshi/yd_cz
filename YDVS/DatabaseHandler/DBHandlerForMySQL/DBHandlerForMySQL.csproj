@@ -79,6 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YDVS\analysis_report_attachment.cs">
+      <DependentUpon>YDVS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YDVS\analysis_report_info.cs">
+      <DependentUpon>YDVS.tt</DependentUpon>
+    </Compile>
     <Compile Include="YDVS\base_driver_info.cs">
       <DependentUpon>YDVS.tt</DependentUpon>
     </Compile>

@@ -142,9 +142,9 @@ namespace WebAppService.DataAdapter
             }
         }
 
-        public RequestPagingResult<DriverInfoModel> GetDrivers(PagingSearchCondition<DriverSearch> condition)
+        public RequestPagingResult<List<DriverInfoModel>> GetDrivers(PagingSearchCondition<DriverSearch> condition)
         {
-            RequestPagingResult<DriverInfoModel> rsts = new RequestPagingResult<DriverInfoModel>();
+            RequestPagingResult<List<DriverInfoModel>> rsts = new RequestPagingResult<List<DriverInfoModel>>();
             try
             {
                 using (ydvsEntities entities = new ydvsEntities())
@@ -156,7 +156,7 @@ namespace WebAppService.DataAdapter
                     {
                         temp = temp.Where(d => isCondition || d.card.Contains(condition.SearchCondition.Card));
                     }
-                    rsts.ResultDatas = temp.Select(d => new DriverInfoModel
+                    rsts.ResultData = temp.Select(d => new DriverInfoModel
                     {
                         Id = d.id,
                         Order = d.order,

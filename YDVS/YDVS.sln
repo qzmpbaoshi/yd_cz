@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dlls", "Dlls", "{F166F396-2
 		Dlls\WPFVisifire.Charts.dll = Dlls\WPFVisifire.Charts.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPUMessageHandler", "Util\CPUMessageHandler\CPUMessageHandler.csproj", "{89F96DC1-1BEE-43D0-B7C3-9F3AD57D34D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +86,10 @@ Global
 		{F9F4BD6F-5706-4998-9A83-46B501F0F932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9F4BD6F-5706-4998-9A83-46B501F0F932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9F4BD6F-5706-4998-9A83-46B501F0F932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F96DC1-1BEE-43D0-B7C3-9F3AD57D34D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F96DC1-1BEE-43D0-B7C3-9F3AD57D34D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F96DC1-1BEE-43D0-B7C3-9F3AD57D34D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F96DC1-1BEE-43D0-B7C3-9F3AD57D34D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{C08866FE-84EF-40B6-8C81-55DD66386DCC} = {BE5FF94A-3930-4DFA-9807-DDC8D354D6DB}
 		{A4E6178E-BC9A-4566-87DB-4F4E6EB0C065} = {79132FD8-30E3-4F43-8234-A60CBD9B334D}
 		{F9F4BD6F-5706-4998-9A83-46B501F0F932} = {79132FD8-30E3-4F43-8234-A60CBD9B334D}
+		{89F96DC1-1BEE-43D0-B7C3-9F3AD57D34D9} = {21C8B074-3F1D-4523-B758-63133EF1C84E}
 	EndGlobalSection
 EndGlobal

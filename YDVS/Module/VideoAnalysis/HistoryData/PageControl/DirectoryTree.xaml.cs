@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using VideoAnalysis.HistoryData.Helper;
 using System.IO;
 using VideoAnalysis.HistoryData.ViewModel;
-using VideoAnalysis.HistoryData.Handler;
+using VideoAnalysis.HistoryData.EventHandler;
 
 namespace VideoAnalysis.HistoryData.PageControl
 {
@@ -43,9 +43,11 @@ namespace VideoAnalysis.HistoryData.PageControl
             {
                 DriveInfo[] drivers = FileHelper.GetDriveInfos();
                 drivers = drivers == null ? null : drivers.Where(d => d.DriveType == DriveType.Fixed || d.DriveType == DriveType.Removable).ToArray();
-                this.drive_comboBox.ItemsSource = drivers;
-                this.drive_comboBox.DisplayMemberPath = "Name";
-                this.drive_comboBox.SelectedIndex = drivers.Count() - 1;
+                this.Dispatcher.InvokeAsync(()=> {
+                    this.drive_comboBox.ItemsSource = drivers;
+                    this.drive_comboBox.DisplayMemberPath = "Name";
+                    this.drive_comboBox.SelectedIndex = drivers.Count() - 1;
+                });
             }
             catch (Exception ex)
             {
@@ -160,7 +162,7 @@ namespace VideoAnalysis.HistoryData.PageControl
                 {
                     List<VideoSource> videoSources = FileHelper.GetVideoSourceList(item.FullPathName);
                     if (videoSources != null && videoSources.Count > 0)
-                        this.SetVideoSourceEvent(this, new VideoSourceEventArgs(videoSources));
+                        this.SetVideoSourceEvent(this, new VideoSourceEventArgs(item.Name, videoSources));
                 }
             }
             catch (Exception ex)

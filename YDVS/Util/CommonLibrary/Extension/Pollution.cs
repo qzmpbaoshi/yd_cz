@@ -23,7 +23,12 @@ namespace CommonLibrary.Extension
             }
             return dic;
         }
-
+        /// <summary>
+        /// 属性复制，公共属性名称和类型必须相同
+        /// </summary>
+        /// <param name="toObj">目标对象</param>
+        /// <param name="fromObj">源对象</param>
+        /// <returns></returns>
         public static bool ObjectCopyProperty(this object toObj, object fromObj)
         {
             try

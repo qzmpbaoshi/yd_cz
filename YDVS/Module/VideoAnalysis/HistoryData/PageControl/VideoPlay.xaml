@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:VideoAnalysis.HistoryData.PageControl"
              xmlns:WinFormHost="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:WinFormControls="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:self="clr-namespace:SelfCommonTool;assembly=SelfCommonTool"
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1500" Background="Black">
     <UserControl.Resources>
@@ -33,16 +34,16 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="380"/>
         </Grid.ColumnDefinitions>
         <!--第一行-->
-        <Border x:Name="player_1_bo" Grid.Row="0" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_1_bo" Grid.Row="0" Grid.Column="0" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道1" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -52,7 +53,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_2_bo" Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_2_bo" Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道2" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -62,7 +63,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_3_bo" Grid.Row="0" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_3_bo" Grid.Row="0" Grid.Column="2" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道3" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -72,7 +73,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_4_bo" Grid.Row="0" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_4_bo" Grid.Row="0" Grid.Column="3" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道4" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -83,7 +84,7 @@
             </DockPanel>
         </Border>
         <!--第二行-->
-        <Border x:Name="player_5_bo" Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_5_bo" Grid.Row="1" Grid.Column="0" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道5" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -93,7 +94,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_6_bo" Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_6_bo" Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道6" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -103,7 +104,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_7_bo" Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_7_bo" Grid.Row="1" Grid.Column="2" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道7" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -113,7 +114,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_8_bo" Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_8_bo" Grid.Row="1" Grid.Column="3" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道8" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -124,7 +125,7 @@
             </DockPanel>
         </Border>
         <!--第三行-->
-        <Border x:Name="player_9_bo" Grid.Row="2" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_9_bo" Grid.Row="2" Grid.Column="0" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道9" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -134,7 +135,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_10_bo" Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_10_bo" Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道10" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -144,7 +145,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_11_bo" Grid.Row="2" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_11_bo" Grid.Row="2" Grid.Column="2" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道11" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -154,7 +155,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_12_bo" Grid.Row="2" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_12_bo" Grid.Row="2" Grid.Column="3" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道12" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -165,7 +166,7 @@
             </DockPanel>
         </Border>
         <!--第四行-->
-        <Border x:Name="player_13_bo" Grid.Row="3" Grid.Column="0" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_13_bo" Grid.Row="3" Grid.Column="0" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道13" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -175,7 +176,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_14_bo" Grid.Row="3" Grid.Column="1" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_14_bo" Grid.Row="3" Grid.Column="1" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道14" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -185,7 +186,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_15_bo" Grid.Row="3" Grid.Column="2" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_15_bo" Grid.Row="3" Grid.Column="2" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道15" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -195,7 +196,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_16_bo" Grid.Row="3" Grid.Column="3" BorderBrush="White" BorderThickness="2">
+        <Border x:Name="player_16_bo" Grid.Row="3" Grid.Column="3" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道16" TextAlign="MiddleRight" ForeColor="Lime" />
@@ -205,27 +206,58 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_max_bo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4" BorderBrush="White" BorderThickness="2" Visibility="Collapsed">
+        <Border x:Name="player_max_bo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4" BorderBrush="White" BorderThickness="1" Visibility="Collapsed">
         </Border>
-        <Border Grid.Row="4" Grid.ColumnSpan="16" BorderThickness="0,1,0,0" BorderBrush="Gray" Background="{DynamicResource ContentColor}">
-            <WrapPanel VerticalAlignment="Center"  Margin="20,0">
-                <Button x:Name="play_btn" Content="播放" Height="30" Width="60" Click="StartPlay_Click" Margin="0,0,5,0" Style="{DynamicResource BaseButton}"/>
-                <Button Content="停止" Height="30" Width="60" Click="StopPlay_Click" Margin="0,0,5,0" Style="{DynamicResource BaseButton}"/>
-
-                <Button Content="1" Height="30" Width="30" Margin="10,0,5,0" Click="Play_Win_1_Click" Style="{DynamicResource BaseButton}"/>
-                <Button Content="4" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_4_Click" Style="{DynamicResource BaseButton}"/>
-                <Button Content="6" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_6_Click" Style="{DynamicResource BaseButton}"/>
-                <Button Content="8" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_8_Click" Style="{DynamicResource BaseButton}"/>
-                <Button Content="9" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_9_Click" Style="{DynamicResource BaseButton}"/>
-                <Button Content="10" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_10_Click" Style="{DynamicResource BaseButton}"/>
-                <Button Content="13" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_13_Click" Style="{DynamicResource BaseButton}"/>
-                <Button Content="16" Height="30" Width="30" Margin="0,0,5,0" Click="Play_Win_16_Click" Style="{DynamicResource BaseButton}" x:Name="win_16_btn"/>
-
-                <TextBlock Margin="20,0" x:Name="play_total_time_tb" MinWidth="200" VerticalAlignment="Center"/>
-
-
-                <Button Content="2018-11-07 13:29:56" Height="30" Width="200" Margin="0,0,5,0" Click="SetSycStartTime_Click" Style="{DynamicResource BaseButton}"/>
-            </WrapPanel>
+        <Border Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" BorderThickness="2,0,0,0" BorderBrush="{DynamicResource BorderColor}" Background="{DynamicResource ContentColor}">
+            <StackPanel VerticalAlignment="Top"  Margin="0">
+                <Border Background="{DynamicResource TableHeadColor}" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderColor}">
+                    <DockPanel Height="35" >
+                        <TextBlock Text="视频时间：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0,0,0" FontSize="16" Foreground="White" FontWeight="Bold"/>
+                        <TextBlock Margin="0" x:Name="play_time_tb" VerticalAlignment="Center" HorizontalAlignment="Left" Width="250" FontSize="16" Foreground="White"/>
+                    </DockPanel>
+                </Border>
+                <DockPanel Height="80">
+                    <Border Background="{DynamicResource TableHeadColor}" DockPanel.Dock="Top" Height="30">
+                        <TextBlock Text="窗口选择" VerticalAlignment="Center" Margin="15,0" Foreground="White" FontSize="16"  FontWeight="Bold"/>
+                    </Border>
+                    <Border Padding="5">
+                        <WrapPanel>
+                            <Button Content="1" Height="30" Width="30" Margin="5" Click="Play_Win_1_Click" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="4" Height="30" Width="30" Margin="5" Click="Play_Win_4_Click" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="6" Height="30" Width="30" Margin="5" Click="Play_Win_6_Click" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="8" Height="30" Width="30" Margin="5" Click="Play_Win_8_Click" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="9" Height="30" Width="30" Margin="5" Click="Play_Win_9_Click" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="10" Height="30" Width="30" Margin="5" Click="Play_Win_10_Click" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="13" Height="30" Width="30" Margin="5" Click="Play_Win_13_Click" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="16" Height="30" Width="30" Margin="5" Click="Play_Win_16_Click" Style="{DynamicResource BaseButton}" x:Name="win_16_btn"/>
+                        </WrapPanel>
+                    </Border>
+                </DockPanel>
+                <DockPanel Height="80">
+                    <Border Background="{DynamicResource TableHeadColor}" DockPanel.Dock="Top" Height="30">
+                        <TextBlock Text="播放控制" VerticalAlignment="Center" Margin="15,0" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                    </Border>
+                    <Border Padding="5">
+                        <WrapPanel>
+                            <Button x:Name="play_btn" Content="播放" Height="30" Width="36" Click="StartPlay_Btn_Click" Margin="5" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="停止" Height="30" Width="36" Click="StopPlay_Btn_Click" Margin="5" Style="{DynamicResource BaseButton}"/>
+                            <Button Content="加速" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
+                            <Button Content="减速" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
+                            <Button Content="常速" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
+                            <Button Content="上一帧" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
+                            <Button Content="下一帧" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
+                            <Button Content="抓图" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" Click="GetJPEG_Btn_Click"/>
+                        </WrapPanel>
+                    </Border>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+        <Border x:Name="video_play_wait" Grid.ColumnSpan="4" Grid.RowSpan="5" Visibility="Collapsed">
+            <WinFormHost:WindowsFormsHost Background="Transparent">
+                <ElementHost>
+                    <self:Wait/>
+                </ElementHost>
+            </WinFormHost:WindowsFormsHost>
         </Border>
     </Grid>
 </UserControl>

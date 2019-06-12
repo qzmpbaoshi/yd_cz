@@ -4,11 +4,73 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts"
+             xmlns:self="clr-namespace:SelfCommonTool;assembly=SelfCommonTool"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PageStyle;Component/MainDictionary.xaml" />
+                <ResourceDictionary>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="Visifire Trial Edition">
+                                <Trigger.Setters>
+                                    <Setter Property="Visibility"  Value="Collapsed"></Setter>
+                                </Trigger.Setters>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <vc:Chart x:Name="LKJ_Chart">
-            
+        <vc:Chart x:Name="lkj_chart" Background="{DynamicResource ContentColor}" 
+                  AnimationEnabled="False" 
+                  ToolBarEnabled="False" 
+                  ToolTipEnabled="True" 
+                  IndicatorEnabled="False" 
+                  ScrollingEnabled="False"
+                  View3D="False"
+                  ShadowEnabled="False"
+                  >
+            <!--<vc:Chart.Style >
+                <Style TargetType="vc:Chart">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="Visifire Trial Edition">
+                            <Trigger.Setters>
+                                <Setter Property="Visibility"  Value="Collapsed"></Setter>
+                            </Trigger.Setters>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+               
+            </vc:Chart.Style>-->
+            <vc:Chart.Titles>
+                <vc:Title x:Name="lkj_chart_title"></vc:Title>
+            </vc:Chart.Titles>
+            <vc:Chart.PlotArea>
+                <vc:PlotArea Background="Transparent" MouseMove="PlotArea_MouseMove" MouseLeftButtonDown="PlotArea_MouseLeftButtonDown"/>
+            </vc:Chart.PlotArea>
+            <vc:Chart.AxesX>
+                <vc:Axis IntervalType="Minutes" Interval="30" ValueFormatString="HH:mm" />
+            </vc:Chart.AxesX>
+            <vc:Chart.AxesY>
+                <vc:Axis AxisMinimum="0" AxisMaximum="200" IntervalType="Number" Interval="40"/>
+            </vc:Chart.AxesY>
+            <vc:Chart.TrendLines>
+                <vc:TrendLine x:Name="lkj_chart_trendLine" LineThickness="1" LineColor="Red" Orientation="Vertical"/>
+            </vc:Chart.TrendLines>
+            <vc:Chart.Series>
+                <vc:DataSeries x:Name="lkj_chart_video_series" XValueType="DateTime" RenderAs="Line" LegendText="视频" LegendMarkerType="Line" LegendMarkerColor="Lime" MarkerSize="0" LineThickness="2" Color="MediumAquamarine" ShadowEnabled="False"/>
+                <!--<vc:DataSeries XValueType="DateTime" RenderAs="Line" LegendText="速度" LegendMarkerType="Line" LegendMarkerColor="DarkKhaki" MarkerSize="0"/>
+                <vc:DataSeries XValueType="DateTime"/>
+                <vc:DataSeries XValueType="DateTime"/>-->
+            </vc:Chart.Series>
         </vc:Chart>
+        <self:Wait x:Name="chart_wait" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

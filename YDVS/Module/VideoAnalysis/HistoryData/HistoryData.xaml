@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VideoAnalysis.HistoryData.PageControl"
+             xmlns:WinFormHost="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+             xmlns:WinFormControls="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              mc:Ignorable="d" 
-             xmlns:self="clr-namespace:SelfCommonTool;assembly=SelfCommonTool"
              d:DesignHeight="1080" d:DesignWidth="1920" Background="{DynamicResource ContentColor}" BorderThickness="0" FontFamily="{DynamicResource MainFontFamily}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -24,29 +25,23 @@
                 <ColumnDefinition Width="380"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="35"/>
+                <RowDefinition Height="195"/>
                 <RowDefinition/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
             <Border x:Name="dic_tree_container_bo" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,2,0" Grid.RowSpan="3">
-                <!--<local:DirectoryTree/>-->
+                <local:DirectoryTree x:Name="DirTree"/>
             </Border>
-            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,2" Background="{DynamicResource TableHeadColor}">
-                <DockPanel>
-                    <TextBlock Text="视频时间：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0,0,0" FontSize="16" Foreground="White" FontWeight="Bold"/>
-                    <TextBlock Margin="0" x:Name="play_time_tb" VerticalAlignment="Center" HorizontalAlignment="Left" Width="250" FontSize="16" Foreground="White"/>
-                </DockPanel>
+            <Border x:Name="video_container_bo" Grid.Column="1" Grid.ColumnSpan="2"  Grid.RowSpan="2" >
+                <local:VideoPlay x:Name="VideoPlay"></local:VideoPlay>
             </Border>
-            <Border x:Name="video_container_bo" Grid.Column="1"  Grid.RowSpan="2" Background="Black"  BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,2,0">
-                <!--<local:VideoPage></local:VideoPage>-->
-            </Border>
-            <Border Grid.Column="2" Grid.Row="1">
-                <local:VideoData/>
+            <Border Grid.Column="2" Grid.Row="1" BorderBrush="{DynamicResource BorderColor}" BorderThickness="2,0,0,0">
+                <local:MonitorData x:Name="VideoData"/>
             </Border>
             <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,2,0,0">
                 <TabControl Style="{DynamicResource TabControlStyle}">
                     <TabItem x:Name="chart_container_tabItem" Style="{DynamicResource TabItemStyle}" Header="LKJ曲线" FontSize="16" Height="30">
-                        <!--<local:LKJChart></local:LKJChart>-->
+                        <local:LKJChart x:Name="Chart"></local:LKJChart>
                     </TabItem>
                     <TabItem Style="{DynamicResource TabItemStyle}" Header="项点报警" FontSize="16" Height="30">
                         <TextBlock Text="开发中... ..."/>
@@ -57,6 +52,5 @@
                 </TabControl>
             </Border>
         </Grid>
-        <self:Wait Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="self_wait" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

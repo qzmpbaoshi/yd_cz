@@ -164,15 +164,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DriverController.cs" />
-    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TrainProprietorshipController.cs" />
     <Compile Include="DataAdapter\DriverAdapter.cs" />
+    <Compile Include="DataAdapter\IAdapter\IAnalysisReportInfoAdapter.cs" />
     <Compile Include="DataAdapter\IAdapter\IDriverAdapter.cs" />
     <Compile Include="DataAdapter\IAdapter\ITrainProprietorshipAdapter.cs" />
     <Compile Include="DataAdapter\TrainProprietorshipAdapter.cs" />
-    <Compile Include="FileManageAdapter\FileAdapter.cs" />
-    <Compile Include="FileManageAdapter\IAdapter\IFileAdapter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

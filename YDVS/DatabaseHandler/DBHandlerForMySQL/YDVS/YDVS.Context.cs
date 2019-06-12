@@ -25,7 +25,9 @@ namespace DBHandlerForMySQL.YDVS
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<analysis_report_info> analysis_report_info { get; set; }
         public virtual DbSet<base_driver_info> base_driver_info { get; set; }
         public virtual DbSet<base_train_proprietorship> base_train_proprietorship { get; set; }
+        public virtual DbSet<analysis_report_attachment> analysis_report_attachment { get; set; }
     }
 }

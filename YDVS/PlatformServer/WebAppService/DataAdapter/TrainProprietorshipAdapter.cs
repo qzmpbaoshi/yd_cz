@@ -140,9 +140,9 @@ namespace WebAppService.DataAdapter
             }
         }
 
-        public RequestPagingResult<TrainProprietorshipModel> GetTrainProprietorships(PagingSearchCondition<TrainProprietorshipSearch> condition)
+        public RequestPagingResult<List<TrainProprietorshipModel>> GetTrainProprietorships(PagingSearchCondition<TrainProprietorshipSearch> condition)
         {
-            RequestPagingResult<TrainProprietorshipModel> rsts = new RequestPagingResult<TrainProprietorshipModel>();
+            RequestPagingResult<List<TrainProprietorshipModel>> rsts = new RequestPagingResult<List<TrainProprietorshipModel>>();
             try
             {
                 rsts.Flag = true;
@@ -168,7 +168,7 @@ namespace WebAppService.DataAdapter
                         RailwayAdministration = d.railway_administration
 
                     }).OrderBy(d => d.Order).Skip(startIndex * condition.PageSize);
-                    rsts.ResultDatas = pageSize == 0 ? temp2.ToList() : temp2.Take(pageSize).ToList();
+                    rsts.ResultData = pageSize == 0 ? temp2.ToList() : temp2.Take(pageSize).ToList();
                 }
                 rsts.Msg = "";
                 return rsts;

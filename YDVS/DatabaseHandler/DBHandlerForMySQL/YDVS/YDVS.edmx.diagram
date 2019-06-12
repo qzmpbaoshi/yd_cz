@@ -5,8 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2315bff41cac4376a12738c80b9ad3e6" Name="Diagram1" >
-        <EntityTypeShape EntityType="ydvsModel.base_driver_info" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ydvsModel.base_train_proprietorship" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ydvsModel.analysis_report_info" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ydvsModel.base_driver_info" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ydvsModel.base_train_proprietorship" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ydvsModel.analysis_report_attachment" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,14 +1,19 @@
-﻿using System;
+﻿using SelfCommonTool;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using VideoAnalysis.HistoryData.Handler;
+using VideoAnalysis.HistoryData.Common;
+using VideoAnalysis.HistoryData.EventHandler;
 using VideoAnalysis.HistoryData.HKHelper;
+using VideoAnalysis.HistoryData.PageControl.ChildPage;
 using VideoAnalysis.HistoryData.ViewModel;
+using Visifire.Charts;
 using static VideoAnalysis.HistoryData.HKHelper.PlayCtrlHelper;
 
 namespace VideoAnalysis.HistoryData.PageControl
@@ -19,6 +24,8 @@ namespace VideoAnalysis.HistoryData.PageControl
     public partial class VideoPlay : UserControl
     {
         public event EventHandler<PlayTimeEventArgs> PlayTimeEvent;
+        public event EventHandler<DrawVideoLineEventArgs> DrawVideoLineEvent;
+        public event EventHandler<EventArgs> ClearVideoChartEvent;
         /// <summary>
         /// 海康控件调取结果
         /// </summary>
@@ -26,21 +33,17 @@ namespace VideoAnalysis.HistoryData.PageControl
         /// <summary>
         /// 页面中所有播放资源
         /// </summary>
-        private static List<VideoViewModel> VideoSources = new List<VideoViewModel>();
+        private static List<VideoViewModel> VideoViewModels = new List<VideoViewModel>();
         /// <summary>
         /// 播放器容器
         /// </summary>
         private List<Border> PlayBorderContainers = new List<Border>();
-        /// <summary>
-        /// 暂停播放开关量
-        /// </summary>
-        private int nPause = -1;
         public VideoPlay()
         {
             InitializeComponent();
-            this.win_16_btn.IsEnabled = false;
-            this.selectBtn = this.win_16_btn;
+
         }
+        #region 初始化视频播放页面数据
         /// <summary>
         /// 播放视频当前时间 计时器
         /// </summary>
@@ -48,9 +51,14 @@ namespace VideoAnalysis.HistoryData.PageControl
         public void InitPage()
         {
             this.PlayDispose();
-            this.InitPlayBorderContainers();
-            this.InitVideoSource();
-
+            this.Dispatcher.InvokeAsync(() =>
+            {
+                this.win_16_btn.IsEnabled = false;
+                this.selectBtn = this.win_16_btn;
+                this.showWinCount = 16;
+                this.InitPlayBorderContainers();
+                this.InitVideoSource();
+            });
             this.playTimer = new Timer();
             this.playTimer.Interval = 1000;
             this.playTimer.Elapsed += PlayTimer_Elapsed;
@@ -60,18 +68,27 @@ namespace VideoAnalysis.HistoryData.PageControl
             try
             {
                 PLAYM4_SYSTEM_TIME time = new PLAYM4_SYSTEM_TIME();
-                bool bo = PlayCtrlHelper.PlayM4_GetSystemTime(VideoPlay.VideoSources[0].PlayPort, ref time);
+                var tempModel = VideoPlay.VideoViewModels.Where(m => m.PlayIndex >= 0).FirstOrDefault();
+                if (tempModel == null) return;
+                bool bo = PlayCtrlHelper.PlayM4_GetSystemTime(tempModel.PlayPort, ref time);
                 DateTime dt = new DateTime((int)time.dwYear, (int)time.dwMonth, (int)time.dwDay, (int)time.dwHour, (int)time.dwMinute, (int)time.dwSecond - 1);
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.play_time_tb.Text = dt.ToString("yyyy-MM-dd HH:mm:ss");
+                });
                 if (this.PlayTimeEvent != null)
                     this.PlayTimeEvent(this, new PlayTimeEventArgs(dt));
 
-                foreach (VideoViewModel vvModel in VideoPlay.VideoSources)
+                foreach (VideoViewModel vvModel in VideoPlay.VideoViewModels)
                 {
-                    if (vvModel.Videos == null || vvModel.Videos.Count() <= 0) continue;
+                    if (vvModel.PlayIndex < 0 || (vvModel.Videos[vvModel.PlayIndex].TotalFrames - 1) <= 0) continue;
                     uint playedFrames = PlayCtrlHelper.PlayM4_GetPlayedFrames(vvModel.PlayPort);
                     if (playedFrames >= (vvModel.Videos[vvModel.PlayIndex].TotalFrames - 1))
                     {
+                        this.playTimer.Stop();
+                        this.CloseFile_Video(vvModel);
                         this.ChangeVideoPlay(vvModel, vvModel.PlayIndex + 1);
+                        this.playTimer.Start();
                     }
                 }
             }
@@ -80,7 +97,7 @@ namespace VideoAnalysis.HistoryData.PageControl
 
             }
         }
-        #region 初始化视频播放页面数据
+
         /// <summary>
         /// 初始化视频插件容器
         /// </summary>
@@ -109,175 +126,341 @@ namespace VideoAnalysis.HistoryData.PageControl
         /// </summary>
         private void InitVideoSource()
         {
-            VideoPlay.VideoSources = new List<VideoViewModel>();
-            this.AddVideoSources(new List<VideoSource>(), this.player_1.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_2.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_3.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_4.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_5.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_6.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_7.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_8.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_9.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_10.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_11.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_12.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_13.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_14.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_15.Handle);
-            this.AddVideoSources(new List<VideoSource>(), this.player_16.Handle);
+            VideoPlay.VideoViewModels = new List<VideoViewModel>();
+            this.AddVideoSources(new List<VideoSource>(), 1, this.player_1.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 2, this.player_2.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 3, this.player_3.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 4, this.player_4.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 5, this.player_5.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 6, this.player_6.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 7, this.player_7.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 8, this.player_8.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 9, this.player_9.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 10, this.player_10.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 11, this.player_11.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 12, this.player_12.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 13, this.player_13.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 14, this.player_14.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 15, this.player_15.Handle);
+            this.AddVideoSources(new List<VideoSource>(), 16, this.player_16.Handle);
             //FileEndCallback fFileEndCallback = new FileEndCallback(SetFileEndCallback);//预览实时流回调函数
             //bool isSuccess = PlayCtrlHelper.PlayM4_SetFileEndCallback(VideoPlay.VideoSources[0].PlayPort, fFileEndCallback, IntPtr.Zero);
             //Console.WriteLine("*************通道：" + VideoPlay.VideoSources[0].PlayPort + "，" + (isSuccess ? "播放器回调函数设置成功" : "播放器回调函数设置失败") + "*************");
         }
-        private void AddVideoSources(List<VideoSource> videos, IntPtr handle)
+        private void AddVideoSources(List<VideoSource> videos, int _videoChannel, IntPtr _playIntPtr)
         {
             int tempPort = -1;
             PlayCtrlHelper.PlayM4_GetPort(ref tempPort);
-            VideoPlay.VideoSources.Add(new VideoViewModel(tempPort, handle, videos, 0, true, true));
+            VideoPlay.VideoViewModels.Add(new VideoViewModel(tempPort, _videoChannel, _playIntPtr, videos, 0, true, true));
         }
         /// <summary>
         /// 切换视频播放
         /// </summary>
         /// <param name="vvModel">播放资源</param>
         /// <param name="_playIndex">播放视频的位置指针</param>
-        private void ChangeVideoPlay(VideoViewModel vvModel, int _playIndex)
+        private void ChangeVideoPlay(VideoViewModel vvModel, int _playIndex, uint nTime = 0)
         {
             try
             {
+
+                bool flag = false;
                 Int32 nPort = vvModel.PlayPort;
-                Console.WriteLine("通道" + nPort + "：当前视频播放结束，开始播放下一个视频");
-                this.playTimer.Stop();
-                PlayCtrlHelper.PlayM4_Stop(nPort);
-                PlayCtrlHelper.PlayM4_CloseFile(nPort);
+                //Console.WriteLine("通道" + nPort + "：当前视频播放结束，开始播放下一个视频");
                 vvModel.PlayIndex = _playIndex;
-                Console.WriteLine("通道" + nPort + "：正在播放第" + (vvModel.PlayIndex + 1) + "个视频");
+                //Console.WriteLine("通道" + nPort + "：正在播放第" + (vvModel.PlayIndex + 1) + "个视频");
                 this.OpenFile_Video(vvModel);
                 this.Play_Video(vvModel);
-                this.playTimer.Start();
-                Console.WriteLine("通道" + nPort + "：正在播放第" + (vvModel.PlayIndex + 1) + "个视频；跳转成功");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("**********切换视频播放时，错误：" + ex.ToString());
-            }
-        }
-        public void SetPlayVideoSource(List<VideoSource> Videos)
-        {
-            try
-            {
-                this.PlayCloseFile();
-                foreach (var vs in VideoPlay.VideoSources)
-                {
-                    vs.Videos.Clear();
-                }
-                Videos = Videos.OrderBy(vs => vs.StartTime).ToList();
-                foreach (VideoSource vs in Videos)
-                {
-                    if (vs.VideoChannel <= 0) continue;
-                    //int pPort = VideoPlay.VideoSources[vs.VideoChannel - 1].PlayPort;
-                    //this.videoSourceDoneFileRef = vs;
-                    //PlayCtrlHelper.PlayM4_OpenFile(pPort, vs.FullPathName);
-                    //vs.DurationSecond = PlayCtrlHelper.PlayM4_GetFileTime(pPort);
-                    //vs.EndTime = vs.StartTime.AddSeconds(vs.DurationSecond);
-                    //vs.TotalFrames = PlayCtrlHelper.PlayM4_GetFileTotalFrames(pPort);
-                    VideoPlay.VideoSources[vs.VideoChannel - 1].Videos.Add(vs);
-                    //PlayCtrlHelper.PlayM4_CloseFile(pPort);
-                }
-
-                foreach (var vvModel in VideoPlay.VideoSources)
-                {
-                    this.OpenFile_Video(vvModel);
-                }
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.play_total_time_tb.Text = "******视频准备就绪，请播放";
-                });
-            }
-            catch (Exception ex)
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.play_total_time_tb.Text = "视频准备过程报错：" + ex.ToString();
-                });
-            }
-        }
-
-        #endregion
-
-        #region 视频播放控制
-        private void StartPlay_Click(object sender, RoutedEventArgs e)
-        {
-            Button btn = sender as Button;
-            if (this.nPause == -1)
-            {
-                //IntPtr hwnd1 = ((HwndSource)PresentationSource.FromVisual(this.player_1)).Handle;
-                //IntPtr hwnd2 = ((HwndSource)PresentationSource.FromVisual(this.player_2)).Handle;
-                this.Play();
-                this.nPause = 1;
-                btn.Content = "暂停";
-            }
-            else
-            {
-                this.Pause();
-                if (this.nPause == 1)
-                {
-                    btn.Content = "播放";
-                    this.nPause = 0;
-                }
+                if (nTime > 0)
+                    flag = PlayCtrlHelper.PlayM4_SetPlayedTimeEx(vvModel.PlayPort, nTime);
+                if (flag)
+                    Console.WriteLine("通道" + vvModel.VideoChannel + "：正在播放第" + (vvModel.PlayIndex + 1) + "个视频；跳转成功");
                 else
                 {
-                    btn.Content = "暂停";
-                    this.nPause = 1;
+                    uint errorCode = PlayCtrlHelper.PlayM4_GetLastError(vvModel.PlayPort);
+                    Console.WriteLine("通道" + vvModel.VideoChannel + "：正在播放第" + (vvModel.PlayIndex + 1) + "个视频；跳转失败！错误码：" + errorCode);
                 }
+
+            }
+            catch (Exception ex)
+            {
+                CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "切换视频播放时", ex);
             }
         }
-        private void StopPlay_Click(object sender, RoutedEventArgs e)
-        {
-            this.Stop();
-            this.nPause = -1;
-            this.play_btn.Content = "播放";
-
-        }
-
-        #region 海康控件 视频控制
-        public void PlayDispose()
+        public void ChangeVideoPlayByTime(object sender, ChangeVideoEventArgs eventArgs)
         {
             try
             {
-                if (this.playTimer != null)
-                    this.playTimer.Dispose();
-                this.StopPlay_Click(null, null);
-                if (VideoPlay.VideoSources == null || VideoPlay.VideoSources.Count == 0) return;
-                foreach (var vs in VideoPlay.VideoSources)
+                DateTime? xValue = eventArgs.XValue;
+                if (xValue == null) return;
+                this.playTimer.Stop();
+                DateTime dt = Convert.ToDateTime(xValue);
+                bool isPlay = false;
+                foreach (VideoViewModel vvModel in VideoPlay.VideoViewModels)
                 {
-                    PlayCtrlHelper.PlayM4_Stop(vs.PlayPort);
-                    PlayCtrlHelper.PlayM4_CloseFile(vs.PlayPort);
-                    PlayCtrlHelper.PlayM4_FreePort(vs.PlayPort);
+                    this.CloseFile_Video(vvModel);
+                    VideoSource vs = vvModel.Videos.Where(v => v.StartTime <= dt && dt < v.EndTime).FirstOrDefault();
+                    if (vs == null)
+                    {
+                        vvModel.PlayIndex = -1;
+                        continue;
+                    }
+                    DateTime startDT = vs.StartTime;
+                    TimeSpan ts = dt.Subtract(startDT);
+                    uint nTime = (uint)ts.TotalMilliseconds;
+                    this.ChangeVideoPlay(vvModel, vvModel.Videos.IndexOf(vs), nTime);
+                    isPlay = true;
                 }
+                if (isPlay)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.play_btn.Content = "暂停";
+                    });
+                    this.nPause = 1;
+                }
+                this.playTimer.Start();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                this.playTimer.Start();
+                CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "改变视频进度", ex);
+            }
         }
-        public void PlayCloseFile()
+        public async void SetPlayVideoSourceAsync(List<VideoSource> Videos)
         {
             try
             {
                 if (this.playTimer != null)
                     this.playTimer.Stop();
-                this.StopPlay_Click(null, null);
-                if (VideoPlay.VideoSources == null || VideoPlay.VideoSources.Count == 0) return;
-                foreach (var vs in VideoPlay.VideoSources)
+                this.nPause = -1;
+                await this.Dispatcher.InvokeAsync(() =>
+                 {
+                     this.play_btn.Content = "播放";
+                 });
+                await Task.Run(() =>
                 {
-                    PlayCtrlHelper.PlayM4_Stop(vs.PlayPort);
+                    foreach (var vs in VideoPlay.VideoViewModels)
+                    {
+                        vs.PlayIndex = 0;
+                        vs.Videos.Clear();
+                    }
+                    Videos = Videos.OrderBy(vs => vs.StartTime).ToList();
+                    foreach (VideoSource vs in Videos)
+                    {
+                        if (vs.VideoChannel <= 0) continue;
+                        VideoPlay.VideoViewModels[vs.VideoChannel - 1].Videos.Add(vs);
+                    }
+                    foreach (var vvModel in VideoPlay.VideoViewModels)
+                    {
+                        this.CloseFile_Video(vvModel);
+                        this.OpenFile_Video(vvModel);
+                    }
+                });
+                this.DrawVideoLineAsync(Videos.Count);
+                this.video_play_wait.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "加载视频", ex);
+            }
+        }
+
+        private async void DrawVideoLineAsync(int videoCount)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ClearVideoChartEvent(null, null);
+                    });
+                    if (VideoPlay.VideoViewModels == null || VideoPlay.VideoViewModels.Count == 0) return;
+                    int tPort = -1;
+                    PlayCtrlHelper.PlayM4_GetPort(ref tPort);
+                    int yValue = 202;
+                    int i = 0;//已画视频个数
+                    foreach (var vvm in VideoPlay.VideoViewModels)
+                    {
+                        yValue = yValue - 12;
+                        if (vvm.PlayIndex < 0)
+                            continue;
+                        foreach (var vs in vvm.Videos)
+                        {
+                            i++;
+                            PlayCtrlHelper.PlayM4_OpenFile(tPort, vs.FullPathName);
+                            vs.DurationSecond = PlayCtrlHelper.PlayM4_GetFileTime(tPort);
+                            vs.EndTime = vs.StartTime.AddSeconds(vs.DurationSecond);
+                            vs.TotalFrames = PlayCtrlHelper.PlayM4_GetFileTotalFrames(tPort);
+                            PlayCtrlHelper.PlayM4_CloseFile(tPort);
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.DrawVideoLineEvent(vs, new DrawVideoLineEventArgs(
+                                new DataPoint
+                                {
+                                    XValue = vs.StartTime,
+                                    //设置Y轴点                   
+                                    YValue = yValue,
+                                }, new DataPoint
+                                {
+                                    XValue = vs.EndTime,
+                                    //设置Y轴点                   
+                                    YValue = yValue,
+                                }, i == videoCount));
+                                //Console.WriteLine("通道" + vs.VideoChannel + ":" + "总时长-" + vs.DurationSecond + "秒(开始时间-" + vs.StartTime.ToString("yyyy-MM-dd HH:mm:ss") + "结束时间-" + (vs.EndTime == null ? "" : ((DateTime)vs.EndTime).ToString("yyyy-MM-dd HH:mm:ss")) + ")");
+                            });
+                        }
+                    }
+                    PlayCtrlHelper.PlayM4_FreePort(tPort);
+                });
+            }
+            catch (Exception ex)
+            {
+                CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "绘制视频曲线", ex);
+            }
+        }
+
+        #endregion
+        #region 海康控件 视频控制
+        private void OpenFile_Video(VideoViewModel vvModel)
+        {
+            if (vvModel.PlayIndex < 0) return;
+            // 创建文件索引
+            bool flag = PlayCtrlHelper.PlayM4_SetFileRefCallBack(vvModel.PlayPort, pFileRefDone, IntPtr.Zero);
+            if (!flag)
+            {
+                //Console.WriteLine("通道" + vvModel.PlayPort + "设置创建索引事件成功！");
+                uint errorCode = PlayCtrlHelper.PlayM4_GetLastError(vvModel.PlayPort);
+                Console.WriteLine("通道" + vvModel.VideoChannel + "设置创建索引事件失败！失败码：" + errorCode);
+            }
+            vvModel.Videos[vvModel.PlayIndex].IsRefDone = false;
+            PlayCtrlHelper.PlayM4_OpenFile(vvModel.PlayPort, vvModel.Videos[vvModel.PlayIndex].FullPathName);
+            if (vvModel.IsNeedGroup)
+            {
+                PlayCtrlHelper.PlayM4_SetSycGroup(vvModel.PlayPort, 0);
+            }
+            //PlayCtrlHelper.PlayM4_SetDisplayCallBack(vvModel.PlayPort, fDisplayCBFun);
+        }
+        private static FileRefDoneCB pFileRefDone = new FileRefDoneCB(SetFileRefDoneCB);
+        private static void SetFileRefDoneCB(uint nPort, IntPtr nUser)
+        {
+            var vvModel = VideoPlay.VideoViewModels.Where(vs => vs.PlayPort == nPort).FirstOrDefault();
+            if (vvModel == null || vvModel.PlayIndex < 0) return;
+            vvModel.Videos[vvModel.PlayIndex].IsRefDone = true;
+        }
+        private static DisplayCBFun fDisplayCBFun = new DisplayCBFun(SetDisplayCBFun);
+        //public static string sFilePath = @"F:\";
+        private static void SetDisplayCBFun(uint nPort, byte[] pBuf, Int32 nSize, Int32 nWidth, Int32 nHeight, Int32 nStamp, Int32 nType, Int32 nReceved)
+        {
+            var vvModel = VideoPlay.VideoViewModels.Where(vs => vs.PlayPort == nPort).FirstOrDefault();
+            if (vvModel == null || vvModel.PlayIndex < 0) return;
+            string sFilePath = @"F:\test\";
+            sFilePath += DateTime.Now.Ticks.ToString() + ".jpeg";
+            //连续抓BMP图片
+            bool flag = false;// PlayCtrlHelper.PlayM4_ConvertToJpegFile(pBuf, nSize, nWidth, nHeight, nType, sFilePath);
+            if (!flag)
+            {
+                //uint errorCode = PlayCtrlHelper.PlayM4_GetLastError(vvModel.PlayPort);
+                //Console.WriteLine("通道" + vvModel.PlayPort + "：" + vvModel.Videos[vvModel.PlayIndex].FullPathName + "截图回调失败！错误号：" + errorCode);
+            }
+            else
+            {
+                Console.WriteLine("通道" + vvModel.PlayPort + "：" + vvModel.Videos[vvModel.PlayIndex].FullPathName + "截图回调成功！");
+            }
+        }
+        public void CloseFile_Video(VideoViewModel vvm)
+        {
+            try
+            {
+                Int32 nPort = vvm.PlayPort;
+                PlayCtrlHelper.PlayM4_Stop(nPort);
+                PlayCtrlHelper.PlayM4_CloseFile(nPort);
+                this.PlayWinRefresh(vvm.VideoChannel);
+            }
+            catch { }
+        }
+        private void PlayWinRefresh(int playPos)
+        {
+            try
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    switch (playPos)
+                    {
+                        case 1:
+                            this.player_1.Refresh();
+                            break;
+                        case 2:
+                            this.player_2.Refresh();
+                            break;
+                        case 3:
+                            this.player_3.Refresh();
+                            break;
+                        case 4:
+                            this.player_4.Refresh();
+                            break;
+                        case 5:
+                            this.player_5.Refresh();
+                            break;
+                        case 6:
+                            this.player_6.Refresh();
+                            break;
+                        case 7:
+                            this.player_7.Refresh();
+                            break;
+                        case 8:
+                            this.player_8.Refresh();
+                            break;
+                        case 9:
+                            this.player_9.Refresh();
+                            break;
+                        case 10:
+                            this.player_10.Refresh();
+                            break;
+                        case 11:
+                            this.player_11.Refresh();
+                            break;
+                        case 12:
+                            this.player_12.Refresh();
+                            break;
+                        case 13:
+                            this.player_13.Refresh();
+                            break;
+                        case 14:
+                            this.player_14.Refresh();
+                            break;
+                        case 15:
+                            this.player_15.Refresh();
+                            break;
+                        case 16:
+                            this.player_16.Refresh();
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+            catch { }
+        }
+        public void PlayDispose()
+        {
+            try
+            {
+                this.StopPlay_Btn_Click(null, null);
+                if (this.playTimer != null)
+                    this.playTimer.Dispose();
+                if (VideoPlay.VideoViewModels == null || VideoPlay.VideoViewModels.Count == 0) return;
+                foreach (var vs in VideoPlay.VideoViewModels)
+                {
                     PlayCtrlHelper.PlayM4_CloseFile(vs.PlayPort);
                 }
             }
             catch { }
         }
+
         private void Play()
         {
-            foreach (var vvModel in VideoPlay.VideoSources)
+            foreach (var vvModel in VideoPlay.VideoViewModels)
             {
                 this.Play_Video(vvModel);
             }
@@ -290,59 +473,24 @@ namespace VideoAnalysis.HistoryData.PageControl
                 this.playTimer.Stop();
             else
                 this.playTimer.Start();
-            foreach (var vs in VideoPlay.VideoSources)
+            foreach (var vs in VideoPlay.VideoViewModels)
             {
                 if (vs.Videos.Count <= 0) continue;
                 PlayCtrlHelper.PlayM4_Pause(vs.PlayPort, nPause);
             }
         }
-        private void Stop()
-        {
-            this.playTimer.Stop();
-            foreach (var vs in VideoPlay.VideoSources)
-            {
-                if (vs.Videos.Count <= 0) continue;
-                PlayCtrlHelper.PlayM4_Stop(vs.PlayPort);
-            }
-        }
-        private void OpenFile_Video(VideoViewModel vvModel)
-        {
-            if (vvModel.Videos == null || vvModel.Videos.Count <= 0) return;
-            // 创建文件索引
-            bool flag = PlayCtrlHelper.PlayM4_SetFileRefCallBack(vvModel.PlayPort, pFileRefDone, IntPtr.Zero);
-            if (flag)
-                Console.WriteLine("通道" + vvModel.PlayPort + "设置创建索引事件成功！");
-            else
-            {
-                uint errorCode = PlayCtrlHelper.PlayM4_GetLastError(vvModel.PlayPort);
-                Console.WriteLine("通道" + vvModel.PlayPort + "设置创建索引事件失败！失败码：" + errorCode);
-            }
-            Console.WriteLine("通道" + vvModel.PlayPort + "设置创建索引事件" + (flag ? "成功！" : "失败！"));
-            vvModel.Videos[vvModel.PlayIndex].IsRefDone = false;
-            PlayCtrlHelper.PlayM4_OpenFile(vvModel.PlayPort, vvModel.Videos[vvModel.PlayIndex].FullPathName);
-            if (vvModel.IsNeedGroup)
-            {
-                PlayCtrlHelper.PlayM4_SetSycGroup(vvModel.PlayPort, 0);
-            }
-        }
-        private static FileRefDoneCB pFileRefDone = new FileRefDoneCB(SetFileRefDoneCB);
-        private static void SetFileRefDoneCB(uint nPort, IntPtr nUser)
-        {
-            var vvModel = VideoPlay.VideoSources.Where(vs => vs.PlayPort == nPort).FirstOrDefault();
-            if (vvModel.Videos == null || vvModel.Videos.Count <= 0) return;
-            vvModel.Videos[vvModel.PlayIndex].IsRefDone = true;
-        }
-
         private void Play_Video(VideoViewModel vvModel)
         {
-            if (vvModel.Videos == null || vvModel.Videos.Count <= 0) return;
+            if (vvModel.PlayIndex < 0) return;
             this.bFlag = PlayCtrlHelper.PlayM4_Play(vvModel.PlayPort, vvModel.PlayIntPtr);
             if (!vvModel.IsNeedRef) return;
-            while (true)
+            int durTime = 0;
+            while (true || durTime < 3000)
             {
                 if (!vvModel.Videos[vvModel.PlayIndex].IsRefDone)
                 {
                     System.Threading.Thread.Sleep(2);
+                    durTime++;
                     continue;
                 }
                 else//索引创建成功
@@ -352,7 +500,6 @@ namespace VideoAnalysis.HistoryData.PageControl
                 }
             }
         }
-        #endregion
         #endregion
 
         #region 页面视频选择及窗口大小控制
@@ -407,6 +554,7 @@ namespace VideoAnalysis.HistoryData.PageControl
 
         #region 播放窗口数量选择
         private Button selectBtn = null;
+        private int showWinCount = 0;
         private void SetSelectBtn(Button btn)
         {
             if (btn == null) return;
@@ -810,6 +958,7 @@ namespace VideoAnalysis.HistoryData.PageControl
 
         private void Play_Win_16_Click(object sender, RoutedEventArgs e)
         {
+            this.HidePlayBorderContainer(16);
             for (int i = 0; i < 16; i++)
             {
                 Border bo = this.PlayBorderContainers[i];
@@ -918,38 +1067,127 @@ namespace VideoAnalysis.HistoryData.PageControl
         }
         private void HidePlayBorderContainer(int startIndex)
         {
+            this.showWinCount = startIndex;
             for (int i = startIndex; i < 16; i++)
             {
                 this.PlayBorderContainers[i].Visibility = Visibility.Collapsed;
             }
         }
         #endregion
+        #region 页面视频控制按钮事件
+        /// <summary>
+        /// 暂停播放开关量
+        /// </summary>
+        private int nPause = -1;
 
-        private void SetSycStartTime_Click(object sender, RoutedEventArgs e)
+        private void StartPlay_Btn_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            if (btn == null) return;
-            DateTime dt = Convert.ToDateTime(btn.Content);
-            foreach (VideoViewModel vvModel in VideoPlay.VideoSources)
+            if (this.nPause == -1)
             {
-                if (vvModel.Videos == null || vvModel.Videos.Count() <= 0) continue;
-                VideoSource vs = vvModel.Videos.Where(v => v.StartTime <= dt && dt < v.EndTime).FirstOrDefault();
-                if (vs == null) continue;
-                this.ChangeVideoPlay(vvModel, vvModel.Videos.IndexOf(vs));
-                DateTime startDT = vs.StartTime;
-                TimeSpan ts = dt.Subtract(startDT);
-                uint nTime = (uint)ts.TotalMilliseconds;
-                bool flag = PlayCtrlHelper.PlayM4_SetPlayedTimeEx(vvModel.PlayPort, nTime);
-                if (flag)
+                //IntPtr hwnd1 = ((HwndSource)PresentationSource.FromVisual(this.player_1)).Handle;
+                //IntPtr hwnd2 = ((HwndSource)PresentationSource.FromVisual(this.player_2)).Handle;
+                this.Play();
+                this.nPause = 1;
+                btn.Content = "暂停";
+            }
+            else
+            {
+                this.Pause();
+                if (this.nPause == 1)
                 {
-                    Console.WriteLine("通道" + vvModel.PlayPort + "视频时间跳转成功！");
+                    btn.Content = "播放";
+                    this.nPause = 0;
                 }
                 else
                 {
-                    uint errorCode = PlayCtrlHelper.PlayM4_GetLastError(vvModel.PlayPort);
-                    Console.WriteLine("通道" + vvModel.PlayPort + "视频时间跳转成功！失败码：" + errorCode);
+                    btn.Content = "暂停";
+                    this.nPause = 1;
                 }
             }
         }
+        private void StopPlay_Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (this.playTimer != null)
+                this.playTimer.Stop();
+            foreach (var vvm in VideoPlay.VideoViewModels)
+            {
+                if (vvm.PlayIndex < 0) continue;
+                PlayCtrlHelper.PlayM4_Stop(vvm.PlayPort);
+                this.PlayWinRefresh(vvm.VideoChannel);
+            }
+            this.nPause = -1;
+            this.play_btn.Content = "播放";
+        }
+        private void GetJPEG_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (this.nPause == -1)
+                {
+                    MessageForm.Show("提示", "请先播放视频！", 0);
+                    return;
+                }
+                DateTime? refTime = Convert.ToDateTime(this.play_time_tb.Text);
+                if (refTime == null)
+                {
+                    MessageForm.Show("提示", "请先等待视频正常播放后，在截屏！", 0);
+                    return;
+                }
+                AnalysisReport aReport = new AnalysisReport();
+                string videoTimeStr = this.play_time_tb.Text;
+                Task.Run(() =>
+                {
+                    AnalysisReportViewModel aReportViewModel = new AnalysisReportViewModel();
+                    int i = 0;
+                    bool isGetNeedInfo = false;
+                    List<CapVideoImage> capImages = new List<CapVideoImage>();
+                    CapVideoImage capImage = null;
+                    foreach (var vvm in VideoPlay.VideoViewModels)
+                    {
+                        if (i >= this.showWinCount) break;
+                        if (vvm.PlayIndex < 0) continue;
+                        if (!isGetNeedInfo)
+                        {
+                            aReportViewModel.TrainType = vvm.Videos[vvm.PlayIndex].TrainType;
+                            aReportViewModel.TrainNo = vvm.Videos[vvm.PlayIndex].TrainNo;
+                            aReportViewModel.TrainShortName = vvm.Videos[vvm.PlayIndex].TrainShortName;
+                            aReportViewModel.EventTimeStr = videoTimeStr;
+                            aReportViewModel.MDataViewModel = MonitorDataHelper.GetMonitorData((DateTime)refTime);
+                            isGetNeedInfo = true;
+                        }
+                        capImage = new CapVideoImage();
+                        capImage.VideoChannel = vvm.Videos[vvm.PlayIndex].VideoChannel;
+                        capImage.VideoChannelName = vvm.Videos[vvm.PlayIndex].VideoChannelName;
+                        UInt32 pWidth = 0;
+                        UInt32 pHeight = 0;
+                        PlayCtrlHelper.PlayM4_GetPictureSize(vvm.PlayPort, ref pWidth, ref pHeight);
+                        UInt32 dwSize = pWidth * pHeight * 5;
+                        byte[] m_pCapBuf = new byte[pWidth * pHeight];
+                        //抓图jpeg图片
+                        UInt32 dwCapSize = 0;
+                        bool flag = PlayCtrlHelper.PlayM4_GetJPEG(vvm.PlayPort, m_pCapBuf, dwSize, ref dwCapSize);
+                        if (!flag)
+                        {
+                            uint errorCode = PlayCtrlHelper.PlayM4_GetLastError(vvm.PlayPort);
+                            Console.WriteLine("通道" + vvm.PlayPort + "：" + vvm.Videos[vvm.PlayIndex].FullPathName + "截图失败！错误号：" + errorCode);
+                        }
+                        capImage.CapImageBuf = m_pCapBuf;
+                        capImages.Add(capImage);
+                        i++;
+                    }
+                    aReportViewModel.CapImages = capImages;
+                    aReport.InitPageAsync(aReportViewModel);
+                });
+                aReport.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                CommonLibrary.LogHelper.Log4Helper.Error(this.GetType(), "截图失败", ex);
+            }
+        }
+        #endregion
     }
 }

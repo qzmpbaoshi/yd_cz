@@ -12,18 +12,20 @@ namespace DBHandlerForMySQL.YDVS
     using System;
     using System.Collections.Generic;
     
-    public partial class base_train_proprietorship
+    public partial class analysis_report_info
     {
         public string id { get; set; }
-        public Nullable<int> order { get; set; }
         public string train_type { get; set; }
         public string train_no { get; set; }
-        public string railway_administration { get; set; }
-        public string locomotive_depot { get; set; }
-        public string work_shop { get; set; }
-        public string creator { get; set; }
-        public Nullable<System.DateTime> creat_time { get; set; }
-        public string modifier { get; set; }
-        public Nullable<System.DateTime> update_time { get; set; }
+        public string train_short_name { get; set; }
+        public string driver_name { get; set; }
+        public string driver_num { get; set; }
+        public string ass_driver_name { get; set; }
+        public string ass_driver_num { get; set; }
+        public Nullable<System.DateTime> event_time { get; set; }
+        public Nullable<System.DateTime> analysis_time { get; set; }
+        public string analysis_person { get; set; }
+        public string analysis_content { get; set; }
+        public string event_data_json_str { get; set; }
     }
 }

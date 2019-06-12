@@ -61,18 +61,18 @@ namespace VideoAnalysis.TrainProprietorship
                 {
                     TrainShortName = this.condition_tb.Text
                 };
-                Task<RequestPagingResult<TrainProprietorshipModel>> task = Task<RequestPagingResult<TrainProprietorshipModel>>.Run(() =>
+                Task<RequestPagingResult<List<TrainProprietorshipModel>>> task = Task<RequestPagingResult<List<TrainProprietorshipModel>>>.Run(() =>
                 {
-                    return CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestPagingResult<TrainProprietorshipModel>>(requestUrl, condition);
+                    return CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestPagingResult<List<TrainProprietorshipModel>>>(requestUrl, condition);
                 });
                 task.GetAwaiter().OnCompleted(() =>
                 {
-                    RequestPagingResult<TrainProprietorshipModel> rst = task.Result;
+                    RequestPagingResult<List<TrainProprietorshipModel>> rst = task.Result;
                     this.Dispatcher.Invoke(() =>
                     {
                         TableItem itemControl = null;
                         int order = 1;
-                        foreach (var item in rst.ResultDatas)
+                        foreach (var item in rst.ResultData)
                         {
                             itemControl = new TableItem();
                             itemControl.ViewModel.ObjectCopyProperty(item);
@@ -130,33 +130,33 @@ namespace VideoAnalysis.TrainProprietorship
             addDialog.workshop_tb.Text = selectedTableItem.ViewModel.WorkShop;
             addDialog.workshop_tb.Text = selectedTableItem.ViewModel.WorkShop;
             addDialog.locomotivedepot_tb.Text = selectedTableItem.ViewModel.LocomotiveDepot;
-            if ((bool) addDialog.ShowDialog())
+            if ((bool)addDialog.ShowDialog())
             {
                 TrainProprietorshipViewModel trainProprietorshipViewModel = selectedTableItem.ViewModel;
-                 TrainProprietorshipModel trainProprietorshipModel = new TrainProprietorshipModel();
-                 trainProprietorshipModel.Id = trainProprietorshipViewModel.Id;
-                 Console.WriteLine(trainProprietorshipViewModel.Id + "trainProprietorshipViewModelId");
-                 trainProprietorshipModel.TrainType = addDialog.traintype_tb.Text;
-                 Console.WriteLine(addDialog.traintype_tb.Text + "addDialog.traintype_tb");
+                TrainProprietorshipModel trainProprietorshipModel = new TrainProprietorshipModel();
+                trainProprietorshipModel.Id = trainProprietorshipViewModel.Id;
+                Console.WriteLine(trainProprietorshipViewModel.Id + "trainProprietorshipViewModelId");
+                trainProprietorshipModel.TrainType = addDialog.traintype_tb.Text;
+                Console.WriteLine(addDialog.traintype_tb.Text + "addDialog.traintype_tb");
                 trainProprietorshipModel.TrainNo = addDialog.trainno_tb.Text;
-                Console.WriteLine(addDialog.trainno_tb.Text+ "addDialog.trainno_tb");
+                Console.WriteLine(addDialog.trainno_tb.Text + "addDialog.trainno_tb");
                 trainProprietorshipModel.WorkShop = addDialog.workshop_tb.Text;
-                 trainProprietorshipModel.LocomotiveDepot = addDialog.locomotivedepot_tb.Text;
-                 trainProprietorshipModel.RailwayAdministration = addDialog.RailwayAdministration_tb.Text;
-                 string requestUrl = CommonLibrary.ReadConfigHelper.BaseUrl + WebApiExtensionUrl.UpdateTrainProprietorship_URL;
-                 Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModel));
-                 if (task.Result.Flag)
-                 {
+                trainProprietorshipModel.LocomotiveDepot = addDialog.locomotivedepot_tb.Text;
+                trainProprietorshipModel.RailwayAdministration = addDialog.RailwayAdministration_tb.Text;
+                string requestUrl = CommonLibrary.ReadConfigHelper.BaseUrl + WebApiExtensionUrl.UpdateTrainProprietorship_URL;
+                Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModel));
+                if (task.Result.Flag)
+                {
                     //修改后刷新数据
                     this.SetPageData(1);
-                     MessageForm.Show("提示", "修改成功！", 0);
-                 }
-                 else
-                 {
-                     MessageForm.Show("提示", "修改失败！", 0);
+                    MessageForm.Show("提示", "修改成功！", 0);
+                }
+                else
+                {
+                    MessageForm.Show("提示", "修改失败！", 0);
 
                     return;
-                 }
+                }
             }
 
         }
@@ -192,7 +192,7 @@ namespace VideoAnalysis.TrainProprietorship
                     return;
                 }
             }
-            
+
         }
         /// <summary>
         /// 删除
@@ -222,12 +222,12 @@ namespace VideoAnalysis.TrainProprietorship
                 MessageForm.Show("提示", "删除失败！", 0);
                 return;
             }
-            
+
         }
         /// <summary>
         /// 导入
         /// </summary>
-        private void  Import_Btn_Click(object sender, RoutedEventArgs e)
+        private void Import_Btn_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog
             {
@@ -235,58 +235,58 @@ namespace VideoAnalysis.TrainProprietorship
                 Filter = "Excel(*.xlsx)|*.xlsx",
                 Title = "导入",
                 Multiselect = false
-                
+
             };
             if (ofd.ShowDialog() == DialogResult.Cancel)
             {
                 return;
             }
 
-                List<TrainProprietorshipModel> trainProprietorshipModels = new List<TrainProprietorshipModel>();
-                IWorkbook book ;
-                using (FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read))
+            List<TrainProprietorshipModel> trainProprietorshipModels = new List<TrainProprietorshipModel>();
+            IWorkbook book;
+            using (FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read))
+            {
+                book = WorkbookFactory.Create(fs);
+            }
+            int sheetCount = book.NumberOfSheets;
+            for (int sheetIndex = 0; sheetIndex < sheetCount; sheetIndex++)
+            {
+                ISheet sheet = book.GetSheetAt(sheetIndex);
+                if (sheet == null) continue;
+                IRow row = sheet.GetRow(0);
+                if (row == null) continue;
+                int firstCellNum = row.FirstCellNum;
+                int lastCellNum = row.LastCellNum;
+                if (firstCellNum == lastCellNum) continue;
+                for (int i = 0; i <= sheet.LastRowNum; i++)
                 {
-                    book = WorkbookFactory.Create(fs);
+                    TrainProprietorshipModel trainProprietorshipModel = new TrainProprietorshipModel();
+                    trainProprietorshipModel.TrainType = sheet.GetRow(i).GetCell(0).ToString();
+                    trainProprietorshipModel.TrainNo = sheet.GetRow(i).GetCell(1).ToString();
+                    trainProprietorshipModel.RailwayAdministration = sheet.GetRow(i).GetCell(2).ToString();
+                    trainProprietorshipModel.LocomotiveDepot = sheet.GetRow(i).GetCell(3).ToString();
+                    trainProprietorshipModel.WorkShop = sheet.GetRow(i).GetCell(4).ToString();
+                    trainProprietorshipModel.Order = null;
+                    trainProprietorshipModels.Add(trainProprietorshipModel);
+                    trainProprietorshipModel = null;
                 }
-                int sheetCount = book.NumberOfSheets;
-                for (int sheetIndex = 0; sheetIndex < sheetCount; sheetIndex++)
-                {
-                    ISheet sheet = book.GetSheetAt(sheetIndex);
-                    if (sheet == null) continue;
-                    IRow row = sheet.GetRow(0);
-                    if (row == null) continue;
-                    int firstCellNum = row.FirstCellNum;
-                    int lastCellNum = row.LastCellNum;
-                    if (firstCellNum == lastCellNum) continue;
-                    for (int i = 0; i <= sheet.LastRowNum; i++)
-                    {
-                        TrainProprietorshipModel trainProprietorshipModel = new TrainProprietorshipModel();
-                        trainProprietorshipModel.TrainType= sheet.GetRow(i).GetCell(0).ToString();
-                        trainProprietorshipModel.TrainNo = sheet.GetRow(i).GetCell(1).ToString();
-                        trainProprietorshipModel.RailwayAdministration = sheet.GetRow(i).GetCell(2).ToString();
-                        trainProprietorshipModel.LocomotiveDepot = sheet.GetRow(i).GetCell(3).ToString();
-                        trainProprietorshipModel.WorkShop = sheet.GetRow(i).GetCell(4).ToString();
-                        trainProprietorshipModel.Order = null;
-                        trainProprietorshipModels.Add(trainProprietorshipModel);
-                        trainProprietorshipModel = null;
-                    }
-                }
-                string requestUrl = CommonLibrary.ReadConfigHelper.BaseUrl + WebApiExtensionUrl.AddTrainProprietorships_URL;
-                Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModels));
-                if (task.Result.Flag)
-                {
-                    //新增后刷新数据
-                    this.SetPageData(1);
-                    MessageForm.Show("提示", "导入成功！", 0);
-                }
-                else
-                {
-                    MessageForm.Show("提示", "导入失败！", 0);
-                return ;
-                }
-
+            }
+            string requestUrl = CommonLibrary.ReadConfigHelper.BaseUrl + WebApiExtensionUrl.AddTrainProprietorships_URL;
+            Task<RequestEasyResult> task = Task.Run(() => CommonLibrary.Factory.HttpRequestFactroy.HttpPostRequest<RequestEasyResult>(requestUrl, trainProprietorshipModels));
+            if (task.Result.Flag)
+            {
+                //新增后刷新数据
+                this.SetPageData(1);
+                MessageForm.Show("提示", "导入成功！", 0);
+            }
+            else
+            {
+                MessageForm.Show("提示", "导入失败！", 0);
                 return;
-           
+            }
+
+            return;
+
         }
 
         private void Refresh_Btn_Click(object sender, RoutedEventArgs e)

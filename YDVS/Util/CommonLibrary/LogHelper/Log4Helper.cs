@@ -22,6 +22,7 @@ namespace CommonLibrary.LogHelper
         public static void Fatal(Type type, object message, Exception exception = null)
         {
             if (_level > _fatal) return;
+            Console.WriteLine("[" + type.FullName + "]" + message + (exception != null ? (":" + exception.ToString()) : ""));
             ILog log = LogManager.GetLogger(type);
             if (exception == null)
                 log.Fatal(message);
@@ -37,6 +38,7 @@ namespace CommonLibrary.LogHelper
         public static void Error(Type type, object message, Exception exception = null)
         {
             if (_level > _error) return;
+            Console.WriteLine("[" + type.FullName + "]" + message + (exception != null ? (":" + exception.ToString()) : ""));
             ILog log = LogManager.GetLogger(type);
             if (exception == null)
                 log.Error(message);
@@ -52,6 +54,7 @@ namespace CommonLibrary.LogHelper
         public static void Warn(Type type, object message, Exception exception = null)
         {
             if (_level > _warn) return;
+            Console.WriteLine("[" + type.FullName + "]" + message + (exception != null ? (":" + exception.ToString()) : ""));
             ILog log = LogManager.GetLogger(type);
             if (exception == null)
                 log.Warn(message);
@@ -67,6 +70,7 @@ namespace CommonLibrary.LogHelper
         public static void Info(Type type, object message, Exception exception = null)
         {
             if (_level > _info) return;
+            Console.WriteLine("[" + type.FullName + "]" + message + (exception != null ? (":" + exception.ToString()) : ""));
             ILog log = LogManager.GetLogger(type);
             if (exception == null)
                 log.Info(message);
@@ -82,6 +86,7 @@ namespace CommonLibrary.LogHelper
         public static void Debug(Type type, object message, Exception exception = null)
         {
             if (_level > _debug) return;
+            Console.WriteLine("[" + type.FullName + "]" + message + (exception != null ? (":" + exception.ToString()) : ""));
             ILog log = LogManager.GetLogger(type);
             if (exception == null)
                 log.Debug(message);
