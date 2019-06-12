@@ -100,7 +100,6 @@
     <Compile Include="HistoryData\Common\MonitorDataHelper.cs" />
     <Compile Include="HistoryData\EventHandler\DrawVideoChartEventArgs.cs" />
     <Compile Include="HistoryData\EventHandler\ChangeVideoEventArgs.cs" />
-    <Compile Include="HistoryData\EventHandler\FileUploadEventArgs.cs" />
     <Compile Include="HistoryData\EventHandler\PlayTimeEventArgs.cs" />
     <Compile Include="HistoryData\EventHandler\VideoSourceEventArgs.cs" />
     <Compile Include="HistoryData\Helper\FileHelper.cs" />
