@@ -8,7 +8,7 @@ namespace VideoAnalysis.HistoryData.ViewModel
 {
     public class VideoViewModel
     {
-        public VideoViewModel(Int32 _playPort, int _videoChannel, IntPtr _playIntPtr, List<VideoSource> _videos, int _playIndex, bool _isNeedRef, bool _isNeedGroup)
+        public VideoViewModel(Int32 _playPort, int _videoChannel,int _winPosition, IntPtr _playIntPtr, List<VideoSource> _videos, int _playIndex, bool _isNeedRef, bool _isNeedGroup)
         {
             this.PlayPort = _playPort;
             this.VideoChannel = _videoChannel;
@@ -17,7 +17,7 @@ namespace VideoAnalysis.HistoryData.ViewModel
             this.PlayIndex = _playIndex;
             this.IsNeedRef = _isNeedRef;
             this.IsNeedGroup = _isNeedGroup;
-            this.WinPosition = _videoChannel;
+            this.WinPosition = _winPosition;
         }
         /// <summary>
         /// 播放端口号

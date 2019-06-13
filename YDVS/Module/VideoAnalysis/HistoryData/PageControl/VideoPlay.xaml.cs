@@ -152,7 +152,7 @@ namespace VideoAnalysis.HistoryData.PageControl
         {
             int tempPort = -1;
             PlayCtrlHelper.PlayM4_GetPort(ref tempPort);
-            VideoPlay.VideoViewModels.Add(new VideoViewModel(tempPort, _videoChannel, _playIntPtr, videos, 0, true, true));
+            VideoPlay.VideoViewModels.Add(new VideoViewModel(tempPort, _videoChannel, _videoChannel, _playIntPtr, videos, 0, true, true));
         }
         /// <summary>
         /// 切换视频播放

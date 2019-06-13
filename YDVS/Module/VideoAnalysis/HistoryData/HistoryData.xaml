@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="380"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="195"/>
+                <RowDefinition Height="247"/>
                 <RowDefinition/>
                 <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
@@ -35,8 +35,8 @@
             <Border x:Name="video_container_bo" Grid.Column="1" Grid.ColumnSpan="2"  Grid.RowSpan="2" >
                 <local:VideoPlay x:Name="VideoPlay"></local:VideoPlay>
             </Border>
-            <Border Grid.Column="2" Grid.Row="1" BorderBrush="{DynamicResource BorderColor}" BorderThickness="2,0,0,0">
-                <local:MonitorData x:Name="VideoData"/>
+            <Border Grid.Column="2" Grid.Row="1" BorderBrush="{DynamicResource BorderColor}" BorderThickness="2,2,0,0">
+                <local:MonitorData x:Name="MonitorData"/>
             </Border>
             <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,2,0,0">
                 <TabControl Style="{DynamicResource TabControlStyle}">

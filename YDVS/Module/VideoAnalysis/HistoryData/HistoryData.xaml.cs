@@ -80,7 +80,7 @@ namespace VideoAnalysis.HistoryData
             {
                 if (e.PlayCurrentTime == null) return;
                 this.Chart.MoveTrendLineAsync(e.PlayCurrentTime);
-                this.VideoData.RefreshDataByTime((DateTime)e.PlayCurrentTime);
+                this.MonitorData.RefreshDataByTime((DateTime)e.PlayCurrentTime);
             }
             catch (Exception ex)
             {

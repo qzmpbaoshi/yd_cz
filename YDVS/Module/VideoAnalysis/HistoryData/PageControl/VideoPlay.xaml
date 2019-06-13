@@ -208,7 +208,7 @@
         </Border>
         <Border x:Name="player_max_bo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4" BorderBrush="White" BorderThickness="1" Visibility="Collapsed">
         </Border>
-        <Border Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" BorderThickness="2,0,0,0" BorderBrush="{DynamicResource BorderColor}" Background="{DynamicResource ContentColor}">
+        <Border Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" BorderThickness="2,0,0,2" BorderBrush="{DynamicResource BorderColor}" Background="{DynamicResource ContentColor}">
             <StackPanel VerticalAlignment="Top"  Margin="0">
                 <Border Background="{DynamicResource TableHeadColor}" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderColor}">
                     <DockPanel Height="35" >
@@ -233,11 +233,11 @@
                         </WrapPanel>
                     </Border>
                 </DockPanel>
-                <DockPanel Height="80">
+                <DockPanel Height="130">
                     <Border Background="{DynamicResource TableHeadColor}" DockPanel.Dock="Top" Height="30">
                         <TextBlock Text="播放控制" VerticalAlignment="Center" Margin="15,0" Foreground="White" FontSize="16" FontWeight="Bold"/>
                     </Border>
-                    <Border Padding="5">
+                    <Border Padding="5" Height="50" DockPanel.Dock="Top">
                         <WrapPanel>
                             <Button x:Name="play_btn" Content="播放" Height="30" Width="36" Click="StartPlay_Btn_Click" Margin="5" Style="{DynamicResource BaseButton}"/>
                             <Button Content="停止" Height="30" Width="36" Click="StopPlay_Btn_Click" Margin="5" Style="{DynamicResource BaseButton}"/>
@@ -246,8 +246,14 @@
                             <Button Content="常速" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
                             <Button Content="上一帧" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
                             <Button Content="下一帧" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" IsEnabled="False"/>
-                            <Button Content="抓图" Height="30" Width="36" Margin="5" Style="{DynamicResource BaseButton}" Click="GetJPEG_Btn_Click"/>
                         </WrapPanel>
+                    </Border>
+                    <Border Background="{DynamicResource TableHeadColor}" DockPanel.Dock="Bottom" Height="50">
+                        <DockPanel VerticalAlignment="Center">
+                            <TextBlock Text="音量" VerticalAlignment="Center" Margin="10,0,4,0" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                            <Slider Width="150" VerticalAlignment="Center" IsEnabled="False"/>
+                            <Button Content="生成报告" Height="35" Width="100" Margin="20,0" Style="{DynamicResource BaseButton}" FontSize="14" FontWeight="Bold" Click="GetJPEG_Btn_Click" HorizontalAlignment="Right"/>
+                        </DockPanel>
                     </Border>
                 </DockPanel>
             </StackPanel>
