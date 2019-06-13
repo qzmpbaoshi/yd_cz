@@ -63,7 +63,7 @@
                 </WinFormHost:WindowsFormsHost>
             </DockPanel>
         </Border>
-        <Border x:Name="player_3_bo" Grid.Row="0" Grid.Column="2" BorderBrush="White" BorderThickness="1">
+        <Border x:Name="player_3_bo" Tag="3" Grid.Row="0" Grid.Column="2" BorderBrush="White" BorderThickness="1">
             <DockPanel>
                 <WinFormHost:WindowsFormsHost Style="{StaticResource title}" Padding="10,0" DockPanel.Dock="Top">
                     <WinFormControls:Label Text="通道3" TextAlign="MiddleRight" ForeColor="Lime" />
